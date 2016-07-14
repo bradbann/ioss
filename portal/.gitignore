@@ -7,3 +7,5 @@ gradle/
 .classpath
 .project
 .springBeans
+/.apt_generated/
+.factorypath
