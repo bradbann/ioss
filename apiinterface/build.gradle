@@ -11,10 +11,12 @@ buildscript {
 }
 
 apply plugin: 'java'
-apply plugin: 'eclipse'
+apply plugin: 'eclipse-wtp'
 apply plugin: 'spring-boot'
+apply plugin: 'war'
 
-jar {
+
+war {
 	baseName = 'apiinterface'
 	version = '0.0.1-SNAPSHOT'
 }
