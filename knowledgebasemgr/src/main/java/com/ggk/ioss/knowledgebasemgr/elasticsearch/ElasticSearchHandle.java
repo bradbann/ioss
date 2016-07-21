@@ -96,12 +96,20 @@ public class ElasticSearchHandle {
 			for(String field : fields){
 				if(StringUtils.isNotEmpty(field)){
 					queryBuilder.field(field);
+					searchRequestBuilder.addHighlightedField(field);
 				}
 			}
 		}else{
 			// 默认匹配title description content
 			queryBuilder.field("title").field("content").field("description");
+			searchRequestBuilder.addHighlightedField("title");
+			searchRequestBuilder.addHighlightedField("content");
+			searchRequestBuilder.addHighlightedField("description");
 		}
+		
+        searchRequestBuilder.setHighlighterPreTags("<span style=\"color:red\">");
+        searchRequestBuilder.setHighlighterPostTags("</span>");
+		
 		searchRequestBuilder.setQuery(queryBuilder);
 		// 分页应用
 		searchRequestBuilder.setFrom(start).setSize(limit);
