@@ -135,15 +135,15 @@ public class ElasticSearchHandle {
 		System.out.println("destory client");
 	}
 	
-	public static void main(String[] args) {
-		ElasticSearchHandle handler = new ElasticSearchHandle("localhost", 9300);
-		JSONObject data =new JSONObject();
-		data.put("title", "韩国和风格");
-		data.put("content", "以太交换机");
-		data.put("description", "很过分的话");
-		//handler.insert(data);
-		System.out.println(handler.search(null, "小当家是韩国的", 0, 1000).getHits().getHits().length);
-		handler.destory();
-	}
+//	public static void main(String[] args) {
+//		ElasticSearchHandle handler = new ElasticSearchHandle("localhost", 9300);
+//		JSONObject data =new JSONObject();
+//		data.put("title", "韩国和风格");
+//		data.put("content", "以太交换机");
+//		data.put("description", "很过分的话");
+//		//handler.insert(data);
+//		System.out.println(handler.search(null, "小当家是韩国的", 0, 1000).getHits().getHits().length);
+//		handler.destory();
+//	}
 
 }

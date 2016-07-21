@@ -23,7 +23,7 @@ public class KnowledgeQueryer implements IKnowledgeQueryer {
 	@Override
 	public List<Map<String, Object>> queryKnowledge(String indexName, String indexType, String queryJson) {
 		ElasticSearchHandle handle = new ElasticSearchHandle(conf.getEsip(),Integer.parseInt(conf.getEsport()));
-		SearchResponse searchResponse = handle.search(null, queryJson, 0, 100);	
+		SearchResponse searchResponse = handle.search(null, queryJson, 0, 10);	
 		handle.destory();
 		return ElasticSearchUtils.getSearchResult(searchResponse);
 	}
