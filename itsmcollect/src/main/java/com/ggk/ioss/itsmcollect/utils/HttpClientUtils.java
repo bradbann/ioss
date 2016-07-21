@@ -55,7 +55,7 @@ public class HttpClientUtils {
             httppost.setEntity(new ByteArrayEntity(body.getBytes("UTF-8")));
             response = httpClient.execute(httppost);
             if (response.getStatusLine().getStatusCode() != 200) {
-                throw new RuntimeException("Failed : HTTP error code : " + response.getStatusLine().getStatusCode());
+                //throw new RuntimeException("Failed : HTTP error code : " + response.getStatusLine().getStatusCode());
             }
             entity = response.getEntity();
             in = new BufferedReader(new InputStreamReader(entity.getContent()));
