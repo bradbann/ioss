@@ -10,9 +10,9 @@ import org.springframework.web.servlet.ModelAndView;
 @RestController
 public class MainController{
 	
-	@RequestMapping(value = "/")
+	@RequestMapping(value = "/ioss")
     public ModelAndView index(HttpServletRequest request, HttpServletResponse response) {
-        ModelAndView result = new ModelAndView("/html/searchInfo.html");
+        ModelAndView result = new ModelAndView("/html/login.html");
         return result;
     }
 	

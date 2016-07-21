@@ -11,6 +11,7 @@ import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
@@ -83,6 +84,14 @@ public class ElasticSearchHandle {
 
 		QueryStringQueryBuilder queryBuilder = new QueryStringQueryBuilder(queryKey);
 		
+//		BoolQueryBuilder qbTeam = QueryBuilders.boolQuery().must(QueryBuilders.termQuery("rowState", 0))
+//                .mustNot(QueryBuilders.termQuery("status", 1));
+//
+//        qbTeam.must(QueryBuilders
+//                .boolQuery()
+//                .should(QueryBuilders.wildcardQuery("name", "*" + queryKey + "*").boost(10f))
+//                .should(QueryBuilders.fuzzyQuery("content", queryKey).boost(0.1f)));
+		
 		/**
 		 * ik分词器
 		 * ik_max_word:
@@ -90,8 +99,8 @@ public class ElasticSearchHandle {
 		 * 共和,和,国国,国歌”，会穷尽各种可能的组合；
 		 * ik_smart: 会做最粗粒度的拆分，比如会将“中华人民共和国国歌”拆分为“中华人民共和国,国歌”。
 		 */
-		// 暂时不用分词器
-		queryBuilder.analyzer("ik_max_word");
+		//queryBuilder.analyzer("ik_max_word");
+		//queryBuilder.boost(0.1f);
 		if(!CollectionUtils.isEmpty(fields)){
 			for(String field : fields){
 				if(StringUtils.isNotEmpty(field)){
@@ -106,10 +115,9 @@ public class ElasticSearchHandle {
 			searchRequestBuilder.addHighlightedField("content");
 			searchRequestBuilder.addHighlightedField("description");
 		}
-		
         searchRequestBuilder.setHighlighterPreTags("<span style=\"color:red\">");
         searchRequestBuilder.setHighlighterPostTags("</span>");
-		
+        searchRequestBuilder.setSearchType(SearchType.DFS_QUERY_AND_FETCH);
 		searchRequestBuilder.setQuery(queryBuilder);
 		// 分页应用
 		searchRequestBuilder.setFrom(start).setSize(limit);
