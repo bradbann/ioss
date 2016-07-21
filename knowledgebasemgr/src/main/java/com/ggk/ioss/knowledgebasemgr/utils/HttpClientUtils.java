@@ -119,7 +119,7 @@ public class HttpClientUtils {
 
     /**
      * @param url    待访问的url含urlparam
-     * @param header �?要设置的header参数，默认使用content-type='applicaton/json'
+     * @param header �?要设置的header参数，默认使用content-type='applicaton/json'
      * @return
      */
     public static String doGet(String url, Map<String, String> header) {

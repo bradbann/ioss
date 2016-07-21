@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ggk.ioss.knowledgebasemgr.mapper.TicketMapper">
+
+	<select id="queryTicketDealInfoByPage" resultType="TicketDealInfo">
+		SELECT * from kb_ods_itsm_dealinfo where 1 = 1 limit #{start},#{limit}
+	</select>
+	
+	<select id="queryTicketDealInfoTotalNumber" resultType="java.lang.Long">
+		SELECT count(1) from kb_ods_itsm_dealinfo
+	</select>
+	
+	<select id="queryTicketMainInfoByPage" resultType="TicketMainInfo">
+		SELECT * from kb_ods_itsm_maininfo where 1 = 1 limit #{start},#{limit}
+	</select>
+	
+	<select id="queryTicketMainInfoTotalNumber" resultType="java.lang.Long">
+		SELECT count(1) from kb_ods_itsm_maininfo
+	</select>
+
+</mapper>
