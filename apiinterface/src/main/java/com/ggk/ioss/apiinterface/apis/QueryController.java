@@ -14,7 +14,7 @@ public class QueryController {
 	@Autowired
 	private ESCaller esCaller;
 	
-	@RequestMapping(value = {"/ioss/apiinterface/apis"}, method = RequestMethod.POST)
+	@RequestMapping(value = {"/ioss/apiinterface/apis"}, method = RequestMethod.GET)
 	public String query(@RequestParam String queryParams){
 		return  esCaller.query(queryParams);
 	}
