@@ -10,6 +10,12 @@ document.onkeydown=function(event){
     	openHomePage();
     }
 }; 
+$('#register').click(function(){
+	alert("功能火速实现中，请稍等...");
+});
+$('#chpwd').click(function(){
+	alert("功能火速实现中，请稍等...");
+});
 
 function openHomePage(){
 	if('admin' != $('#username').val()){

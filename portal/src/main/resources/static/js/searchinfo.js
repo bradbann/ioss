@@ -1,5 +1,9 @@
 $('#search').click(function(){
 	var content = $('#input_context').val();
+	if($('#searchMng').text()=="搜索管理"){
+    	alert("请选择搜索类型！");
+    	return;
+	}
 	if(content != null)
 	$.ajax({
 		url:'/ioss/knowledge/queryer?queryParams='+content,
@@ -26,7 +30,7 @@ $('#search').click(function(){
 
 document.onkeydown=function(event){
     var e = event || window.event || arguments.callee.caller.arguments[0];
-        
+    
     if(e && e.keyCode==13){ // enter 键
          //要做的事情
     	$('#search').click();
