@@ -1,36 +1,3 @@
-var JsonData;
-var htmlStr = "";
-//$('#search').click(function(){
-//	var content = $('#input_context').val();
-//	if($('#searchMng').text()=="搜索管理"){
-//    	alert("请选择搜索类型！");
-//    	return;
-//	}
-//	if(content != null)
-//	$.ajax({
-//		url:'/ioss/knowledge/queryer?queryParams='+content,
-//		type:'post',
-//		datatype:'json',
-//		success:function(data){
-//			var JsonData = JSON.parse(data);
-//			
-//			for(var i in JsonData){
-//				htmlStr += 
-//					'<div class = "div1">'+
-//						'<div>'+
-//							'<h4 style = "color:blue;">eventId:'+JsonData[i]["eventId"]+' '+JsonData[i]["title"]+'</h4>'+
-//							'<div>'+
-//								'<span style = "font-size:14px;">'+JsonData[i]["description"]+'</span>'+
-//							'</div>'+
-//						'</div>'+
-//					'</div>';
-//			}
-//			$('#context').html(htmlStr);
-////			pagination_init();
-//		}
-//	});
-//});
-
 document.onkeydown=function(event){
     var e = event || window.event || arguments.callee.caller.arguments[0];
     
@@ -40,53 +7,15 @@ document.onkeydown=function(event){
     }
 }; 
 
-//function pagination_init(){
-//	var content = $('#input_context').val();
-//	if(content != "")
-//	$('#pagination').pagination({
-//		dataSource:function(){
-//			$.ajax({
-//				type:'POST',
-//				url:'/ioss/knowledge/queryer?queryParams='+content,
-//				success:function(data){
-//					var JsonData = JSON.parse(data);
-//					var page_num = [];
-//					for(var i in JsonData){
-//						page_num.push(i);
-//					}
-//					return page_num;
-//				}
-//			});
-//		},
-//		pageSize: 5,
-//		pageRange: 2,
-//		showGoInput: true,
-//		showGoButton: true,
-//	    className: 'paginationjs-theme-blue paginationjs-big',
-//	    totalNumber: 100,
-//	    ajax: {
-//	        beforeSend: function() {
-//	        	for(var i in JsonData){
-//	        		$('#context').html(htmlStr);
-//	        	}
-//	        }
-//	    },
-//	    callback: function(JsonData, pagination) {
-//	        var html = parseHtml(JsonData);
-//	        $('#context').html(htmlStr);
-//	    }
-//	});
-//}
 function parseHtml(data){
 	var htmlstr = "";
 	for(var i in data){
 		htmlstr += 
 			'<div class = "resultDiv">'+
 				'<div>'+
-					'<h4 style = "color:blue;">eventId:'+data[i]["eventId"]+' '+data[i]["title"]+'</h4>'+
-					'<div>'+
-						'<span style = "font-size:14px;">'+data[i]["description"]+'</span>'+
-					'</div>'+
+					'<a href = "#" style = "font-size:16px;margin:5px 0;color:blue;">标题：'+data[i]["title"]+data[i]["title"]+'</a>'+
+						'<div style = "font-size:14px;margin:5px 0;">描述：'+data[i]["description"]+'</div>'+
+						'<div style = "font-size:14px;margin:5px 0;">状态：'+data[i]["content"]+'</div>'+
 				'</div>'+
 			'</div>';
 	}
@@ -102,6 +31,7 @@ $('#search').click(function(){
 			datatype:'json',
 			success:function(data){
 				var jsonData = JSON.parse(data);
+				if(jsonData != "")
 				$('#pagination').pagination({
 					dataSource:jsonData ,
 					pageNumber: 1,
@@ -114,8 +44,26 @@ $('#search').click(function(){
 				    callback: function(data, pagination) {
 				        var html = parseHtml(data);
 				        $('#context').html(html);
+				        $('#pagination').show();
 				    }
 				});
+				else {
+					$('#pagination').hide();
+					$('#context').html('<h4 style = "font-family:黑体;margin-bottom:100px;">抱歉，没有相关内容...</h4>');
+				}
 			}
 		});
 });
+function show_knowledgemgm_list(){
+	$('#knowledgemgm_list').show();
+}
+
+function hide_knowledgemgm_list(){
+	$('#knowledgemgm_list').hide();
+}
+function show_searchsvr_list(){
+	$('#searchsvr_list').show();
+}
+function hide_searchsvr_list(){
+	$('#searchsvr_list').hide();
+}

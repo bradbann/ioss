@@ -4,11 +4,52 @@
 <meta charset="UTF-8">
 <title></title>
 <link rel = "stylesheet" href = "../css/bootstrap/bootstrap.css"/>
+<script src = "../js/jquery/jquery-1.11.1.min.js"></script>
+<script src = "../js/bootstrap/bootstrap.min.js"></script>
+<script src = "../js/bootstrap/bootstrap-hover-dropdown.min.js"></script>
+<script src = "../js/head.js"></script>
+<style type="text/css">
+	.menu{
+		font-size:18px;
+		color:white;
+		font-family:黑体;
+		margin-top:8px;
+		list-style-type:none;
+		margin-bottom:8px;
+	}
+	.list{
+		background-color:#1a56a8;
+		
+		text-align:center;
+	}
+</style>
 </head>
 <body>
-	<div  class = "row" style = "width:100%;border-bottom:thin solid black;">
+	<div id = "div" style = "background-color:#1a56a8;justify-content:center;display:flex;text-align:center;height:41px;">
+		<div class = "row col-sm-8">
+			<li class = "col-sm-3 menu" style = "border-left:2px solid #e2dbdb;" href = "#">首页</li>
+			
+			<li id = "knowledgemgm" class = "col-sm-3 menu" href = "#" onmouseover = "show_knowledgemgm_list()" onmouseout = "hide_knowledgemgm_list()">知识库管理
+			<ul id = "knowledgemgm_list" class = "list">
+				<li style = "list-style-type:none;"><a href = "#">知识管理</a></li>
+				<li style = "list-style-type:none;"><a href = "#">索引管理</a></li>
+				<li style = "list-style-type:none;"><a href = "#">系统配置</a></li>
+			</ul>
+			</li>
+			
+			<li id = "searchsvr" class = "col-sm-3 menu" href = "#" onmouseover = "show_searchsvr_list()" onmouseout = "hide_searchsvr_list()">搜索服务
+			<ul id = "searchsvr_list" class = "list">
+				<li style = "list-style-type:none;"><a href = "#">全文搜索</a></li>
+				<li style = "list-style-type:none;"><a href = "#">结构化搜索</a></li>
+			</ul>
+			</li>
+			
+			<li class = "col-sm-3 menu" style = "border-right:2px solid #e2dbdb;" href = "#">API接口</li>
+		</div>
+	</div>
+	<div  class = "row" style = "width:100%;border-bottom:thin solid black;justify-content:center;display:flex;">
 		<img src = "../img/gd_rant.png"
-			style = "margin-left:50px;display:inline-block"/>
+			style = "margin-left:50px;display:inline-block;margin-top:10px;margin-bottom:10px;"/>
 		<div style = "font-size:16px;font-family:黑体;display:inline-block;float:right;margin-top:30px;margin-right:50px;">
 			<a href = "#">登录</a>|<a href = "#">返回</a>
 		</div>
