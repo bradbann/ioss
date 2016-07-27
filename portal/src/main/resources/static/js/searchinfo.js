@@ -1,3 +1,27 @@
+$(function(){
+	$('#div1').show();
+	var thisURL = document.URL;    
+	var  param =thisURL.split('?')[1];  
+	var paramVal= param.split("=")[1];
+	if(paramVal == "1"){
+		selectType1();
+	}
+	if(paramVal == "2"){
+		selectType2();
+	}
+});
+		
+function selectType1(){
+	$('#searchMng').html('<span class = "caret" style="margin-right:12px;margin-top:-4px;border-top:6px solid;border-right:6px solid transparent;border-left:6px solid transparent;"></span>'+$('#selectType1').text());
+	$('#div2').hide();
+	$('#div1').show();
+}
+function selectType2(){
+	$('#searchMng').html('<span class = "caret" style="margin-right:12px;margin-top:-4px;border-top:6px solid;border-right:6px solid transparent;border-left:6px solid transparent;"></span>'+$('#selectType2').text());
+	$('#div1').hide();
+	$('#div2').show();
+}
+
 document.onkeydown=function(event){
     var e = event || window.event || arguments.callee.caller.arguments[0];
     
@@ -15,7 +39,7 @@ function parseHtml(data){
 				'<div>'+
 					'<a href = "#" style = "font-size:16px;margin:5px 0;color:blue;">标题：'+data[i]["title"]+data[i]["title"]+'</a>'+
 						'<div style = "font-size:14px;margin:5px 0;">描述：'+data[i]["description"]+'</div>'+
-						'<div style = "font-size:14px;margin:5px 0;">状态：'+data[i]["content"]+'</div>'+
+						'<div style = "font-size:14px;margin:5px 0;">解决方案：'+data[i]["content"]+'</div>'+
 				'</div>'+
 			'</div>';
 	}
@@ -54,6 +78,12 @@ $('#search').click(function(){
 			}
 		});
 });
+
+function tips(){
+	SimplePop.alert("功能实现中...",{
+        drag: true,       //是否可拖动图层
+    });
+}
 function show_knowledgemgm_list(){
 	$('#knowledgemgm_list').show();
 }

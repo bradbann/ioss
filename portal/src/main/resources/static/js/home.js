@@ -13,6 +13,11 @@ $("#apiinterface").click(function () {
         drag: true,       //是否可拖动图层
     });
 });
+function tips(){
+	SimplePop.alert("功能实现中...",{
+        drag: true,       //是否可拖动图层
+    });
+}
 function show_knowledgemgm_list(){
 	$('#knowledgemgm_list').show();
 }

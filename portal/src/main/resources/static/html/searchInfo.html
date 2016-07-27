@@ -5,6 +5,10 @@
 		<title>ITSM地税检索</title>
 		<link rel="stylesheet" href="../css/bootstrap/bootstrap.min.css"/>
 		<link rel = "stylesheet" href = "../css/pagination/pagination.css"/>
+		<link rel="stylesheet" href="../css/simplepop/simplepop.css">
+		<link rel="stylesheet" href="../css/simplepop/main.css">
+		<script src="../js/jquery/jquery-1.11.1.min.js"></script>
+		<script src="../js/simplepop/simplepop.js"></script>
 		<script src = "../js/jquery/jquery-3.0.0.min.js"></script>
 		<script src = "../js/bootstrap/bootstrap.min.js"></script>
 	    <script src = "../js/pagination/pagination.min.js"></script>
@@ -53,27 +57,27 @@
 	</div>
    <div id = "div" style = "background-color:#1a56a8;justify-content:center;display:flex;text-align:center;height:41px;">
 		<div class = "row col-sm-8">
-			<li class = "col-sm-3 menu" style = "border-left:2px solid #e2dbdb;" href = "#">首页</li>
+			<li class = "col-sm-3 menu" style = "border-left:2px solid #e2dbdb;"><a href = "/html/home.html" style = "color:white;" onMouseOver="this.style.color='gray';this.style.textDecoration='underline'" onMouseOut="this.style.color='white';this.style.textDecoration='none'">首页</a></li>
 			
 			<li id = "knowledgemgm" class = "col-sm-3 menu" href = "#" onmouseover = "show_knowledgemgm_list()" onmouseout = "hide_knowledgemgm_list()">知识库管理
 			<div id = "knowledgemgm_list" class = "list" hidden = true style = "width:60%;margin-left:60px;">
 			<ul>
-				<li style = "list-style-type:none;"><a href = "#" class = "a">知识管理</a></li>
-				<li style = "list-style-type:none;"><a href = "#" class = "a">索引管理</a></li>
-				<li style = "list-style-type:none;"><a href = "#" class = "a">系统配置</a></li>
+				<li style = "list-style-type:none;"><a href = "javascript:void(0)" class = "a" onclick = "tips()">知识管理</a></li>
+				<li style = "list-style-type:none;"><a href = "javascript:void(0)" class = "a" onclick = "tips()">索引管理</a></li>
+				<li style = "list-style-type:none;"><a href = "javascript:void(0)" class = "a" onclick = "tips()">系统配置</a></li>
 			</ul>
 			</div>
 			</li>
 			<li id = "searchsvr" class = "col-sm-3 menu" href = "#" onmouseover = "show_searchsvr_list()" onmouseout = "hide_searchsvr_list()">搜索服务
 			<div id = "searchsvr_list" class = "list" hidden = true style = "width:60%;margin-left:60px;">
 			<ul>
-				<li style = "list-style-type:none;"><a href = "#" class = "a">全文搜索</a></li>
-				<li style = "list-style-type:none;"><a href = "#" class = "a">结构化搜索</a></li>
+				<li style = "list-style-type:none;"><a href = "/html/searchInfo.html?param=1" class = "a">全文搜索</a></li>
+				<li style = "list-style-type:none;"><a href = "/html/searchInfo.html?param=2" class = "a">结构化搜索</a></li>
 			</ul>
 			</div>
 			</li>
 			
-			<li class = "col-sm-3 menu" style = "border-right:2px solid #e2dbdb;" href = "#">API接口</li>
+			<li class = "col-sm-3 menu" style = "border-right:2px solid #e2dbdb;"><a href = "javascript:void(0)" onclick = "tips()" style = "color:white;" onMouseOver="this.style.color='gray';this.style.textDecoration='underline'" onMouseOut="this.style.color='white';this.style.textDecoration='none'">API接口</a></li>
 		</div>
 	</div>
 	<div class = "container" >
@@ -106,22 +110,6 @@
 	</div>
 	<div id = "pagination" style = "margin-top:3%;margin-bottom:10%;"></div>
 	</div>
-	<script type="text/javascript">
-		$(function(){
-			$('#div1').show();
-		});
-		
-		function selectType1(){
-			$('#searchMng').html('<span class = "caret" style="margin-right:12px;margin-top:-4px;border-top:6px solid;border-right:6px solid transparent;border-left:6px solid transparent;"></span>'+$('#selectType1').text());
-			$('#div2').hide();
-			$('#div1').show();
-		}
-		function selectType2(){
-			$('#searchMng').html('<span class = "caret" style="margin-right:12px;margin-top:-4px;border-top:6px solid;border-right:6px solid transparent;border-left:6px solid transparent;"></span>'+$('#selectType2').text());
-			$('#div1').hide();
-			$('#div2').show();
-		}
-	</script>
 	<script src="../js/searchinfo.js"></script>
 	</body>
 </html>

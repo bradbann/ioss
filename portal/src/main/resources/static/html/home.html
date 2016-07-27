@@ -45,24 +45,24 @@
 	</div>
 	<div id = "div" style = "background-color:#1a56a8;justify-content:center;display:flex;text-align:center;height:41px;">
 		<div class = "row col-sm-8">
-			<li class = "col-sm-3 menu" style = "border-left:2px solid #e2dbdb;" href = "#">首页</li>
+			<li class = "col-sm-3 menu" style = "border-left:2px solid #e2dbdb;" ><a href = "/html/home.html" style = "color:white;" onMouseOver="this.style.color='gray';this.style.textDecoration='underline'" onMouseOut="this.style.color='white';this.style.textDecoration='none'">首页</a></li>
 			
 			<li id = "knowledgemgm" class = "col-sm-3 menu" href = "#" onmouseover = "show_knowledgemgm_list()" onmouseout = "hide_knowledgemgm_list()">知识库管理
 			<ul id = "knowledgemgm_list" class = "list" hidden = true  style = "width:60%;margin-left:60px;">
-				<li style = "list-style-type:none;"><a href = "#" class = "a">知识管理</a></li>
-				<li style = "list-style-type:none;"><a href = "#" class = "a">索引管理</a></li>
-				<li style = "list-style-type:none;"><a href = "#" class = "a">系统配置</a></li>
+				<li style = "list-style-type:none;"><a href = "javascript:void(0)" class = "a" onclick = "tips()">知识管理</a></li>
+				<li style = "list-style-type:none;"><a href = "javascript:void(0)" class = "a" onclick = "tips()">索引管理</a></li>
+				<li style = "list-style-type:none;"><a href = "javascript:void(0)" class = "a" onclick = "tips()">系统配置</a></li>
 			</ul>
 			</li>
 			
 			<li id = "searchsvr" class = "col-sm-3 menu" href = "#" onmouseover = "show_searchsvr_list()" onmouseout = "hide_searchsvr_list()">搜索服务
 			<ul id = "searchsvr_list" class = "list" hidden = true  style = "width:60%;margin-left:60px;">
-				<li style = "list-style-type:none;"><a href = "#" class = "a">全文搜索</a></li>
-				<li style = "list-style-type:none;"><a href = "#" class = "a">结构化搜索</a></li>
+				<li style = "list-style-type:none;"><a href = "/html/searchInfo.html?param=1" class = "a">全文搜索</a></li>
+				<li style = "list-style-type:none;"><a href = "/html/searchInfo.html?param=2" class = "a">结构化搜索</a></li>
 			</ul>
 			</li>
 			
-			<li class = "col-sm-3 menu" style = "border-right:2px solid #e2dbdb;" href = "#">API接口</li>
+			<li class = "col-sm-3 menu" style = "border-right:2px solid #e2dbdb;"><a href = "javascript:void(0)" onclick = "tips()" style = "color:white;" onMouseOver="this.style.color='gray';this.style.textDecoration='underline'" onMouseOut="this.style.color='white';this.style.textDecoration='none'">API接口</a></li>
 		</div>
 	</div>
 	<div class="container" style="text-align: center;">
@@ -70,33 +70,33 @@
 			
 			<div class="row" style="width: 100%; height: 300px;margin-top:20%;">
 				<div id="knowledgebasemgr"
-					style="width: 22%; height: 90%; background-color: rgba(220, 220, 220, 0.4); margin-left: 5%; margin-right: 5%; display: inline-block;">
+					style="width: 22%; height: 90%; background-color: rgba(220, 220, 220, 0.4); margin-left: 5%; margin-right: 5%; display: inline-block;cursor:pointer;">
 					<div>
 						<img alt="#" src="../img/2.jpg"
 							style="width: 182px; height: 182px; margin-top: 20px;"/>
 					</div>
-					<div style="font-size: 18px; margin-top: 20px;">
-						<label>知识库管理</label>
+					<div style="font-size: 18px; margin-top: 20px;font-family:黑体;">
+						知识库管理
 					</div>
 				</div>
 				<div id="queryengine"
-					style="width: 22%; height: 90%; background-color: rgba(220, 220, 220, 0.4); margin-left: 5%; margin-right: 5%; display: inline-block;">
+					style="width: 22%; height: 90%; background-color: rgba(220, 220, 220, 0.4); margin-left: 5%; margin-right: 5%; display: inline-block;cursor:pointer;">
 					<div>
 						<img alt="#" src="../img/3.png"
 							style="width: 182px; height: 182px; margin-top: 20px;" />
 					</div>
-					<div style="font-size: 18px; margin-top: 20px;">
-						<label>索引服务</label>
+					<div style="font-size: 18px; margin-top: 20px;font-family:黑体;">
+						搜索服务
 					</div>
 				</div>
 				<div id="apiinterface"
-					style="width: 22%; height: 90%; background-color: rgba(220, 220, 220, 0.4); margin-left: 5%; margin-right: 5%; display: inline-block;">
+					style="width: 22%; height: 90%; background-color: rgba(220, 220, 220, 0.4); margin-left: 5%; margin-right: 5%; display: inline-block;cursor:pointer;">
 					<div>
 						<img alt="#" src="../img/4.png"
 							style="width: 182px; height: 182px; margin-top: 20px;" />
 					</div>
-					<div style="font-size: 18px; margin-top: 20px;">
-						<label>API接口</label>
+					<div style="font-size: 18px; margin-top: 20px;font-family:黑体;">
+						API接口
 					</div>
 				</div>
 			</div>
