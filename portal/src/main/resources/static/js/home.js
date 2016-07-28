@@ -1,5 +1,5 @@
 $("#knowledgebasemgr").click(function () {
-    SimplePop.alert("系统火速建设中，请稍后...",{
+    SimplePop.alert("系统火速建设中...",{
         drag: true,       //是否可拖动图层
     });
 });
@@ -9,7 +9,7 @@ $('#queryengine').click(function(){
 });
 
 $("#apiinterface").click(function () {
-    SimplePop.alert("系统火速建设中，请稍后...",{
+    SimplePop.alert("系统火速建设中...",{
         drag: true,       //是否可拖动图层
     });
 });

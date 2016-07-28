@@ -11,7 +11,63 @@ public class SystemConfigs {
 	private String dbpassword;
 	private String dburl;
 	private String dbdriverClassName;
+	private String portalip;
+	private String portalport;
+	private String apiinterfaceip;
+	private String apiinterfaceeport;
+	private String robotip;
+	private String robotport;
+	private String itsmcollectip;
+	private String itsmcollectport;
 	
+	public String getPortalip() {
+		return portalip;
+	}
+	public void setPortalip(String portalip) {
+		this.portalip = portalip;
+	}
+	public String getPortalport() {
+		return portalport;
+	}
+	public void setPortalport(String portalport) {
+		this.portalport = portalport;
+	}
+	public String getApiinterfaceip() {
+		return apiinterfaceip;
+	}
+	public void setApiinterfaceip(String apiinterfaceip) {
+		this.apiinterfaceip = apiinterfaceip;
+	}
+	public String getApiinterfaceeport() {
+		return apiinterfaceeport;
+	}
+	public void setApiinterfaceeport(String apiinterfaceeport) {
+		this.apiinterfaceeport = apiinterfaceeport;
+	}
+	public String getRobotip() {
+		return robotip;
+	}
+	public void setRobotip(String robotip) {
+		this.robotip = robotip;
+	}
+	public String getRobotport() {
+		return robotport;
+	}
+	public void setRobotport(String robotport) {
+		this.robotport = robotport;
+	}
+	public String getItsmcollectip() {
+		return itsmcollectip;
+	}
+	public void setItsmcollectip(String itsmcollectip) {
+		this.itsmcollectip = itsmcollectip;
+	}
+	public String getItsmcollectport() {
+		return itsmcollectport;
+	}
+	public void setItsmcollectport(String itsmcollectport) {
+		this.itsmcollectport = itsmcollectport;
+	}
 	public String getEsip() {
 		return esip;
 	}

@@ -11,24 +11,24 @@ document.onkeydown=function(event){
     }
 }; 
 $("#register").click(function () {
-    SimplePop.alert("系统火速建设中，请稍后...",{
+    SimplePop.alert("系统火速建设中...",{
         drag: true,       //是否可拖动图层
     });
 });
 $("#chpwd").click(function () {
-    SimplePop.alert("系统火速建设中，请稍后...",{
+    SimplePop.alert("系统火速建设中...",{
         drag: true,       //是否可拖动图层
     });
 });
 
 function openHomePage(){
-	if('admin' != $('#username').val()){
-		SimplePop.alert("username must be admin ! ");
+	if('undefined' == $('#username').val() || '' == $('#username').val().trim()){
+		SimplePop.alert("username can not be empty ! ");
 		return;
 	}
 	
-	if('password' != $('#password').val()){
-		SimplePop.alert("password must be 'password' ! ");
+	if('undefined' == $('#password').val() || '' == $('#password').val().trim()){
+		SimplePop.alert("password can not be empty ! ");
 		return;
 	}
 	window.location.href="/html/home.html";
