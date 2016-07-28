@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
+import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchRequestBuilder;
@@ -22,8 +23,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.ggk.ioss.knowledgebasemgr.commons.IConstants;
 
 /**
- * Es 操作类
- * 提供 es 的 增删改查
+ * Es 操作类 提供 es 的 增删改查
+ * 
  * @author caiyu
  *
  */
@@ -79,45 +80,46 @@ public class ElasticSearchHandle {
 	 */
 	public SearchResponse search(List<String> fields, String queryKey, int start, int limit) {
 		// 构造查询器
-		SearchRequestBuilder searchRequestBuilder = this.getClient().prepareSearch(IConstants.deafult_index_name)
-				.setTypes(IConstants.deafult_index_type);
+		SearchRequestBuilder searchRequestBuilder = this.getClient().prepareSearch(IConstants.deafult_index_name).setTypes(IConstants.deafult_index_type);
 
 		QueryStringQueryBuilder queryBuilder = new QueryStringQueryBuilder(queryKey);
-		
-//		BoolQueryBuilder qbTeam = QueryBuilders.boolQuery().must(QueryBuilders.termQuery("rowState", 0))
-//                .mustNot(QueryBuilders.termQuery("status", 1));
-//
-//        qbTeam.must(QueryBuilders
-//                .boolQuery()
-//                .should(QueryBuilders.wildcardQuery("name", "*" + queryKey + "*").boost(10f))
-//                .should(QueryBuilders.fuzzyQuery("content", queryKey).boost(0.1f)));
-		
+
+		// BoolQueryBuilder qbTeam =
+		// QueryBuilders.boolQuery().must(QueryBuilders.termQuery("rowState",
+		// 0))
+		// .mustNot(QueryBuilders.termQuery("status", 1));
+		//
+		// qbTeam.must(QueryBuilders
+		// .boolQuery()
+		// .should(QueryBuilders.wildcardQuery("name", "*" + queryKey +
+		// "*").boost(10f))
+		// .should(QueryBuilders.fuzzyQuery("content", queryKey).boost(0.1f)));
+
 		/**
-		 * ik分词器
-		 * ik_max_word:
+		 * ik分词器 ik_max_word:
 		 * 会将文本做最细粒度的拆分，比如会将“中华人民共和国国歌”拆分为“中华人民共和国,中华人民,中华,华人,人民共和国,人民,人,民,共和国,
-		 * 共和,和,国国,国歌”，会穷尽各种可能的组合；
-		 * ik_smart: 会做最粗粒度的拆分，比如会将“中华人民共和国国歌”拆分为“中华人民共和国,国歌”。
+		 * 共和,和,国国,国歌”，会穷尽各种可能的组合； ik_smart:
+		 * 会做最粗粒度的拆分，比如会将“中华人民共和国国歌”拆分为“中华人民共和国,国歌”。
 		 */
-		//queryBuilder.analyzer("ik_max_word");
-		//queryBuilder.boost(0.1f);
-		if(!CollectionUtils.isEmpty(fields)){
-			for(String field : fields){
-				if(StringUtils.isNotEmpty(field)){
+		queryBuilder.analyzer("ik_max_word");
+		// queryBuilder.boost(0.1f);
+		if (!CollectionUtils.isEmpty(fields)) {
+			for (String field : fields) {
+				if (StringUtils.isNotEmpty(field)) {
 					queryBuilder.field(field);
 					searchRequestBuilder.addHighlightedField(field);
 				}
 			}
-		}else{
+		} else {
 			// 默认匹配title description content
 			queryBuilder.field("title").field("content").field("description");
 			searchRequestBuilder.addHighlightedField("title");
 			searchRequestBuilder.addHighlightedField("content");
 			searchRequestBuilder.addHighlightedField("description");
 		}
-        searchRequestBuilder.setHighlighterPreTags("<span style=\"color:red\">");
-        searchRequestBuilder.setHighlighterPostTags("</span>");
-        searchRequestBuilder.setSearchType(SearchType.DFS_QUERY_AND_FETCH);
+		searchRequestBuilder.setHighlighterPreTags("<span style=\"color:red\">");
+		searchRequestBuilder.setHighlighterPostTags("</span>");
+		searchRequestBuilder.setSearchType(SearchType.DFS_QUERY_AND_FETCH);
 		searchRequestBuilder.setQuery(queryBuilder);
 		// 分页应用
 		searchRequestBuilder.setFrom(start).setSize(limit);
@@ -127,38 +129,49 @@ public class ElasticSearchHandle {
 		return searchRequestBuilder.execute().actionGet();
 
 	}
-	
+
 	/**
 	 * 通用插入方法，新增知识条目
+	 * 
 	 * @param sourceJson
 	 * @return
 	 */
 	public IndexResponse insert(JSONObject sourceJson) {
-		IndexRequest indexRequest = new IndexRequest(IConstants.deafult_index_name, IConstants.deafult_index_type,
-				UUID.randomUUID().toString());
+		IndexRequest indexRequest = new IndexRequest(IConstants.deafult_index_name, IConstants.deafult_index_type, UUID.randomUUID().toString());
 		indexRequest.source(sourceJson);
 		return this.getClient().index(indexRequest).actionGet();
 	}
-	
+
+	public DeleteResponse deleteADoc(String indexName, String indexType, String id) {
+		return this.getClient().prepareDelete(indexName, indexType, id).get();
+	}
+
+	/**
+	 * 清除ES_INDEX下的所有数据
+	 */
+	public void deleteByIndex(String indexName, String indexType) {
+		
+	}
+
 	/**
 	 * 释放连接
 	 */
-	public void destory(){
-		if(null != this.client){
+	public void destory() {
+		if (null != this.client) {
 			this.client.close();
 		}
 		logger.debug("destory client");
 		System.out.println("destory client");
 	}
-	
+
 //	public static void main(String[] args) {
 //		ElasticSearchHandle handler = new ElasticSearchHandle("localhost", 9300);
-//		JSONObject data =new JSONObject();
+//		JSONObject data = new JSONObject();
 //		data.put("title", "韩国和风格");
 //		data.put("content", "以太交换机");
 //		data.put("description", "很过分的话");
-//		//handler.insert(data);
-//		System.out.println(handler.search(null, "小当家是韩国的", 0, 1000).getHits().getHits().length);
+//		// handler.insert(data);
+//		System.out.println(handler.deleteADoc("itsm_kb", "itsm", "*"));
 //		handler.destory();
 //	}
 
