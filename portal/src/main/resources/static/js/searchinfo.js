@@ -34,12 +34,14 @@ document.onkeydown=function(event){
 function parseHtml(data){
 	var htmlstr = "";
 	for(var i in data){
+		var title = data[i]["title"];
 		htmlstr += 
 			'<div class = "resultDiv">'+
 				'<div>'+
-					'<a href = "#" style = "font-size:16px;margin:5px 0;color:blue;">标题：'+data[i]["title"]+data[i]["title"]+'</a>'+
+					'<a href="../html/ticket_detail.html" target="view_window" style = "font-size:16px;margin:5px 0;color:blue;" onmouseover = "show_ticket()" onmouseout = "hide_ticket()">标题：'+(title.length>30?(title.substr(0,30)+"..."):title)+'</a>'+
 						'<div style = "font-size:14px;margin:5px 0;">描述：'+data[i]["description"]+'</div>'+
 						'<div style = "font-size:14px;margin:5px 0;">解决方案：'+data[i]["content"]+'</div>'+
+						'<a href="http://www.baidu.com" target="view_window" style = "font-size:12px;margin:5px 0;">www.baidu.com</a>'+
 				'</div>'+
 			'</div>';
 	}
@@ -96,4 +98,16 @@ function show_searchsvr_list(){
 }
 function hide_searchsvr_list(){
 	$('#searchsvr_list').hide();
+}
+function show_ticket(){
+	var top = ($(window).height()-$('#ticket').height())/2;
+	var scrollTop = $(document).scrollTop(); 
+	  $("#ticket").css({
+		  "position" : "absolute",
+          "top" : top+scrollTop,
+          "width" : "30%"
+      }).show(); 
+}
+function hide_ticket(){
+	$('#ticket').hide();
 }

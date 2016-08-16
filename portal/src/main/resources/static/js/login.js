@@ -11,14 +11,10 @@ document.onkeydown=function(event){
     }
 }; 
 $("#register").click(function () {
-    SimplePop.alert("系统火速建设中...",{
-        drag: true,       //是否可拖动图层
-    });
+	window.location.href = '../html/register.html?param=register';
 });
 $("#chpwd").click(function () {
-    SimplePop.alert("系统火速建设中...",{
-        drag: true,       //是否可拖动图层
-    });
+	window.location.href = '../html/register.html?param=update';
 });
 
 function openHomePage(){
