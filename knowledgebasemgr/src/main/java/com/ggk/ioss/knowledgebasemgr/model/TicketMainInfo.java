@@ -1,7 +1,5 @@
 package com.ggk.ioss.knowledgebasemgr.model;
 
-import java.sql.Timestamp;
-
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 public class TicketMainInfo {
@@ -10,7 +8,7 @@ public class TicketMainInfo {
 	private String reportArea;
 	private String reportor;
 	private String eventType;
-	private Timestamp commitTime;
+	private String commitTime;
 	private String eventTitle;
 	private String eventDescr;
 	private String eventClassify;
@@ -30,8 +28,8 @@ public class TicketMainInfo {
 	private String currentDealGroup;
 	private String currentDealor;
 	private String solution;
-	private Timestamp createTime;
-	private Timestamp updateTime;
+	private String createTime;
+	private String updateTime;
 	
 	public String getEventId() {
 		return eventId;
@@ -57,10 +55,10 @@ public class TicketMainInfo {
 	public void setEventType(String eventType) {
 		this.eventType = eventType;
 	}
-	public Timestamp getCommitTime() {
+	public String getCommitTime() {
 		return commitTime;
 	}
-	public void setCommitTime(Timestamp commitTime) {
+	public void setCommitTime(String commitTime) {
 		this.commitTime = commitTime;
 	}
 	public String getEventTitle() {
@@ -177,16 +175,16 @@ public class TicketMainInfo {
 	public void setSolution(String solution) {
 		this.solution = solution;
 	}
-	public Timestamp getCreateTime() {
+	public String getCreateTime() {
 		return createTime;
 	}
-	public void setCreateTime(Timestamp createTime) {
+	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
 	}
-	public Timestamp getUpdateTime() {
+	public String getUpdateTime() {
 		return updateTime;
 	}
-	public void setUpdateTime(Timestamp updateTime) {
+	public void setUpdateTime(String updateTime) {
 		this.updateTime = updateTime;
 	}
 	

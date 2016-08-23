@@ -45,6 +45,7 @@ public class HttpClientUtils {
         try {
             httpClient = getHttpClient();
             HttpPost httppost = new HttpPost(url);
+            System.out.println(url);
             httppost.setHeader("Content-Type", "application/json");
             if (null != contentLength) {
                 httppost.setHeader("Content-Length", contentLength);

@@ -1,5 +1,10 @@
 package com.ggk.ioss.knowledgebasemgr.service.impl;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,12 +14,15 @@ import org.springframework.util.CollectionUtils;
 
 import com.alibaba.fastjson.JSONObject;
 import com.ggk.ioss.knowledgebasemgr.conf.SystemConfigs;
+import com.ggk.ioss.knowledgebasemgr.conf.TicketMainInfoProperties;
 import com.ggk.ioss.knowledgebasemgr.elasticsearch.ElasticSearchHandle;
+import com.ggk.ioss.knowledgebasemgr.mapper.TicketMapper;
 import com.ggk.ioss.knowledgebasemgr.model.TicketMainInfo;
 import com.ggk.ioss.knowledgebasemgr.service.IKnowledgeOperator;
 
 @Service
 @EnableConfigurationProperties(SystemConfigs.class)
+//@EnableConfigurationProperties(TicketMainInfoProperties.class)
 public class KnowledgeOperator implements IKnowledgeOperator {
 
 	@Autowired
@@ -38,5 +46,4 @@ public class KnowledgeOperator implements IKnowledgeOperator {
 			System.out.println("Cost total time : " +( System.currentTimeMillis() - start));
 		}
 	}
-
 }
