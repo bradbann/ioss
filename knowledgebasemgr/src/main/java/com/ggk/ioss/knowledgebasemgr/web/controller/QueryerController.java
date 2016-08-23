@@ -15,11 +15,12 @@ import com.ggk.ioss.knowledgebasemgr.service.IKnowledgeQueryer;
 @RestController
 public class QueryerController {
 
-	@Autowired
-	private IKnowledgeQueryer queryer;
+    @Autowired
+    private IKnowledgeQueryer queryer;
 
-	@RequestMapping(value = { "/ioss/knowledge/queryer" }, method = RequestMethod.POST)
-	public List<Map<String, Object>> query(@RequestParam String queryParams) {
-		return queryer.queryKnowledge(IConstants.deafult_index_name, IConstants.deafult_index_type, queryParams);
-	}
+    @RequestMapping(value = { "/ioss/knowledge/queryer" }, method = RequestMethod.POST)
+    public List<Map<String, Object>> query(@RequestParam String queryParams) {
+        return queryer.queryKnowledge(IConstants.deafult_index_name, IConstants.deafult_index_type, queryParams);
+    }
+    
 }

@@ -3,20 +3,86 @@
 
 <mapper namespace="com.ggk.ioss.knowledgebasemgr.mapper.TicketMapper">
 
-	<select id="queryTicketDealInfoByPage" resultType="TicketDealInfo">
-		SELECT * from kb_ods_itsm_dealinfo where 1 = 1 limit #{start},#{limit}
-	</select>
-	
-	<select id="queryTicketDealInfoTotalNumber" resultType="java.lang.Long">
-		SELECT count(1) from kb_ods_itsm_dealinfo
-	</select>
-	
-	<select id="queryTicketMainInfoByPage" resultType="TicketMainInfo">
-		SELECT * from kb_ods_itsm_maininfo where 1 = 1 limit #{start},#{limit}
-	</select>
-	
-	<select id="queryTicketMainInfoTotalNumber" resultType="java.lang.Long">
-		SELECT count(1) from kb_ods_itsm_maininfo
-	</select>
+    <select id="queryTicketDealInfoByPage" resultType="TicketDealInfo">
+        SELECT * from kb_ods_itsm_dealinfo where 1 = 1 limit #{start},#{limit}
+    </select>
+    
+    <select id="queryTicketDealInfoTotalNumber" resultType="java.lang.Long">
+        SELECT count(1) from kb_ods_itsm_dealinfo
+    </select>
+    
+    <select id="queryTicketMainInfoByPage" resultType="TicketMainInfo">
+        SELECT * from kb_ods_itsm_maininfo where 1 = 1 limit #{start},#{limit}
+    </select>
+    
+    <select id="queryTicketMainInfoTotalNumber" resultType="java.lang.Long">
+        SELECT count(1) from kb_ods_itsm_maininfo
+    </select>
+    
+    <select id="queryTicketES" resultType="TicketES">
+        SELECT event_id as eventId, event_title as eventTitle, event_descr as eventDescr, affect_degree as affectDegree, solution from kb_ods_itsm_maininfo where 1 = 1 limit #{start},#{limit}
+    </select>
+    
+    <insert id = "saveTicketMainInfo" parameterType="java.util.List">
+         INSERT INTO kb_ods_itsm_maininfo(
+             event_id,
+             report_area,
+             reportor,
+             commit_time,
+             event_title,
+             event_descr,
+             event_type,
+             event_classify,
+             owner_system,
+             owner_module,
+             sub_module,
+             func_menu,
+             affect_range,
+             affect_degree,
+             critical_degree,
+             pri,
+             event_source,
+             event_status,
+             status_reason,
+             solve_code,
+             close_code,
+             current_deal_group,
+             current_dealor,
+             solution,
+             create_time,
+             update_time
+         ) VALUES
+         <foreach collection="list" item="data" index="index"  separator=",">
+             (
+                 #{data.eventId},
+                 #{data.reportArea},
+                 #{data.reportor},
+                 #{data.commitTime},
+                 #{data.eventTitle},
+                 #{data.eventDescr},
+                 #{data.eventType},
+                 #{data.eventClassify},
+                 #{data.ownerSystem},
+                 #{data.ownerModule},
+                 #{data.subModule},
+                 #{data.funcMenu},
+                 #{data.affectRange},
+                 #{data.affectDegree},
+                 #{data.criticalDegree},
+                 #{data.pri},
+                 #{data.eventSource},
+                 #{data.eventStatus},
+                 #{data.statusReason},
+                 #{data.solveCode},
+                 #{data.closeCode},
+                 #{data.currentDealGroup},
+                 #{data.currentDealor},
+                 #{data.solution},
+                 #{data.createTime},
+                 #{data.updateTime}
+             )
+         </foreach>
+    </insert>
+    
 
 </mapper>

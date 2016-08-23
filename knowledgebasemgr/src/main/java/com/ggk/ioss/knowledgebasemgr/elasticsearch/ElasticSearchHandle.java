@@ -137,7 +137,10 @@ public class ElasticSearchHandle {
 	 * @return
 	 */
 	public IndexResponse insert(JSONObject sourceJson) {
-		IndexRequest indexRequest = new IndexRequest(IConstants.deafult_index_name, IConstants.deafult_index_type, UUID.randomUUID().toString());
+		IndexRequest indexRequest = new IndexRequest(IConstants.deafult_index_name, 
+				IConstants.deafult_index_type,
+				sourceJson.getString("eventId"));
+				//UUID.randomUUID().toString());
 		indexRequest.source(sourceJson);
 		return this.getClient().index(indexRequest).actionGet();
 	}

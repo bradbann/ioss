@@ -1,5 +1,8 @@
 package com.ggk.ioss.portal.web.contorller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -14,20 +17,24 @@ import com.ggk.ioss.portal.utils.HttpClientUtils;
 @RestController
 @EnableConfigurationProperties(SystemConfigs.class)
 public class ApiController{
-	
-	@Autowired
-	private SystemConfigs conf;
-	
-	@RequestMapping(value = "/ioss/knowledge/queryer")
+    
+    @Autowired
+    private SystemConfigs conf;
+    
+    @RequestMapping(value = "/ioss/knowledge/queryer")
     public String index(@RequestParam String queryParams) {
-		if(!StringUtils.isEmpty(queryParams)){
-			queryParams = queryParams.trim();
-			queryParams = queryParams.replaceAll(" ", "");
-		}
-		JSONObject body = new JSONObject();
-		body.put("queryParams", queryParams);
-		String url = "http://"+ conf.getKnowledgebaseip() + ":" + conf.getKnowledgebaseport();
+        if(!StringUtils.isEmpty(queryParams)){
+            queryParams = queryParams.trim();
+            queryParams = queryParams.replaceAll(" ", "%20");
+        }
+        JSONObject body = new JSONObject();
+        body.put("queryParams", queryParams);
+        
+        String url = "http://"+ conf.getKnowledgebaseip() + ":" + conf.getKnowledgebaseport();
+        //更新查询热词
+        HttpClientUtils.doGet(url + "/ioss/knowledge/updatehotword?hotword=" + queryParams, null);
+        //返回查询结果
         return HttpClientUtils.doPost(url + "/ioss/knowledge/queryer?queryParams="+queryParams, body.toJSONString());
     }
-	
+    
 }
