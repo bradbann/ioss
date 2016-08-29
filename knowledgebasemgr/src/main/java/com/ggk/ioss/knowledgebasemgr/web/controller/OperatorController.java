@@ -84,8 +84,8 @@ public class OperatorController {
 	 *@param
 	 */
 	@RequestMapping(value={"/ioss/knowledge/saveDataTrigger"}, method = RequestMethod.GET)
-	public String saveDataTrigger() {
-		ticketOperator.saveTicketMainInfo(null);
+	public String saveDataTrigger(@RequestParam String filePath) {
+		ticketOperator.saveTicketMainInfo(filePath);
 		//String path= "C:\\Users\\lcc\\Documents\\文档\\项目\\【2016】地税ITSM\\事件单样例.csv";
 		return "SUCCESS";
 	}

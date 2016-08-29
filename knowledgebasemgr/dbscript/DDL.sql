@@ -26,7 +26,8 @@ CREATE TABLE `kb_ods_itsm_dealinfo` (
 
 DROP TABLE IF exists `kb_ods_itsm_maininfo`;
 CREATE TABLE `kb_ods_itsm_maininfo` (
-  `event_id` varchar(32) NOT NULL COMMENT '事件单号',
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `event_id` varchar(32) DEFAULT NULL COMMENT '事件单号',
   `report_area` text COMMENT '报告地区',
   `reportor` text COMMENT '提交人',
   `commit_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '提交时间',
@@ -52,5 +53,6 @@ CREATE TABLE `kb_ods_itsm_maininfo` (
   `solution` text COMMENT '解决方案',
   `create_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
-  PRIMARY KEY (`event_id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
