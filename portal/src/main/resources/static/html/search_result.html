@@ -1,0 +1,175 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>剑鱼版搜索结果界面</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">
+<meta name="renderer" content="webkit">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">
+<meta name="renderer" content="webkit">
+<meta name="baidu-site-verification" content="cSFG2PMaYX">
+<meta name="applicable-device" content="pc,mobile">
+
+<link rel = "stylesheet" href = "../css/bootstrap/bootstrap.min.css"/>
+<link rel = "stylesheet" href = "../css/pagination/pagination.css"/>
+<script src = "../js/jquery/jquery-1.11.1.min.js"></script>
+<script src = "../js/pagination/pagination.min.js"></script>
+<style>
+	body{
+		margin:0px;
+	}
+	.head{
+		height:10%;
+		box-shadow: 0 0 10px #E5E6E9;
+	}
+	.img{
+		height:95%;
+		margin-top:3px;
+	}
+	.menu{
+		display:flex;
+		width:15%;
+		height:100%;
+		font-size:18px;
+		font-family:Microsoft YaHei;
+		align-items:center;
+		float:right;
+	}
+	a{
+		color:black;
+	}
+	.title{
+		text-align:center;
+		font-size:60px;
+		margin-top:15%;
+		font-family:Microsoft YaHei;
+		color: rgb(78, 80, 81)
+	}
+	.searchbtn{
+		width: 13%;
+	    height: 40px;
+	    margin-left:-4px;
+	    font-size: 22px;
+	    text-align: center;
+	    font-family: 幼圆;
+	    background-color: #24C0D7;
+	    color: white;
+	    border:none;
+	    vertical-align: top;
+	}
+	.context{
+		margin-top:1%;
+		font-size:20px;
+		font-family:黑体;
+		background-color:#e4e8e8;
+		min-height:830px;
+	}
+	.order{
+		color: #35C5DA;
+	    font-weight: bold;
+	    margin: 0px 10px;
+	    float: left;
+	    display: inline-block;
+	    width: 18px;
+	    text-align: right;
+	}
+	.resultDiv{
+		height:70px;
+		width:90%;
+		font-size:18px;
+		border-bottom:1px solid rgb(221, 221, 221);
+		padding:15px 0px;
+		display:flex;
+		align-items:center;
+		margin-left:5%;
+	}
+</style>
+</head>
+<body>
+	<div class = "head" >
+		<div style = "width:40%;float:right;margin-right:12%;">
+			<div class = "menu"><a>API接口</a></div>
+			<div class = "menu"><a>搜索服务</a></div>
+			<div class = "menu"><a>知识库管理</a></div>
+			<div class = "menu"><a>首页</a></div>
+		</div>
+		<div style = "width:30%;float:right;margin-top:2%;margin-right:-13%;">
+			<input id = "content" style = "width:80%;height:40px;padding-left:10px;font-size:16px;" type = "text" placeholder="请输入您要查询的信息">
+			<button id = "searchbtn" class = "searchbtn">搜索</button>
+		</div>
+		<div>
+			<img class = "img" src = "../img/gd_rant.png"/>
+		</div>
+	</div>
+	<div style = "background-color:#f3f3f3;">
+	<div class = "container" style = "margin-top:1%;font-size:20px;font-family:黑体;background-color:white;min-height:830px;">
+		<div style = "background-color:#f3f3f3;">
+			<div style = "border-bottom:1px solid rgb(221, 221, 221);width:90%;margin-left:5%;background-color:#f3f3f3">
+		</div>
+			<div style = "margin:10px 5px;font-family:宋体;">搜索结果...</div>
+		</div>
+		<div id = "searchresult"></div>
+		
+		<div id = "pagination" style = "margin-top:5%;margin-bottom:10%;margin-left:28%;"></div>
+	</div>
+	</div>
+	<script>
+	function parseHtml(data){
+		var htmlstr = "";
+		for(var i in data){
+			var title = data[i]["title"];
+			var commitTime = data[i]["commitTime"];
+			htmlstr += 
+				'<div class = "row resultDiv">'+
+					'<div class = "col-xs-10"><a>'+title+'</a></div>'+
+					'<span>'+commitTime.substr(0,10)+'</span>'+
+				'</div>';
+		}
+		return htmlstr;
+	}
+	
+	$(function(){
+		var thisURL = document.URL;    
+		var  param =thisURL.split('?')[1]; 
+		if(undefined != param){
+			var paramVal= param.split("=")[1];
+			
+			if("" != paramVal){
+				$.ajax({
+					url:'/ioss/knowledge/queryer?queryParams='+paramVal,
+					type:'post',
+					datatype:'json',
+					success:function(data){
+					var jsonData = JSON.parse(data);
+					if(jsonData != "")
+					$('#pagination').pagination({
+						dataSource:jsonData ,
+						pageNumber: 1,
+						pageSize: 10,
+						pageRange: 2,
+						showGoInput: true,
+						showGoButton: true,
+					    className: 'paginationjs-theme-blue paginationjs-big',
+					    totalNumber: jsonData.length,
+					    callback: function(data, pagination) {
+					        var html = parseHtml(data);
+					        $('#searchresult').html(html);
+					        $('#pagination').show();
+					    }
+					});
+					else {
+						$('#pagination').hide();
+						$('#searchresult').html('<h4 style = "font-family:黑体;margin-bottom:100px;">抱歉，没有相关内容...</h4>');
+					}
+				}
+				});
+			}
+		}
+	});
+	
+	$('searchbtn').click(function(){
+		var content = $('content').val();
+		
+		window.location("search_result.html?content="+content);
+	});
+	</script>
+</body>
+</html>
