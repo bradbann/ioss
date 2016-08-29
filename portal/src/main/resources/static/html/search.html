@@ -63,10 +63,10 @@
 <body>
 	<div class = "head" >
 		<div style = "width:40%;float:right;margin-right:12%;">
-			<div class = "menu"><a>API接口</a></div>
+			<div class = "menu"><a  href = "apiInterface.html">API接口</a></div>
 			<div class = "menu"><a>搜索服务</a></div>
 			<div class = "menu"><a>知识库管理</a></div>
-			<div class = "menu"><a>首页</a></div>
+			<div class = "menu"><a href = "home.html">首页</a></div>
 		</div>
 		<div>
 			<img class = "img" src = "../img/gd_rant.png"/>
@@ -91,8 +91,10 @@
 		        drag: true,       //是否可拖动图层
 		    });
 		}
-		else
-			window.open( "search_result.html?content="+inputContent);
+		else{
+			var url = encodeURI("search_result.html?content="+inputContent);
+			window.open(url);
+		}
 	});
 		
 		document.onkeydown=function(event){

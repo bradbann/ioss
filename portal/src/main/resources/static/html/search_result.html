@@ -86,10 +86,10 @@
 <body>
 	<div class = "head" >
 		<div style = "width:40%;float:right;margin-right:12%;">
-			<div class = "menu"><a>API接口</a></div>
+			<div class = "menu"><a href = "apiInterface.html">API接口</a></div>
 			<div class = "menu"><a>搜索服务</a></div>
 			<div class = "menu"><a>知识库管理</a></div>
-			<div class = "menu"><a>首页</a></div>
+			<div class = "menu"><a href = "home.html">首页</a></div>
 		</div>
 		<div style = "width:30%;float:right;margin-top:2%;margin-right:-13%;">
 			<input id = "content" style = "width:80%;height:40px;padding-left:10px;font-size:16px;" type = "text" placeholder="请输入您要查询的信息">
@@ -127,10 +127,12 @@
 	}
 	
 	$(function(){
-		var thisURL = document.URL;    
+		var thisURL = decodeURI(document.URL); 
 		var  param =thisURL.split('?')[1]; 
 		if(undefined != param){
 			var paramVal= param.split("=")[1];
+			
+			$('#content').val(paramVal);
 			
 			if("" != paramVal){
 				$.ajax({
@@ -157,7 +159,7 @@
 					});
 					else {
 						$('#pagination').hide();
-						$('#searchresult').html('<h4 style = "font-family:黑体;margin-bottom:100px;">抱歉，没有相关内容...</h4>');
+						$('#searchresult').html('<h4 style = "font-family:黑体;margin-bottom:100px;margin-top:25px;">抱歉，没有相关内容...</h4>');
 					}
 				}
 				});
@@ -165,10 +167,20 @@
 		}
 	});
 	
-	$('searchbtn').click(function(){
-		var content = $('content').val();
-		
-		window.location("search_result.html?content="+content);
+	document.onkeydown=function(event){
+	    var e = event || window.event || arguments.callee.caller.arguments[0];
+	    
+	    if(e && e.keyCode==13){ // enter 键
+	         //要做的事情
+	    	$('#searchbtn').click();
+	    }
+	}; 
+	
+	$('#searchbtn').click(function(){
+		var content = $('#content').val();
+		var url = encodeURI("search_result.html?content="+content);
+
+		 location.replace(url);
 	});
 	</script>
 </body>
