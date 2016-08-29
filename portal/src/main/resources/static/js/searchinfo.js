@@ -35,13 +35,15 @@ function parseHtml(data){
 	var htmlstr = "";
 	for(var i in data){
 		var title = data[i]["title"];
+		var content = data[i]["content"];
+		var commitTime = data[i]["commitTime"];
 		htmlstr += 
 			'<div class = "resultDiv">'+
 				'<div>'+
-					'<a href="../html/ticket_detail.html" target="view_window" style = "font-size:16px;margin:5px 0;color:blue;">标题：'+(title.length>30?(title.substr(0,30)+"..."):title)+'</a>'+
-						'<div style = "font-size:14px;margin:5px 0;">描述：'+data[i]["description"]+'</div>'+
+					'<a href="../html/ticket_detail.html" target="view_window" style = "font-size:20px;margin:5px 0;color:blue;">'+(title.length>100?(title.substr(0,100)+"..."):title)+'</a>'+
+						'<div style = "font-size:14px;margin:5px 0;">描述：'+(content.length>100?(content.substr(0,100)+"..."):content)+'</div>'+
 						'<div style = "font-size:14px;margin:5px 0;">解决方案：'+data[i]["content"]+'</div>'+
-						'<a href="http://www.baidu.com" target="view_window" style = "font-size:12px;margin:5px 0;">www.baidu.com</a>'+
+						'<a href="http://www.baidu.com" target="view_window" style = "font-size:12px;margin:5px 10px 5px 0px;">www.baidu.com</a>'+'<span style = "font-size:14px;margin:5px 10px;">'+commitTime.substr(0,10)+'</span>'+
 				'</div>'+
 			'</div>';
 	}
@@ -75,7 +77,7 @@ $('#search').click(function(){
 				});
 				else {
 					$('#pagination').hide();
-					$('#context').html('<h4 style = "font-family:黑体;margin-bottom:100px;">抱歉，没有相关内容...</h4>');
+					$('#searchresult').html('<h4 style = "font-family:黑体;margin-bottom:100px;">抱歉，没有相关内容...</h4>');
 				}
 			}
 		});
