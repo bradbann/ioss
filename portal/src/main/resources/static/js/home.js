@@ -5,7 +5,7 @@ $("#knowledgebasemgr").click(function () {
 });
 
 $('#queryengine').click(function(){
-	window.location.href="/html/searchInfo.html";
+	window.open("/html/search.html");
 });
 
 $("#apiinterface").click(function () {

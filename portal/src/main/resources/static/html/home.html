@@ -16,13 +16,13 @@
 	.menu{
 		font-size:18px;
 		color:white;
-		font-family:黑体;
+		font-family:Microsoft YaHei;
 		margin-top:8px;
 		list-style-type:none;
 		margin-bottom:8px;
 	}
 	.list{
-		background-color:#1a56a8;
+		background-color:#0b91a5;
 		
 		text-align:center;
 	}
@@ -31,7 +31,7 @@
 		color:rgba(255, 255, 255, 0.5);
 	}
 	.a:hover{
-		color:gray;
+		color:black;
 	}
 </style>
 </head>
@@ -43,15 +43,15 @@
 				style="height: 60px; margin-left: 50px; display: inline-block; margin-top: 10px; margin-bottom: 10px;" />
 		</div>
 		<div class="" style="width: 100%; text-align: center;position:absolute;left:0;top:0">
-			<label style="font-size: 50px;">智能运维支撑系统</label>
+			<label style="font-size: 50px;color:rgb(78, 80, 81);">智能运维支撑系统</label>
 		</div>
 	</div>
 </div>	
 	
-	<div id = "div" style = "background-color:#1a56a8;text-align:center;height:41px;">
+	<div id = "div" style = "background-color:#0b91a5;text-align:center;height:41px;">
 		<div class = "col-sm-2"></div>
 		<div class = "col-sm-8">
-			<li class = "col-sm-3 menu" style = "border-left:2px solid #e2dbdb;" ><a href = "/html/home.html" style = "color:white;" onMouseOver="this.style.color='gray';this.style.textDecoration='underline'" onMouseOut="this.style.color='white';this.style.textDecoration='none'">首页</a></li>
+			<li class = "col-sm-3 menu" style = "border-left:2px solid #e2dbdb;" ><a href = "/html/home.html" style = "color:white;" onMouseOver="this.style.color='black';this.style.textDecoration='underline'" onMouseOut="this.style.color='white';this.style.textDecoration='none'">首页</a></li>
 			
 			<li id = "knowledgemgm" class = "col-sm-3 menu" href = "#" onmouseover = "show_knowledgemgm_list()" onmouseout = "hide_knowledgemgm_list()">知识库管理
 			<ul id = "knowledgemgm_list" class = "list" hidden = true  style = "width:60%;margin-left:60px;">
@@ -63,20 +63,20 @@
 			
 			<li id = "searchsvr" class = "col-sm-3 menu" href = "#" onmouseover = "show_searchsvr_list()" onmouseout = "hide_searchsvr_list()">搜索服务
 			<ul id = "searchsvr_list" class = "list" hidden = true  style = "width:60%;margin-left:60px;">
-				<li style = "list-style-type:none;"><a href = "/html/searchInfo.html?param=1" class = "a">全文搜索</a></li>
-				<li style = "list-style-type:none;"><a href = "/html/searchInfo.html?param=2" class = "a">结构化搜索</a></li>
+				<li style = "list-style-type:none;"><a href = "/html/search.html" class = "a">全文搜索</a></li>
+				<li style = "list-style-type:none;"><a href = "javascript:void(0)" class = "a">结构化搜索</a></li>
 			</ul>
 			</li>
 			
-			<li class = "col-sm-3 menu" style = "border-right:2px solid #e2dbdb;"><a href = "javascript:void(0)" onclick = "tips()" style = "color:white;" onMouseOver="this.style.color='gray';this.style.textDecoration='underline'" onMouseOut="this.style.color='white';this.style.textDecoration='none'">API接口</a></li>
+			<li class = "col-sm-3 menu" style = "border-right:2px solid #e2dbdb;"><a href = "apiInterface.html" onclick = "tips()" style = "color:white;" onMouseOver="this.style.color='black';this.style.textDecoration='underline'" onMouseOut="this.style.color='white';this.style.textDecoration='none'">API接口</a></li>
 		</div>
 		<div class = "col-sm-2">
 			<div style = "display:inline-block;float:right;font-size:16px;color:white;margin-top:3%">
-				<label>欢迎你：</label><a href ="javascript:void(0)" style = "color:#d6bebe;" onMouseOver="this.style.color='gray';this.style.textDecoration='underline'" onMouseOut="this.style.color='#d6bebe';this.style.textDecoration='none'">admin</a><span> | </span><a href ="/html/login.html" style = "color:white;" onMouseOver="this.style.color='gray';this.style.textDecoration='underline'" onMouseOut="this.style.color='white';this.style.textDecoration='none'">退出</a>
+				<label>欢迎你：</label><a href ="javascript:void(0)" style = "color:#d6bebe;" onMouseOver="this.style.color='black';this.style.textDecoration='underline'" onMouseOut="this.style.color='#d6bebe';this.style.textDecoration='none'">admin</a><span> | </span><a href ="/html/login.html" style = "color:white;" onMouseOver="this.style.color='gray';this.style.textDecoration='underline'" onMouseOut="this.style.color='white';this.style.textDecoration='none'">退出</a>
 			</div>
 		</div>
 	</div>
-	<div style = "width:100%;min-height:855px;background-color:#f3f3f3;">
+	<div style = "width:100%;min-height:831px;background-color:#f3f3f3;">
 	<div class="container" style="text-align: center;">
 		<div style="width: 100%">
 			

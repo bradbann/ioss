@@ -8,6 +8,6 @@
     </insert>
     
     <select id="queryHotWordsByKeyword" resultType="HotWord">
-        select hotword from hotword where hotword like #{keyword} order by count desc, searchtime desc limit 5;
+        select hotword from hotword where hotword like #{keyword} order by count desc, searchtime desc limit 10;
     </select>
 </mapper>

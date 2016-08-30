@@ -1,6 +1,6 @@
 <!-- saved from url=(0025)http://www.zhaobiao.info/ -->
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>剑鱼版搜索界面</title>
+<title>全文搜索</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">
 <meta name="renderer" content="webkit">
 
@@ -56,7 +56,7 @@
 	    border:none;
 	}
 	.searchbtn:hover{
-		background-color:gray;
+		background-color:#2691a0;
 	}
 </style>
 </head>
@@ -93,6 +93,11 @@
 		}
 		else{
 			var url = encodeURI("search_result.html?content="+inputContent);
+			
+// 			$.getJSON("/ioss/knowledge/queryer",{"queryParams":inputContent},function(result){
+// 			    console.info(result);
+// 			  });
+			
 			window.open(url);
 		}
 	});

@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,7 +22,7 @@ public class ApiController{
     @Autowired
     private SystemConfigs conf;
     
-    @RequestMapping(value = "/ioss/knowledge/queryer")
+    @RequestMapping(value = {"/ioss/knowledge/queryer"}, method=RequestMethod.GET)
     public String index(@RequestParam String queryParams) {
         if(!StringUtils.isEmpty(queryParams)){
             queryParams = queryParams.trim();
