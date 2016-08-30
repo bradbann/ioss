@@ -22,14 +22,12 @@ public class HotWordOperatorImp implements HotWordOperator{
     }
 
     @Override
-    public List<HotWord> queryHotWordsByKeyword(String keyword) {
+    public List<String> queryHotWordsByKeyword(String keyword) {
         List<HotWord> hotwords = hotwordMapper.queryHotWordsByKeyword(keyword);
-        List<HotWord> result = new ArrayList<HotWord>();
+        List<String> result = new ArrayList<String>();
         String query = keyword.replace("%", "");
         for(HotWord hotWord : hotwords) {
-            HotWord newHotWord = new HotWord();
-            newHotWord.setHotword(hotWord.getHotword().replace(query, "<strong>" + query + "</strong>"));
-            result.add(newHotWord);
+            result.add(hotWord.getHotword().replace(query, "<strong>" + query + "</strong>"));
         }
         return result;
     }

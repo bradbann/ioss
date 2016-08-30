@@ -1,6 +1,8 @@
 DROP DATABASE if exists `ioss`;
 CREATE DATABASE `ioss`;
 
+USE `ioss`;
+
 DROP TABLE if exists `hotword`;
 CREATE TABLE `hotword` (
   `hotword` varchar(200) NOT NULL DEFAULT '',
