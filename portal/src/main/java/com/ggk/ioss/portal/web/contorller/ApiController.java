@@ -23,7 +23,7 @@ public class ApiController{
     @Autowired
     private SystemConfigs conf;
     
-    @RequestMapping(value = "/ioss/knowledge/queryer")
+    @RequestMapping(value = {"/ioss/knowledge/queryer"}, method=RequestMethod.GET)
     public String index(@RequestParam String queryParams) {
         if(!StringUtils.isEmpty(queryParams)){
             queryParams = queryParams.trim();

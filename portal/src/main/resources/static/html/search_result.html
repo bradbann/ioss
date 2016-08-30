@@ -1,5 +1,5 @@
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>剑鱼版搜索结果界面</title>
+<title>搜索结果</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">
 <meta name="renderer" content="webkit">
 
@@ -55,6 +55,9 @@
 	    border:none;
 	    vertical-align: top;
 	}
+	.searchbtn:hover{
+	    background-color:#2691a0;
+	}
 	.context{
 		margin-top:1%;
 		font-size:20px;
@@ -106,7 +109,20 @@
 		</div>
 			<div style = "margin:10px 5px;font-family:宋体;">搜索结果...</div>
 		</div>
-		<div id = "searchresult"></div>
+		<div id = "searchresult">
+			<div class = "row resultDiv">
+<!-- 			    <div class = "col-xs-10"> -->
+<!-- 			        <h4>因医生误诊，英国一女童7年没用嘴吃过东西。</h4> -->
+<!-- 			        <h5>破茧成蝶——从准新闻人到新闻人的过渡所必备的素质 ——分类新闻写作课学期总结</h5> -->
+<!-- 			        <h5>解决方案，已解决；解决方案，已解决；解决方案，已解决；解决方案，已解决；解决方案，已解决；</h5> -->
+<!-- 			        <div class = row> -->
+<!-- 			            <span>2015-07-13</span> -->
+<!-- 			            <span><a href = "ticket_detail.html">地税API</a></span> -->
+<!-- 			        </div> -->
+<!-- 			    </div> -->
+<!-- 			    <div class = "col-xs-2"></div> -->
+			</div>
+		</div>
 		
 		<div id = "pagination" style = "margin-top:5%;margin-bottom:10%;margin-left:28%;"></div>
 	</div>
@@ -116,11 +132,12 @@
 		var htmlstr = "";
 		for(var i in data){
 			var title = data[i]["title"];
+			var description = data[i]["description"];
 			var commitTime = data[i]["commitTime"];
 			htmlstr += 
 				'<div class = "row resultDiv">'+
 					'<div class = "col-xs-10"><a>'+title+'</a></div>'+
-					'<span>'+commitTime.substr(0,10)+'</span>'+
+					'<div class = "col-xs-2"><span style = "float:right;">'+commitTime.substr(0,10)+'</span></div>'+
 				'</div>';
 		}
 		return htmlstr;
@@ -137,11 +154,11 @@
 			if("" != paramVal){
 				$.ajax({
 					url:'/ioss/knowledge/queryer?queryParams='+paramVal,
-					type:'post',
+					type:'get',
 					datatype:'json',
 					success:function(data){
 					var jsonData = JSON.parse(data);
-					if(jsonData != "")
+					if("" != jsonData)
 					$('#pagination').pagination({
 						dataSource:jsonData ,
 						pageNumber: 1,
