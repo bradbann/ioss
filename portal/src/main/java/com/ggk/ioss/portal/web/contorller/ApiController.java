@@ -1,12 +1,14 @@
 package com.ggk.ioss.portal.web.contorller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,4 +39,11 @@ public class ApiController{
         return HttpClientUtils.doPost(url + "/ioss/knowledge/queryer?queryParams="+queryParams, body.toJSONString());
     }
     
+    @RequestMapping(value = {"/ioss/knowledge/queryhotwords"}, method = RequestMethod.GET)
+    public JSONObject queryHotWordByKeyword(@RequestParam String keyword) {
+        String url = "http://"+ conf.getKnowledgebaseip() + ":" + conf.getKnowledgebaseport() 
+                   + "/ioss/knowledge/queryhotword?keyword=" + keyword;
+        return JSONObject.parseObject(HttpClientUtils.doGet(url, null));
+    }
+
 }

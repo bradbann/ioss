@@ -7,5 +7,5 @@ import com.ggk.ioss.knowledgebasemgr.model.HotWord;
 public interface HotWordOperator {
     public void updateHotWord(String hotword);
     
-    public List<HotWord> queryHotWordsByKeyword(String keyword);
+    public List<String> queryHotWordsByKeyword(String keyword);
 }
