@@ -61,6 +61,7 @@
 	    background-color: #24C0D7;
 	    color: white;
 	    border:none;
+		vertical-align: top;
 	    margin-left: -4px;
 	    border-radius: 0px 5px 5px 0px;
 	}
@@ -116,25 +117,26 @@
 			<button id = "searchbtn" class = "searchbtn">搜索</button>
 			<div id = "tips" style = "width:100%;position:absolute;z-index:100;"></div>
 	</div>
-	<div style = "background-color:#f3f3f3;height:100%;">
-	<div class = "container" style = "margin-top:1%;font-size:20px;font-family:黑体;background-color:white;min-height:830px;">
-		<div style = "background-color:#f3f3f3;">
-			<div style = "border-bottom:1px solid rgb(221, 221, 221);width:90%;margin-left:5%;background-color:#f3f3f3">
-		</div>
-			<div style = "margin:10px 5px;font-family:宋体;">搜索结果...</div>
-		</div>
-		<div id = "searchresult">
-			<div class = "row resultDiv">
+	<div style = "background-color:#f3f3f3;padding-top: 20px;">
+		<div class = "container" style = "font-size:20px;font-family:黑体;background-color:white;min-height:830px;">
+		<div style = "margin:15px auto">
+			<div>
+			<div>
+				<img src="../img/dygjc.png" style = "height:22px;margin:2px 10px 0px 5px;float:left;">
+				<div style = "height:35px;margin:10px 5px;font-family:宋体;border-bottom:1px solid gray;">搜索结果...</div>
 			</div>
+			</div>
+			<div id = "searchresult"></div>
+			
+			<div id = "pagination" style = "margin-top:5%;margin-bottom:10%;margin-left:28%;"></div>
 		</div>
-		
-		<div id = "pagination" style = "margin-top:5%;margin-bottom:10%;margin-left:28%;"></div>
-	</div>
+		</div>
 	</div>
 	<script>
 	function parseHtml(data){
 		var htmlstr = "";
 		for(var i in data){
+			var eventId = data[i]["eventId"];
 			var title = data[i]["title"];
 			var description = data[i]["description"];
 			var commitTime = data[i]["commitTime"];
@@ -143,8 +145,10 @@
 			}
 			htmlstr += 
 				'<div class = "row resultDiv">'+
-					'<div class = "col-xs-10"><a>'+title+'</a></div>'+
-					'<div class = "col-xs-2"><span style = "float:right;">'+commitTime.substring(0,10)+'</span></div>'+
+					'<div class = "col-xs-9"><a href = "ticket_detail.html?id='+eventId+'"  target="_blank">'+title+'</a></div>'+
+					'<div class = "col-xs-3" style = "float:right;height:80px;position:relative;"><span style = "border:1px solid #24C0D7;border-radios:15px;float:right;position:absolute;left:120px;">'+commitTime.substr(0,10)+
+					'</span><a href = "ticket_detail.html" style = "color:#008000;position:absolute;top:40px;left:28px;">ITSM</a><span style = "background:#24C0D7;border-radios:5px;float:right;position:absolute;top:40px;left:120px;">'+commitTime.substr(0,10)+'</span>'+
+					'</div>'+
 				'</div>';
 		}
 		return htmlstr;

@@ -1,9 +1,5 @@
 package com.ggk.ioss.portal.web.contorller;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -44,6 +40,16 @@ public class ApiController{
         String url = "http://"+ conf.getKnowledgebaseip() + ":" + conf.getKnowledgebaseport() 
                    + "/ioss/knowledge/queryhotword?keyword=" + keyword;
         return JSONObject.parseObject(HttpClientUtils.doGet(url, null));
+    }
+    
+    @RequestMapping(value = {"/ioss/knowledge/querySingleKnowledge"}, method = RequestMethod.GET)
+    public String querySingleKnowledge(String id) {
+        
+        String url = "http://"+ conf.getKnowledgebaseip() + ":" + conf.getKnowledgebaseport();
+        //更新查询热词
+        //HttpClientUtils.doGet(url + "/ioss/knowledge/querySingleKnowledge?id=" + id, null);
+        //返回查询结果
+        return HttpClientUtils.doGet(url + "/ioss/knowledge/querySingleKnowledge?id=" + id, null);
     }
 
 }

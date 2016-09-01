@@ -9,13 +9,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
+import com.ggk.ioss.knowledgebasemgr.model.TicketMainInfo;
 import com.ggk.ioss.knowledgebasemgr.service.HotWordOperator;
+import com.ggk.ioss.knowledgebasemgr.service.SingleKnowledgeQuerier;
 
 @RestController
 public class HotWordOperatorController {
     
     @Autowired
     private HotWordOperator hotwordOperator;
+    
+    @Autowired
+    private SingleKnowledgeQuerier singleKnowledgeQuerier;
     
     @RequestMapping(value = { "/ioss/knowledge/updatehotword" }, method = RequestMethod.GET)
     public String updateHotWord(@RequestParam String hotword) {
@@ -31,5 +36,10 @@ public class HotWordOperatorController {
         obj.put("message", "success");
         obj.put("data", hotwordOperator.queryHotWordsByKeyword(query));
         return obj;
+    }
+    
+    @RequestMapping(value = { "/ioss/knowledge/querySingleKnowledge" }, method = RequestMethod.GET)
+    public TicketMainInfo querySingleKnowledge(String id) {
+    	return singleKnowledgeQuerier.getTicketMainInfo(id);
     }
 }
