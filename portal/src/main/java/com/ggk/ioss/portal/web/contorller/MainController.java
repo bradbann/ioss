@@ -12,7 +12,7 @@ public class MainController{
 	
 	@RequestMapping(value = "/ioss")
     public ModelAndView index(HttpServletRequest request, HttpServletResponse response) {
-        ModelAndView result = new ModelAndView("/html/login.html");
+        ModelAndView result = new ModelAndView("/html/ioss.html");
         return result;
     }
 	

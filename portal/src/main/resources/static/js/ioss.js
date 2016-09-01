@@ -4,13 +4,11 @@ $(function(){
 		switch(event.which){
 			
 			　　case 38:
-				console.log('38');
 				pickVal(38);
 				break;
 			
 			　　case 40: 
 				pickVal(40);
-				console.log('40');
 				break;
 				
 			　　default: break;
@@ -20,7 +18,6 @@ $(function(){
 		switch(event.which){
 			
 			　　case 12:
-				console.log('13');
 				hidelist();
 				break;
 				
@@ -40,7 +37,6 @@ $(function(){
 	          dataType: "json",
 	          success: function( data ) {
 	        	  // todo 判断数据的合法性
-	        	  console.log(data);
 	              setDom(data.data);
 	          }
 	        });
@@ -107,7 +103,6 @@ var curIndex = -1;
 function pickVal(type){
 	var obj = $('#tips ul li');
 	var length = obj.length;
-	console.log(length);
 	if(length){
 		obj.removeClass('l-on');
 		if(type>39){
@@ -116,27 +111,22 @@ function pickVal(type){
 			}else{
 				curIndex++;
 			}
-			console.log('给第'+curIndex+'个li添加样式');
 			var html = $("ul li").eq(curIndex).html()
 			var regexstr = new RegExp("<[^<]*>", "gi");
 			var html = html.replace(regexstr,"");
 			$("#input").val(html); 
-			console.log(obj.eq(curIndex).text());
 			obj.eq(curIndex).addClass('l-on');
 		}else{
-			console.log('U');
 			if(curIndex<=0||curIndex>=length){
 			curIndex=length-1;
 			
 		}else{
 			curIndex--;
 		}
-		console.log('给第'+curIndex+'个li添加样式');
 		var html = $("ul li").eq(curIndex).html();
 		var regexstr = new RegExp("<[^<]*>", "gi");
 		var html = html.replace(regexstr,"");
 		$("#input").val(html); 
-		console.log(obj.eq(curIndex).text());
 		obj.eq(curIndex).addClass('l-on');
 		}
 		
