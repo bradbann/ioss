@@ -10,11 +10,13 @@ $(function(){
             data: {},
             dataType: "json",
             success: function(data){
-            	$('#title').text(data["eventTitle"]);
-            	$('#ticketId').text(data["eventId"]);
-            	$('#solveDate').text(data["updateTime"]);
-            	$('#description').text(data["eventDescr"]);
-            	$('#solution').text(data["solution"]);
+            	if(data){
+            		$('#title').text(data["eventTitle"]);
+                	$('#ticketId').text(data["eventId"]);
+                	$('#solveDate').text(data["updateTime"]);
+                	$('#description').text(data["eventDescr"]);
+                	$('#solution').text(data["solution"]);
+            	}
              }
         });
 	}

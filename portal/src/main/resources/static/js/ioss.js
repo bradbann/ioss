@@ -30,7 +30,6 @@ $(function(){
 	
 	$('#input').bind('input propertychange', function() {
 		// todo 补充监听300ms的操作
-		 console.log($(this).val());
 		 $.ajax({
 	          url: '/ioss/knowledge/queryhotwords?keyword='+$(this).val(),
 	          type:'GET',
@@ -48,7 +47,7 @@ $(function(){
 	$('#input').blur(function(){
 		var obj = $('#tips');
 		setTimeout(function(){
-			obj.html('');
+			//obj.html('');
 		},300)
 	});
 	
@@ -77,7 +76,7 @@ $(function(){
 });
 
 function setDom(data){
-	var obj = $('#tips'),str='<div style="width:50%;display:inline-block;margin-left:20%;border:0.5px solid gainsboro;"><ul id="ul-list" style = "margin-bottom:0px;font-size:18px;line-height:2em;margin-left:-7%;">';
+	var obj = $('#tips'),str='<div style="border:0.5px solid gainsboro;"><ul id="ul-list" style = "padding-left:0;margin-bottom:0px;font-size:18px;line-height:2em;">';
 // obj.attr({
 // "style":"display:flex;align-content:center;"
 // });
@@ -113,9 +112,11 @@ function pickVal(type){
 			}
 			var html = $("ul li").eq(curIndex).html()
 			var regexstr = new RegExp("<[^<]*>", "gi");
-			var html = html.replace(regexstr,"");
-			$("#input").val(html); 
-			obj.eq(curIndex).addClass('l-on');
+			if(html){
+				html = html.replace(regexstr,"");
+				$("#input").val(html); 
+				obj.eq(curIndex).addClass('l-on');
+			}
 		}else{
 			if(curIndex<=0||curIndex>=length){
 			curIndex=length-1;
