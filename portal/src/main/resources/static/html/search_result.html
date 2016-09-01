@@ -10,8 +10,11 @@
 
 <link rel = "stylesheet" href = "../css/bootstrap/bootstrap.min.css"/>
 <link rel = "stylesheet" href = "../css/pagination/pagination.css"/>
+<link rel = "stylesheet" href = "../css/jquery-ui/jquery-ui.css"/>
 <script src = "../js/jquery/jquery-1.11.1.min.js"></script>
+<script src = "../js/jquery/jquery-3.0.0.js"></script>
 <script src = "../js/pagination/pagination.min.js"></script>
+<script src = "../js/jquery-ui/jquery-ui.js"></script>
 <style>
 	body{
 		margin:0px;
@@ -35,6 +38,9 @@
 	}
 	a{
 		color:black;
+	}
+	a:hover{
+		text-decoration:none;
 	}
 	.title{
 		text-align:center;
@@ -84,6 +90,12 @@
 		align-items:center;
 		margin-left:5%;
 	}
+	li:hover{
+		background:#eee;
+	}
+	.l-on{
+		background:#eee;
+	}
 </style>
 </head>
 <body>
@@ -95,8 +107,13 @@
 			<div class = "menu"><a href = "home.html">首页</a></div>
 		</div>
 		<div style = "width:30%;float:right;margin-top:2%;margin-right:-13%;">
+			<div style="position:relative">
 			<input id = "content" style = "width:80%;height:40px;padding-left:10px;font-size:16px;" type = "text" placeholder="请输入您要查询的信息">
 			<button id = "searchbtn" class = "searchbtn">搜索</button>
+			<div id = "tips" style = "width:100%;position:absolute;z-index:100;"></div>
+			</div>
+			
+			
 		</div>
 		<div>
 			<img class = "img" src = "../img/gd_rant.png"/>
@@ -199,6 +216,111 @@
 
 		 location.replace(url);
 	});
+	
+	//输入框联想搜索
+	$('#content').focus(function(){
+		var curIndex = -1;
+		$('#content').keydown(function(event){
+			console.log("输入框按键事件触发！");
+			
+			$('#content').bind('input propertychange', function() {
+				//todo 补充监听300ms的操作
+				 console.log($(this).val());
+				 $.ajax({
+			          url: '/ioss/knowledge/queryhotwords?keyword='+$(this).val(),
+			          type:'GET',
+			          dataType: "json",
+			          success: function( data ) {
+			        	  //todo 判断数据的合法性
+			        	  console.log(data);
+			              setDom(data.data);
+			          }
+			        });
+				});
+			function setDom(data){
+				var obj = $('#tips'),str='<div style="width:80%;display:inline-block;border:0.5px solid gainsboro;background:#fff;"><ul id="ul-list" style = "margin-bottom:0px;font-size:18px;line-height:2em;margin-left:-9%;">';
+				obj.html('');
+				for(var i=0;i<data.length;i++){
+					str+='<a href = "javascript:void(0)"><li style="list-style-type:none;padding-left:10px;">'+data[i]+'</li></a>';
+				}
+				str+='</ul></div>'
+				obj.html(str);
+				curIndex =-1;
+				
+				
+				
+				//点击选择联想热词
+				obj.find('li').unbind();
+				obj.find('li').on('click',function(){
+					console.log($(this).html());
+					var regexstr = new RegExp("<[^<]*>", "gi");
+					var content = $(this).html().replace(regexstr,"");
+					$('#content').val(content);
+					obj.html('');
+				})
+				//input元素失去焦点事件发生时，清空list元素
+				$('#content').blur(function(){
+					var obj = $('#tips');
+					setTimeout(function(){
+						obj.html('');
+					},300)
+				});
+				console.log('ADD')
+			}
+			
+			switch(event.which){
+				case 38:
+				console.log('38');
+				pickVal(38);
+				break;
+			
+			　　case 40: 
+				pickVal(40);
+				console.log('40');
+				break;
+				
+			　　default: break; 
+			}
+			
+			function pickVal(type){
+				
+				var obj = $('#tips ul li');
+				var length = obj.length;
+				console.log(length);
+				if(length){
+					obj.removeClass('l-on');
+					if(type>39){
+						if(curIndex<0||curIndex==length-1){
+							curIndex=0;
+						}else{
+							curIndex++;
+						}
+						console.log('给第'+curIndex+'个li添加样式');
+						var html = $("ul li").eq(curIndex).html()
+						var regexstr = new RegExp("<[^<]*>", "gi");
+						var html = html.replace(regexstr,"");
+						$("#content").val(html); 
+						obj.eq(curIndex).addClass('l-on');
+					}else{
+						console.log('U');
+						if(curIndex<=0||curIndex>=length){
+							curIndex=length-1;
+							
+						}else{
+							curIndex--;
+						}
+						console.log('给第'+curIndex+'个li添加样式');
+						var html = $("ul li").eq(curIndex).html();
+						var regexstr = new RegExp("<[^<]*>", "gi");
+						var html = html.replace(regexstr,"");
+						$("#content").val(html); 
+						obj.eq(curIndex).addClass('l-on');
+					}
+				}
+			}
+		});
+	});
+	
 	</script>
 </body>
 </html>
