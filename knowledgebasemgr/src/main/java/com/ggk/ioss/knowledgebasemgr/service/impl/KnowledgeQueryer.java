@@ -16,16 +16,16 @@ import com.ggk.ioss.knowledgebasemgr.utils.ElasticSearchUtils;
 @Service
 @EnableConfigurationProperties(SystemConfigs.class)
 public class KnowledgeQueryer implements IKnowledgeQueryer {
-	
-	@Autowired
-	private SystemConfigs conf;
+    
+    @Autowired
+    private SystemConfigs conf;
 
-	@Override
-	public List<Map<String, Object>> queryKnowledge(String indexName, String indexType, String queryJson) {
-		ElasticSearchHandle handle = new ElasticSearchHandle(conf.getEsip(),Integer.parseInt(conf.getEsport()));
-		SearchResponse searchResponse = handle.search(null, queryJson, 0, 40);	
-		handle.destory();
-		return ElasticSearchUtils.getSearchResult(searchResponse);
-	}
+    @Override
+    public List<Map<String, Object>> queryKnowledge(String indexName, String indexType, String queryJson) {
+        ElasticSearchHandle handle = new ElasticSearchHandle(conf.getEsip(),Integer.parseInt(conf.getEsport()), conf.getEscluster());
+        SearchResponse searchResponse = handle.search(null, queryJson, 0, 40);    
+        handle.destory();
+        return ElasticSearchUtils.getSearchResult(searchResponse);
+    }
 
 }

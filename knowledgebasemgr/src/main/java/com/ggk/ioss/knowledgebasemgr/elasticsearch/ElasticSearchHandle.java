@@ -15,6 +15,7 @@ import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
+import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.elasticsearch.index.query.QueryStringQueryBuilder;
 import org.springframework.util.CollectionUtils;
@@ -37,10 +38,13 @@ public class ElasticSearchHandle {
 	private String addr;
 
 	private int port;
+	
+	private String esclouster;
 
-	public ElasticSearchHandle(String addr, int port) {
+	public ElasticSearchHandle(String addr, int port, String esclouster) {
 		this.addr = addr;
 		this.port = port;
+		this.esclouster = esclouster;
 		if (!this.init()) {
 			logger.error("can not instance client due to unknow host : " + this.addr + this.port);
 		}
@@ -48,6 +52,11 @@ public class ElasticSearchHandle {
 
 	private boolean init() {
 		try {
+//			Settings settings = Settings.settingsBuilder()
+//			        .put("cluster.name", this.esclouster).build();
+//			setClient(TransportClient.builder().settings(settings).build()
+//					.addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(this.addr), this.port)));
+//			return true;
 			setClient(TransportClient.builder().build()
 					.addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(this.addr), this.port)));
 			return true;

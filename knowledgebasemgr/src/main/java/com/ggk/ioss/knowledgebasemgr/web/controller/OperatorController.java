@@ -43,8 +43,20 @@ public class OperatorController {
 	@RequestMapping(value = {"/ioss/knowledge/trigger"}, method = RequestMethod.GET)
 	public String trigger(){
 		long totalNumber = ticketService.queryTicketMainInfoTotalNumber();
-		List<TicketMainInfo> ticketMainInfos = ticketService.queryTicketMainInfoByPage(0, totalNumber);
-		operator.insertKnowledgeByTickt(ticketMainInfos);
+		long start = 0;
+		long limit = 1000;
+		try {
+			List<TicketMainInfo> ticketMainInfos = null;
+			while(start + limit < totalNumber){
+				ticketMainInfos = ticketService.queryTicketMainInfoByPage(start, limit);
+				operator.insertKnowledgeByTickt(ticketMainInfos);
+				start = start + limit;
+			}
+			ticketMainInfos = ticketService.queryTicketMainInfoByPage(start, limit);
+			operator.insertKnowledgeByTickt(ticketMainInfos);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return  "ok";
 	}
 	

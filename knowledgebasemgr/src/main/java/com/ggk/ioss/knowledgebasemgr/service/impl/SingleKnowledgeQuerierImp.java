@@ -9,14 +9,14 @@ import com.ggk.ioss.knowledgebasemgr.service.SingleKnowledgeQuerier;
 
 @Service
 public class SingleKnowledgeQuerierImp implements SingleKnowledgeQuerier {
-	
-	@Autowired
-	private SingleKnowledgeMapper singleKnowledgeMapper;
+    
+    @Autowired
+    private SingleKnowledgeMapper singleKnowledgeMapper;
 
-	@Override
-	public TicketMainInfo getTicketMainInfo(String id) {
-		return singleKnowledgeMapper.getTicketMainById(id);
-	}
+    @Override
+    public TicketMainInfo getTicketMainInfo(String id) {
+        return singleKnowledgeMapper.getTicketMainById(id);
+    }
 
-	
+    
 }
