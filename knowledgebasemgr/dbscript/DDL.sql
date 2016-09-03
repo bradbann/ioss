@@ -48,11 +48,11 @@ CREATE TABLE `kb_ods_itsm_maininfo` (
   `event_source` text COMMENT '事件来源',
   `event_status` text COMMENT '事件状态',
   `status_reason` text COMMENT '事件理由',
-  `solve_code` text COMMENT '解决代码',
+  `solve_code` longtext COMMENT '解决代码',
   `close_code` text COMMENT '关闭代码',
   `current_deal_group` text COMMENT '当前受理组织',
   `current_dealor` text COMMENT '当前受理人',
-  `solution` text COMMENT '解决方案',
+  `solution` longtext COMMENT '解决方案',
   `create_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`)
