@@ -34,7 +34,7 @@ public class KnowledgeOperator implements IKnowledgeOperator {
                 data.put("content", ticketMainInfo.getSolution());
                 data.put("description", ticketMainInfo.getEventDescr());
                 data.put("commitTime", ticketMainInfo.getCommitTime());
-                data.put("updateTime", ticketMainInfo.getCommitTime());// TODO 使用同一个时间，后续需要修改
+                data.put("updateTime", ticketMainInfo.getUpdateTime());
                 handle.insert(data);
             }
             handle.destory();

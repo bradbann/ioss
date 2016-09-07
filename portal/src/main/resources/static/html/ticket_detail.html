@@ -2,6 +2,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8,Chrome=1">
+<meta name="renderer" content="webkit">
+<meta name="baidu-site-verification" content="cSFG2PMaYX">
+<meta name="applicable-device" content="pc,mobile">
 <title>工单详情</title>
 <link rel="stylesheet" href="../css/bootstrap/bootstrap.min.css" />
 <link rel="stylesheet" href="../css/bootstrap/bootstrap.min.css" />
@@ -50,7 +54,7 @@ a:hover {
 }
 
 .div1 {
-	height: 50px;
+	height: 70px;
 }
 
 .div2 {
@@ -62,15 +66,15 @@ a:hover {
 }
 
 .span {
-	font-size: 14px;
+	font-size: 18px;
 }
 </style>
 </head>
-<body >
+<body style = "font-family:microsoft yahei;">
 	<div class="head">
 		<div style="width: 38%; float: right; margin-right: 12%;">
 			<div class="menu">
-				<a style="min-width: 80px;" href="#">搜索服务</a>
+				<a style="min-width: 80px;" href ="/html/search_result.html">搜索服务</a>
 			</div>
 			<div class="menu">
 				<a href="/ioss">首页</a>
@@ -80,36 +84,39 @@ a:hover {
 			<img class="img" src="../img/gd_rant.png" />
 		</div>
 	</div>
-
-	<div class="container"
-		style="background: white; margin-top: 2%; height: 800px;">
+	
+	<div style = "height:20px;background:#24C0D7;"></div>
+	
+	<div style = "background:#F6F5FB;min-height:846px;padding-top:40px;">
+	<div class="container" style="background: white;height: 800px;width:60%;">
 		<div style="height: 50px;"></div>
-		<div class="div2">
+		<div class="div1">
 			<h1>工单知识详情</h1>
 		</div>
-		<div class="div2"></div>
-		<div style="width: 60%; margin-left: 20%;">
+		<div class="div1"></div>
+		<div style="width: 80%; margin-left: 10%;">
 			<div class="div1">
-				<label style="font-size: 16px;">标题：</label> <span id="title"
-					class="span">工单知识标题工单知识标题工单知识标题工单知识标题</span>
+				<label style="font-size: 20px;">标题：</label> <span id="title"
+					class="span"></span>
 			</div>
 			<div class="div1">
-				<label style="font-size: 16px;">单号：</label> <span id="ticketId"
-					class="span">123sadfsafeADSF1522 5546SDF</span>
+				<label style="font-size: 20px;">单号：</label> <span id="ticketId"
+					class="span"></span>
 			</div>
 			<div class="div1">
-				<label style="font-size: 16px;">解决时间：</label> <span id="solveDate"
-					class="span">2015-4-26</span>
-			</div>
-			<div class="div3">
-				<label style="font-size: 16px;">问题描述：</label> <span id="description"
+				<label style="font-size: 20px;">解决时间：</label> <span id="solveDate"
 					class="span"></span>
 			</div>
 			<div class="div3">
-				<label style="font-size: 16px;">解决方案：</label> <span id="solution"
+				<label style="font-size: 20px;">问题描述：</label> <span id="description"
+					class="span"></span>
+			</div>
+			<div class="div3">
+				<label style="font-size: 20px;">解决方案：</label> <span id="solution"
 					class="span"></span>
 			</div>
 		</div>
+	</div>
 	</div>
 	<script src="../js/ticket_detail.js"></script>
 </body>

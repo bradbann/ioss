@@ -9,7 +9,6 @@ $('#input').focus(function(){
 	          dataType: "json",
 	          success: function( data ) {
 	        	  // todo 判断数据的合法性
-	        	  if(null != data)
 	              setDom(data.data);
 	          }
 	        });
@@ -19,33 +18,22 @@ $('#input').focus(function(){
 		var obj = $('#tips'),str='<div style="border:0.5px solid gainsboro;"><ul id="ul-list" style = "padding-left:0;margin-bottom:0px;font-size:18px;line-height:2em;">';
 		obj.html('');
 		for(var i=0;i<data.length;i++){
-			var temp = decodeURIComponent(data[i]);
-			str+='<a href = "javascript:void(0)"><li style="list-style-type:none;padding-left:10px;">'+temp+'</li></a>';
+			str+='<a href = "javascript:void(0)"><li style="list-style-type:none;padding-left:10px;">'+data[i]+'</li></a>';
 		}
 		str+='</ul></div>'
 		obj.html(str);
 		
 		//产生列表后将索引设为-1
-		var index = -1;
+		var curIndex = -1;
+		
 		// 点击选择联想词
 		obj.find('a').unbind();
-		
-		obj.find('a').mouseover(function(){
-			$("li").removeClass('l-on');
-			var index = $("ul a").index(this);
-			$("li").eq(index).addClass('l-on');
-		});
-		
-		obj.find('a').mouseout(function(){
-			$("li").removeClass('l-on');
-		});
-		
-		obj.find('a').click(function(){
+		obj.find('a').on('click',function(){
 			var regexstr = new RegExp("<[^<]*>", "gi");
 			var content = $(this).find('li').html().replace(regexstr,"");
 			$('#input').val(content);
 			obj.html('');
-		});
+		})
 		
 		//上下键实现选择li
 		$(document).keydown(function (event) {
@@ -69,45 +57,45 @@ $('#input').focus(function(){
 			if(length){
 				obj.removeClass('l-on');
 				if(type>39){
-					if(index<0||index==length-1){
-						index=0;
+					if(curIndex<0||curIndex==length-1){
+						curIndex=0;
 					}else{
-						index++;
+						curIndex++;
 					}
-					var html = $("ul li").eq(index).html()
+					var html = $("ul li").eq(curIndex).html()
 					var regexstr = new RegExp("<[^<]*>", "gi");
 					if(html){
 						html = html.replace(regexstr,"");
 						$("#input").val(html); 
-						obj.removeClass('l-on');
-						obj.eq(index).addClass('l-on');
+						obj.eq(curIndex).addClass('l-on');
 						//按Enter键实现搜索
 						$(document).keydown(function(event){
 						    var e = event || window.event || arguments.callee.caller.arguments[0];
 						    
 						    if(e && e.keyCode==13){ // enter 键
+						    	// 要做的事情
 						    	$('#searchbtn').click();
 						    }
 						});
 					}
 				}else{
-					if(index<=0||index>=length){
-						index=length-1;
+					if(curIndex<=0||curIndex>=length){
+					curIndex=length-1;
 					
 				}else{
-					index--;
+					curIndex--;
 				}
-				var html = $("ul li").eq(index).html();
+				var html = $("ul li").eq(curIndex).html();
 				var regexstr = new RegExp("<[^<]*>", "gi");
 				var html = html.replace(regexstr,"");
 				$("#input").val(html); 
-				obj.removeClass('l-on');
-				obj.eq(index).addClass('l-on');
+				obj.eq(curIndex).addClass('l-on');
 				//按Enter键实现搜索
 				$(document).keydown(function(event){
 				    var e = event || window.event || arguments.callee.caller.arguments[0];
 				    
 				    if(e && e.keyCode==13){ // enter 键
+				    	// 要做的事情
 				    	$('#searchbtn').click();
 				    }
 				});
@@ -134,8 +122,7 @@ $('#searchbtn').click(function(){
 	    });
 	}
 	else{
-		var param = encodeURIComponent(inputContent);
-		var url = "/html/search_result.html?content="+inputContent;
+		var url = encodeURI("/html/search_result.html?content="+inputContent);
 		window.open(url);
 		}
 	});
