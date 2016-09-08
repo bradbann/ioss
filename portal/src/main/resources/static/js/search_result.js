@@ -2,11 +2,10 @@ $(function(){
 	//根据URL中传的参数进行搜索，并分页显示
 	var thisURL = document.URL; 
 	var  param =thisURL.split('?')[1]; 
-	param = decodeURIComponent(param);
 	if(undefined != param){
 		var paramVal= param.split("=")[1];
-		
-		$('#content').val(paramVal);
+//		paramVal =encodeURI(encodeURI(paramVal));
+		$('#content').val(decodeURI(paramVal));
 		
 		if("" != paramVal){
 			$.ajax({
@@ -60,8 +59,8 @@ $(function(){
 			htmlstr += 
 				'<div class = "row resultDiv">'+
 					'<div class = "col-xs-9" style="height:90px;line-height:60px; padding:0;overflow:hidden;text-overflow:ellipsis;white-space: nowrap;"><a href = "ticket_detail.html?id='+eventId+'"  target="_blank">'+title+'</a></div>'+
-					'<div class = "col-xs-3" style = "height:90px;position:relative; padding:0"><span style = "border:1px solid #24C0D7;border-radius:5px;padding:1px 5px;float:right;position:absolute;right:0px;top:15px">'+commitTime.substr(0,10)+
-					'</span><a href = "http://www.ggkbigdata.com/" style = "color:#008000;position:absolute;top:60px;left:-300%;font-size:14px;" target="_blank">http://www.ggkbigdata.com/</a><span style = "background:#24C0D7;border-radios:5px;border-radius:5px;color:#fff;padding:1px 5px;position:absolute;top:47px;right:0px;">'+updateTime.substr(0,10)+'</span>'+
+					'<div class = "col-xs-3" style = "height:90px;position:relative; padding:0"><span style = "border:1px solid #24C0D7;border-radius:5px;padding:1px 5px;float:right;position:absolute;right:0px;top:15px;background:white;behavior:url(/js/ie-css3.htc);">'+commitTime.substr(0,10)+
+					'</span><a href = "http://www.ggkbigdata.com/" style = "color:#008000;position:absolute;top:60px;left:-300%;font-size:14px;" target="_blank">http://www.ggkbigdata.com/</a><span style = "background:#24C0D7;border-radios:5px;border-radius:5px;color:#fff;padding:1px 5px;position:absolute;top:47px;right:0px;behavior:url(/js/ie-css3.htc);">'+updateTime.substr(0,10)+'</span>'+
 					'<span style="position:absolute; right:120px;top:20px;font-size:14px">提交时间</span><span style="position:absolute; right:120px;top:50px;font-size:14px">解决时间</span></div>'+
 				'</div>';
 		}
@@ -72,15 +71,15 @@ $(function(){
 //搜索框获得焦点事件
 $('#content').focus(function(){
 	$('#content').bind('input propertychange', function(){
+		console.log($(this).val());
 		//todo 补充监听300ms的操作
 		 $.ajax({
 	          url: '/ioss/knowledge/queryhotwords?keyword='+$(this).val(),
 	          type:'GET',
 	          dataType: "json",
 	          success: function( data ) {
-	        	  //todo 判断数据的合法性
 	        	  if(null != data)
-	              setDom(data.data);
+	        		  setDom(data.data);
 	          }
 	        });
 	});
@@ -89,6 +88,7 @@ $('#content').focus(function(){
 		var obj = $('#tips'),str='<div style="border:0.5px solid gainsboro;background:#fff;"><ul id="ul-list" style = "margin-bottom:0px;font-size:18px;line-height:2em;padding:0">';
 		obj.html('');
 		for(var i=0;i<data.length;i++){
+			
 			str+='<a class="a" href = "javascript:void(0)"><li class = "li" style="list-style-type:none;padding-left:10px;text-align:left">'+data[i]+'</li></a>';
 		}
 		str+='</ul></div>'

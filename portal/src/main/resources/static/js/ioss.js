@@ -134,8 +134,8 @@ $('#searchbtn').click(function(){
 	    });
 	}
 	else{
-		var param = encodeURIComponent(inputContent);
-		var url = "/html/search_result.html?content="+inputContent;
+		var param = encodeURI(inputContent);
+		var url = "/html/search_result.html?content="+param;
 		window.open(url);
 		}
 	});
