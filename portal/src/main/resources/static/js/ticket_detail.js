@@ -11,11 +11,12 @@ $(function(){
             dataType: "json",
             success: function(data){
             	if(data){
-            		$('#title').text(data["eventTitle"]);
-                	$('#ticketId').text(data["eventId"]);
-                	$('#solveDate').text(data["updateTime"]);
-                	$('#description').text(data["eventDescr"]);
-                	$('#solution').text(data["solution"]);
+            		var regexstr = new RegExp("<[^<]*>", "gi");
+            		$('#title').text(data["eventTitle"].replace(regexstr,""));
+                	$('#ticketId').text(data["eventId"].replace(regexstr,""));
+                	$('#solveDate').text(data["updateTime"].replace(regexstr,""));
+                	$('#description').text(data["eventDescr"].replace(regexstr,""));
+                	$('#solution').text(data["solution"].replace(regexstr,""));
             	}
              }
         });

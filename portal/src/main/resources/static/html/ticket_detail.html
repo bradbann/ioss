@@ -54,15 +54,16 @@ a:hover {
 }
 
 .div1 {
-	height: 70px;
+	min-height: 70px;
 }
 
 .div2 {
-	height: 100px;
+	min-height: 100px;
 }
 
 .div3 {
-	height: 150px;
+	min-height: 150px;
+	margin-bottom:20px;
 }
 
 .span {
@@ -88,7 +89,7 @@ a:hover {
 	<div style = "height:20px;background:#24C0D7;"></div>
 	
 	<div style = "background:#F6F5FB;min-height:846px;padding-top:40px;">
-	<div class="container" style="background: white;height: 800px;width:60%;">
+	<div class="container" style="background: white;min-height: 800px;width:60%;">
 		<div style="height: 50px;"></div>
 		<div class="div1">
 			<h1>工单知识详情</h1>
@@ -109,11 +110,11 @@ a:hover {
 			</div>
 			<div class="div3">
 				<label style="font-size: 20px;">问题描述：</label> <span id="description"
-					class="span"></span>
+					class="span" style = "line-height:30px;"></span>
 			</div>
 			<div class="div3">
 				<label style="font-size: 20px;">解决方案：</label> <span id="solution"
-					class="span"></span>
+					class="span" style = "line-height:30px;"></span>
 			</div>
 		</div>
 	</div>
