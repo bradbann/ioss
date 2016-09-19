@@ -51,7 +51,7 @@ dependencies {
             "org.apache.poi:poi-scratchpad:3.13",
             "net.sourceforge.jexcelapi:jxl:2.6.12",
             "mysql:mysql-connector-java:5.1.35")
-    providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
+    //providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
     testCompile("org.springframework.boot:spring-boot-starter-test")
 }
 
