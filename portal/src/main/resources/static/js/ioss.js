@@ -1,20 +1,34 @@
+var flag = 0;
+$(function(){
+	$('#input').val("");
+});
+
+
+var curIndex = -1;
+//flag变量标记输入框输入方式：1代表手动输入；0代表上下键选定改变输入框内容
+
+$('#input').unbind();
 $('#input').bind('input propertychange', function() {
-	var url = encodeURI("/ioss/knowledge/queryhotwords?keyword="+$(this).val());
-	$.ajax({
-	   url: url,
-	   type:'GET',
-	   dataType: "json",
-	   success: function( data ) {
-		   if(null != data)
-			   setDom(data.data);
-	   		}
-	 });
+	//当且仅当手动输入时，才异步请求 
+	if(!flag){
+		flag=1;
+	}else{
+		var url = encodeURI("/ioss/knowledge/queryhotwords?keyword="+$(this).val());
+		$.ajax({
+			url: url,
+			type:'GET',
+			dataType: "json",
+			success: function( data ) {
+				if(null != data)
+					setDom(data.data);
+			   	}
+		});
+	}
 });
 	
 function setDom(data){
 	// 产生列表后将索引设为-1
 	var index = -1;
-	var curIndex = -1;
 	var obj = $('#tips'),str='<div style="border:0.5px solid gainsboro;"><ul id="ul-list" style = "padding-left:0;margin-bottom:0px;font-size:18px;line-height:2em;">';
 	obj.html('');
 	for(var i=0;i<data.length;i++){
@@ -30,6 +44,7 @@ function setDom(data){
 	obj.find('a').mouseover(function(){
 		$("li").removeClass('l-on');
 		var index = $("ul a").index(this);
+		curIndex = index;
 		$("li").eq(index).addClass('l-on');
 	});
 		
@@ -43,77 +58,60 @@ function setDom(data){
 		$('#input').val(content);
 		obj.html('');
 	});
-	
-	// 上下键实现选择li
-	$(document).keydown(function (event) {
-		switch(event.which){
-				
-				case 38:
+}
+
+//上下键实现选择li
+$(document).keydown(function (event) {
+	switch(event.which){
+			
+			case 38:
 				pickVal(38);
-				console.log(event.which);
-				break;
+			break;
+			
+		　    case 40: 
+		　    		pickVal(40);
+			break;
 				
-			　    case 40: 
-				pickVal(40);
-				break;
-					
-				default: break;
-		}
-	});
-		
-	function pickVal(type){
-		var obj = $('#tips ul li');
-		var length = obj.length;
-		if(length){
-			obj.removeClass('l-on');
-			if(type>39){//下
-				if(curIndex<0||curIndex>=length-1){
-					curIndex=0;
-				}else{
-					curIndex++;
-				}
-				var html = $("ul li").eq(curIndex).html()
-				var regexstr = new RegExp("<[^<]*>", "gi");
-				if(html){
-					html = html.replace(regexstr,"");
-					$("#input").val(html); 
-					obj.removeClass('l-on');
-					obj.eq(curIndex).addClass('l-on');
-					// 按Enter键实现搜索
-					$(document).keydown(function(event){
-					var e = event || window.event || arguments.callee.caller.arguments[0];
-						    
-					if(e && e.keyCode==13){ // enter 键
-						$('#searchbtn').click();
-						}
-					});
-					}
-				}else{//上
-					if(curIndex<=0||curIndex>=length){
-						curIndex=length-1;
-				}else{
-					curIndex--;
-					congsole.log(curIndex);
-				}
-				var html = $("ul li").eq(curIndex).html();
-				var regexstr = new RegExp("<[^<]*>", "gi");
-				var html = html.replace(regexstr,"");
+			default: break;
+	}
+});
+	
+function pickVal(type){
+	var obj = $('#tips ul li');
+	var length = obj.length;
+	if(length){
+		obj.removeClass('l-on');
+		flag=0;
+		if(type>39){//下
+			if(curIndex<0||curIndex>=length-1){
+				curIndex=0;
+			}else{
+				curIndex++;
+			}
+			var html = $("ul li").eq(curIndex).html()
+			var regexstr = new RegExp("<[^<]*>", "gi");
+			if(html){
+				html = html.replace(regexstr,"");
 				$("#input").val(html); 
 				obj.removeClass('l-on');
 				obj.eq(curIndex).addClass('l-on');
-				
-				// 按Enter键实现搜索
-				$(document).keydown(function(event){
-				    var e = event || window.event || arguments.callee.caller.arguments[0];
-				    
-				    if(e && e.keyCode==13){ // enter 键
-				    	$('#searchbtn').click();
-				    }
-				});
 				}
+			}else{//上
+				if(curIndex<=0||curIndex>=length){
+					curIndex=length-1;
+			}else{
+				curIndex--;
+			}
+			var html = $("ul li").eq(curIndex).html();
+			var regexstr = new RegExp("<[^<]*>", "gi");
+			var html = html.replace(regexstr,"");
+			$("#input").val(html); 
+			obj.removeClass('l-on');
+			obj.eq(curIndex).addClass('l-on');
+			
 			}
 		}
-}
+	}
 
 // input元素失去焦点事件发生时，清空list元素
 $('#input').blur(function(){

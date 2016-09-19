@@ -18,6 +18,8 @@ import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.elasticsearch.index.query.QueryStringQueryBuilder;
+import org.elasticsearch.search.sort.SortBuilders;
+import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.util.CollectionUtils;
 
 import com.alibaba.fastjson.JSONObject;
@@ -126,15 +128,20 @@ public class ElasticSearchHandle {
 			searchRequestBuilder.addHighlightedField("content");
 			searchRequestBuilder.addHighlightedField("description");
 		}
+		
 		searchRequestBuilder.setHighlighterPreTags("<span style=\"color:red\">");
 		searchRequestBuilder.setHighlighterPostTags("</span>");
+		
 		searchRequestBuilder.setSearchType(SearchType.DFS_QUERY_AND_FETCH);
 		searchRequestBuilder.setQuery(queryBuilder);
 		// 分页应用
 		searchRequestBuilder.setFrom(start).setSize(limit);
 		// 设置是否按查询匹配度排序
 		searchRequestBuilder.setExplain(true);
-
+		// 按照提交时间排序
+//		searchRequestBuilder.addSort("commitTime", SortOrder.ASC); 
+		searchRequestBuilder.addSort(SortBuilders.fieldSort("commitTime").order(SortOrder.ASC)); 
+		
 		return searchRequestBuilder.execute().actionGet();
 
 	}

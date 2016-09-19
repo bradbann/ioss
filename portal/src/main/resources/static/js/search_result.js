@@ -36,8 +36,56 @@ $(function(){
 				}
 			}
 			});
+			
+			var url = encodeURI("/ioss/knowledge/queryhotwords?keyword=");
+			$.ajax({
+				  url: url,
+		          type:'GET',
+		          dataType: "json",
+		          success: function( data ) {
+		        	  if(null != data){
+		        		//初始化热词
+		        		$('#hotword1').html(data.data[0]);
+		        		$('#hotword2').html(data.data[1]);
+		        		$('#hotword3').html(data.data[2]);
+		        		$('#hotword4').html(data.data[3]);
+		        		$('#hotword5').html(data.data[4]);
+		        	  }
+		          }
+			})
 		}
 	}
+	
+	$('#hotword1').click(function(){
+		var content = $(this).text();
+		var url = "/html/search_result.html?content=";
+		url = encodeURI(url+content);
+		window.open(url);
+	});
+	$('#hotword2').click(function(){
+		var content = $(this).text();
+		var url = "/html/search_result.html?content=";
+		url = encodeURI(url+content);
+		window.open(url);
+	});
+	$('#hotword3').click(function(){
+		var content = $(this).text();
+		var url = "/html/search_result.html?content=";
+		url = encodeURI(url+content);
+		window.open(url);
+	});
+	$('#hotword4').click(function(){
+		var content = $(this).text();
+		var url = "/html/search_result.html?content=";
+		url = encodeURI(url+content);
+		window.open(url);
+	});
+	$('#hotword5').click(function(){
+		var content = $(this).text();
+		var url = "/html/search_result.html?content=";
+		url = encodeURI(url+content);
+		window.open(url);
+	});
 	
 	//将数据转换为html
 	function parseHtml(data){
@@ -69,11 +117,13 @@ $(function(){
 	}
 });
 
+var curIndex = -1;
+
 	$('#inpputContent').bind('input propertychange', function(){
 		//todo 补充监听300ms的操作
 		if(null != $(this).val())
 			var url = encodeURI("/ioss/knowledge/queryhotwords?keyword="+$(this).val());
-		 $.ajax({
+		 	$.ajax({
 	          url: url,
 	          type:'GET',
 	          dataType: "json",
@@ -85,7 +135,7 @@ $(function(){
 	});
 	
 	function setDom(data){
-		var curIndex = -1;
+		var index = -1;
 		var obj = $('#tips'),str='<div style="border:0.5px solid gainsboro;background:#fff;"><ul id="ul-list" style = "margin-bottom:0px;font-size:18px;line-height:2em;padding:0">';
 		obj.html('');
 		for(var i=0;i<data.length;i++){
@@ -95,64 +145,79 @@ $(function(){
 		str+='</ul></div>'
 		obj.html(str);
 		
-		//点击选择联想热词
+		// 点击选择联想词
 		obj.find('a').unbind();
+		obj.find('a').mouseover(function(){
+			$("li").removeClass('l-on');
+			var index = $("ul a").index(this);
+			curIndex = index;
+			$("li").eq(index).addClass('l-on');
+		});
+			
+		obj.find('a').mouseout(function(){
+			$("li").removeClass('l-on');
+		});
+			
 		obj.find('a').click(function(){
 			var regexstr = new RegExp("<[^<]*>", "gi");
-			var content = $(this).html().replace(regexstr,"");
+			var content = $(this).find('li').html().replace(regexstr,"");
 			$('#inpputContent').val(content);
 			obj.html('');
 		});
-		
-		//上下键实现选择热词
-		$('#inpputContent').keydown(function(){
-			switch(event.which){
-				case 38:
-				pickVal(38);
-				break;
-			
-			　　case 40: 
-				pickVal(40);
-				break;
-				
-			　　default: break; 
-			}
-		
-			function pickVal(type){
-				
-				var obj = $('#tips ul li');
-				var length = obj.length;
-				if(length){
-					obj.removeClass('l-on');
-					if(type>39){
-						if(curIndex<0||curIndex>=length-1){
-							curIndex=0;
-						}else{
-							curIndex++;
-						}
-						var html = $("ul li").eq(curIndex).html()
-						var regexstr = new RegExp("<[^<]*>", "gi");
-						var html = html.replace(regexstr,"");
-						$("#inpputContent").val(html); 
-						obj.eq(curIndex).addClass('l-on');
-					}else{
-						if(curIndex<=0||curIndex>length-1){
-							curIndex=length-1;
-							
-						}else{
-							curIndex--;
-						}
-						var html = $("ul li").eq(curIndex).html();
-						var regexstr = new RegExp("<[^<]*>", "gi");
-						var html = html.replace(regexstr,"");
-						$("#inpputContent").val(html); 
-						obj.eq(curIndex).addClass('l-on');
-					}
-				}
-			}
-		});
 	}
 
+	
+	//上下键实现选择热词
+	$(document).keydown(function(event){
+		switch(event.which){
+			case 38:
+			pickVal(38);
+			break;
+		
+		　　case 40: 
+			pickVal(40);
+			break;
+			
+		　　default: break; 
+		}
+	});
+	
+	function pickVal(type){
+		var obj = $('#tips ul li');
+		var length = obj.length;
+		if(length){
+			obj.removeClass('l-on');
+			if(type>39){
+				if(curIndex<0||curIndex>=length-1){
+					curIndex=0;
+				}else{
+					curIndex++;
+				}
+				var html = $("ul li").eq(curIndex).html()
+				var regexstr = new RegExp("<[^<]*>", "gi");
+				var html = html.replace(regexstr,"");
+				$("#inpputContent").val(html); 
+				console.log(obj);
+				console.log($("li"));
+				$("li").removeClass('l-on');
+				obj.eq(curIndex).addClass('l-on');
+			}else{
+				if(curIndex<=0||curIndex>length-1){
+					curIndex=length-1;
+					
+				}else{
+					curIndex--;
+				}
+				var html = $("ul li").eq(curIndex).html();
+				var regexstr = new RegExp("<[^<]*>", "gi");
+				var html = html.replace(regexstr,"");
+				$("li").removeClass('l-on');
+				$("#inpputContent").val(html); 
+				obj.eq(curIndex).addClass('l-on');
+			}
+		}
+	}
+	
 //input元素失去焦点事件发生时，清空list元素
 $('#inpputContent').blur(function(){
 	var obj = $('#tips');
@@ -177,12 +242,17 @@ $('#searchbtn').click(function(){
 	});
 
 //按Enter键实现搜索
-$('#inpputContent').keydown(function(event){
+$(document).keydown(function(event){
     var e = event || window.event || arguments.callee.caller.arguments[0];
     
     if(e && e.keyCode==13){ // enter 键
     	// 要做的事情
     	$('#searchbtn').click();
     }
+});
+
+$('#searchSever').click(function(){
+	var url = "/html/search_result.html?content=";
+	window.open(url);
 });
 
