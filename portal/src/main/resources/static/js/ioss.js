@@ -22,11 +22,11 @@ $(function(){
 		}
 	});
 	
-	if (window.PIE) {
+/*	if (window.PIE) {
         $('#searchbtn').each(function() {
             PIE.attach(this);
         });
-    }
+    }*/
 		
 	//上下键实现选择li
 	$(document).keydown(function (event) {

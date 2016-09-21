@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.fastjson.JSONObject;
 import com.ggk.ioss.knowledgebasemgr.model.TicketES;
 import com.ggk.ioss.knowledgebasemgr.model.TicketMainInfo;
+import com.ggk.ioss.knowledgebasemgr.service.DataSynchronismService;
 import com.ggk.ioss.knowledgebasemgr.service.IKnowledgeOperator;
 import com.ggk.ioss.knowledgebasemgr.service.ITicketOperator;
 import com.ggk.ioss.knowledgebasemgr.service.ITicketService;
@@ -28,6 +29,9 @@ public class OperatorController {
 	
 	@Autowired
 	private ITicketService ticketService;
+	
+    @Autowired
+    private DataSynchronismService dataSyncService;
 	
 	@RequestMapping(value = {"/ioss/knowledge/Operator"}, method = RequestMethod.GET)
 	public String operation(@RequestParam String params,@RequestParam String operationType){
@@ -116,4 +120,14 @@ public class OperatorController {
 		//String path= "C:\\Users\\lcc\\Documents\\文档\\项目\\【2016】地税ITSM\\事件单样例.csv";
 		return "SUCCESS";
 	}
+	
+    /**
+     *从Oracle数据库中获取日增数据到MySql和ES
+     *@param params
+     *@param
+     */
+    @RequestMapping(value={"/ioss/syncData"}, method = RequestMethod.GET)
+    public String syncOrclData(@RequestParam String date) {
+        return dataSyncService.updateInscData(date);
+    }
 }

@@ -3,7 +3,7 @@
 
 <mapper namespace="com.ggk.ioss.knowledgebasemgr.mapper.TicketMapper">
 
-    <select id="queryTicketDealInfoByPage" resultType="TicketDealInfo">
+    <select id="queryTicketDealInfoByPage" resultType="com.ggk.ioss.knowledgebasemgr.model.TicketDealInfo">
         SELECT * from kb_ods_itsm_dealinfo where 1 = 1 limit #{start},#{limit}
     </select>
     
@@ -11,11 +11,11 @@
         SELECT count(1) from kb_ods_itsm_dealinfo
     </select>
     
-    <select id="queryTicketMainInfoByPage" resultType="TicketMainInfo">
+    <select id="queryTicketMainInfoByPage" resultType="com.ggk.ioss.knowledgebasemgr.model.TicketMainInfo">
         SELECT * from kb_ods_itsm_maininfo where 1 = 1 limit #{start},#{limit}
     </select>
     
-    <select id="queryTicketMainInfoById" resultType="TicketMainInfo" parameterType="java.lang.String">
+    <select id="queryTicketMainInfoById" resultType="com.ggk.ioss.knowledgebasemgr.model.TicketMainInfo" parameterType="java.lang.String">
     	SELECT * from kb_ods_itsm_maininfo where event_id=#{event_id};
     </select>
     
@@ -23,7 +23,7 @@
         SELECT count(1) from kb_ods_itsm_maininfo
     </select>
     
-    <select id="queryTicketES" resultType="TicketES">
+    <select id="queryTicketES" resultType="com.ggk.ioss.knowledgebasemgr.model.TicketES">
         SELECT event_id as eventId, event_title as eventTitle, event_descr as eventDescr, affect_degree as affectDegree, solution from kb_ods_itsm_maininfo where 1 = 1 limit #{start},#{limit}
     </select>
     

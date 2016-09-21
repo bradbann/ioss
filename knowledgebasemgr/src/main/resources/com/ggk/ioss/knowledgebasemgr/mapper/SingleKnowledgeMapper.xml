@@ -3,7 +3,7 @@
 
 <mapper namespace="com.ggk.ioss.knowledgebasemgr.mapper.SingleKnowledgeMapper">
     
-    <select id="getTicketMainById" parameterType="java.lang.String" resultType="TicketMainInfo">
+    <select id="getTicketMainById" parameterType="java.lang.String" resultType="com.ggk.ioss.knowledgebasemgr.model.TicketMainInfo">
         select * from kb_ods_itsm_maininfo where event_id=#{id} ;
     </select>
 </mapper>
