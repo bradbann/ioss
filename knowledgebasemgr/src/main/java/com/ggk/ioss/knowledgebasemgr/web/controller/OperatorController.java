@@ -85,6 +85,21 @@ public class OperatorController {
 		return obj;
 	}
 	
+	@RequestMapping(value={"/ioss/knowledge/ticket"}, method = RequestMethod.GET)
+	public JSONObject queryTicket(String eventId) {
+		JSONObject obj = new JSONObject();
+		TicketMainInfo ticketMainInfo = ticketService.queryTicketMainInfoById(eventId);
+		if(ticketMainInfo != null) {
+			obj.put("code", 200);
+			obj.put("message", "success");
+			obj.put("data", ticketMainInfo);
+		} else {
+			obj.put("code", 404);
+			obj.put("message", "failure");
+		}
+		return obj;
+	}
+	
 	@RequestMapping(value={"/ioss/knowledge/tickets"}, method = RequestMethod.GET)
 	public List<TicketES> getTickets(@RequestParam long start, @RequestParam long limit) {
 		return ticketService.queryTicketES(start, limit);

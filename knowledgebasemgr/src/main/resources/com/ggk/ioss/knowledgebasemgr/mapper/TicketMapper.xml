@@ -15,6 +15,10 @@
         SELECT * from kb_ods_itsm_maininfo where 1 = 1 limit #{start},#{limit}
     </select>
     
+    <select id="queryTicketMainInfoById" resultType="TicketMainInfo" parameterType="java.lang.String">
+    	SELECT * from kb_ods_itsm_maininfo where event_id=#{event_id};
+    </select>
+    
     <select id="queryTicketMainInfoTotalNumber" resultType="java.lang.Long">
         SELECT count(1) from kb_ods_itsm_maininfo
     </select>

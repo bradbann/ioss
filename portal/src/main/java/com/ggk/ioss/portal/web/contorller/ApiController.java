@@ -53,4 +53,10 @@ public class ApiController{
         return HttpClientUtils.doGet(url + "/ioss/knowledge/querySingleKnowledge?id=" + id, null);
     }
 
+    @RequestMapping(value={"/ioss/knowledge/ticket"}, method = RequestMethod.GET)
+    public String queryTicket(String eventId) {
+    	String url = "http://"+ conf.getKnowledgebaseip() + ":" + conf.getKnowledgebaseport();
+    	
+    	return HttpClientUtils.doGet(url + "/ioss/knowledge/ticket?eventId=" + eventId, null);
+    }
 }

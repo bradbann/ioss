@@ -16,6 +16,8 @@ public interface TicketMapper {
     
     public List<TicketMainInfo> queryTicketMainInfoByPage(@Param("start")long start, @Param("limit")long limit);
     
+    public TicketMainInfo queryTicketMainInfoById(@Param("event_id")String eventId);
+    
     public Long queryTicketMainInfoTotalNumber();
     
     public List<TicketES> queryTicketES(@Param("start") long start, @Param("limit")long limit);

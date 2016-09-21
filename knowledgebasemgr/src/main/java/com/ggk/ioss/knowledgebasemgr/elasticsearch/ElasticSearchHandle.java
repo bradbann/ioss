@@ -138,9 +138,10 @@ public class ElasticSearchHandle {
 		searchRequestBuilder.setFrom(start).setSize(limit);
 		// 设置是否按查询匹配度排序
 		searchRequestBuilder.setExplain(true);
-		// 按照提交时间排序
-//		searchRequestBuilder.addSort("commitTime", SortOrder.ASC); 
-		searchRequestBuilder.addSort(SortBuilders.fieldSort("commitTime").order(SortOrder.ASC)); 
+		// 按照标题匹配度排序
+		searchRequestBuilder.addSort(SortBuilders.fieldSort("_score").order(SortOrder.DESC)); 
+		//再按照更新时间排序
+		searchRequestBuilder.addSort(SortBuilders.fieldSort("updateTime").order(SortOrder.DESC)); 
 		
 		return searchRequestBuilder.execute().actionGet();
 
