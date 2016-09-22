@@ -18,131 +18,131 @@
 <script src = "../js/jquery-ui/jquery-ui.js"></script>
 
 <style>
-	body{
-		margin:0px;
-		min-width: 800px;
-	}
-	.head{
-		height:80px;
-		box-shadow: 0 0 10px #E5E6E9;
-		border-bottom:solid 1px #eee
-	}
-	.img{
-		height:70px;
-		width:300px;
-		margin-top:5px;
-	}
-	.menu{
-		display:flex;
-		width:15%;
-		height:100%;
-		font-size:18px;
-		font-family:Microsoft YaHei;
-		align-items:center;
-		float:right;
-		line-height:79px;
-	}
-	.a{
-		color:black;
-	}
-	.a:hover{
-		text-decoration:none;
-	}
-	.title{
-		text-align:center;
-		font-size:60px;
-		margin-top:15%;
-		font-family:Microsoft YaHei;
-		color: rgb(78, 80, 81)
-	}
-	.searchbtn{
-		width:100px;
-	    height: 50px;
-	    font-size: 18px;
-	    line-height: 50px;
-	    text-align: center;
-	    font-family: 幼圆;
-	    background-color: #24C0D7!important;
-	    color: white;
-	    border:none;
-		vertical-align: top;
-	    border-radius: 0px 5px 5px 0px;
-	}
-	.searchbtn:hover{
-		background-color:#2691a0;
-	}
-	.context{
-		margin-top:1%;
-		font-size:20px;
-		font-family:黑体;
-		background-color:#e4e8e8;
-		min-height:830px;
-	}
-	.order{
-		color: #35C5DA;
-	    font-weight: bold;
-	    margin: 0px 10px;
-	    float: left;
-	    display: inline-block;
-	    width: 18px;
-	    text-align: right;
-	}
-	.resultDiv{
-		height:100px;
-		font-size:18px;
-		font-family: microsoft yahei;
-		border-bottom:1px solid rgb(221, 221, 221);
-		padding:15px 0px;
-		display:flex;
-		align-items:center;
-		margin:0!important;
-	}
-	.li{
-		font-size:18px;
-	}
-	.l-on{
-		background:#eee;
-	}
+    body{
+        margin:0px;
+        min-width: 800px;
+    }
+    .head{
+        height:80px;
+        box-shadow: 0 0 10px #E5E6E9;
+        border-bottom:solid 1px #eee
+    }
+    .img{
+        height:70px;
+        width:300px;
+        margin-top:5px;
+    }
+    .menu{
+        display:flex;
+        width:15%;
+        height:100%;
+        font-size:18px;
+        font-family:Microsoft YaHei;
+        align-items:center;
+        float:right;
+        line-height:79px;
+    }
+    .a{
+        color:black;
+    }
+    .a:hover{
+        text-decoration:none;
+    }
+    .title{
+        text-align:center;
+        font-size:60px;
+        margin-top:15%;
+        font-family:Microsoft YaHei;
+        color: rgb(78, 80, 81)
+    }
+    .searchbtn{
+        width:100px;
+        height: 50px;
+        font-size: 18px;
+        line-height: 50px;
+        text-align: center;
+        font-family: 幼圆;
+        background-color: #24C0D7!important;
+        color: white;
+        border:none;
+        vertical-align: top;
+        border-radius: 0px 5px 5px 0px;
+    }
+    .searchbtn:hover{
+        background-color:#2691a0;
+    }
+    .context{
+        margin-top:1%;
+        font-size:20px;
+        font-family:黑体;
+        background-color:#e4e8e8;
+        min-height:830px;
+    }
+    .order{
+        color: #35C5DA;
+        font-weight: bold;
+        margin: 0px 10px;
+        float: left;
+        display: inline-block;
+        width: 18px;
+        text-align: right;
+    }
+    .resultDiv{
+        height:100px;
+        font-size:18px;
+        font-family: microsoft yahei;
+        border-bottom:1px solid rgb(221, 221, 221);
+        padding:15px 0px;
+        display:flex;
+        align-items:center;
+        margin:0!important;
+    }
+    .li{
+        font-size:18px;
+    }
+    .l-on{
+        background:#eee;
+    }
 </style>
 </head>
 <body>
-	<div class = "head" style = "background:#24c0d7;">
-		<div style = "width:38%;float:right;margin-right:12%;">
-			<div  id = "searchSever" class = "menu"><a style = "min-width: 80px;color:white;" href ="javascript:void(0)">搜索服务</a></div>
-			<div class = "menu"><a style = "min-width: 80px;color:white;" href ="/ioss">首页</a></div>
-		</div>
-		<div style = "width:38%;float:left;margin-left:12%;">
-			<img class = "img" src = "../img/logo4.png"/>
-		</div>
-	</div>
-	<div style = "padding: 25px 0px; height:110px;background-color: #F6F5FB;position:relative">
-			<div style = "display:block;height:50px;">
-			<input id = "inpputContent" style = "width:30%;height:50px;padding-left:10px;line-height:50px;font-size:18px;float:left;margin-left:30%" type = "text" placeholder="请输入您要查询的信息">
-			<button id = "searchbtn" class = "searchbtn" style="width:10%;float:left;">搜索</button>
-			</div>
-			<div style = "display:block;font-size:18px;width:40%;position:absolute;left:30%;margin-top:5px;">
-				<label style = "margin-right:10px;">热词：</label>
-				<a id = "hotword1" style = "width:17%;display:inline-block;" href = "javascript:void(0)" ></a>
-				<a id = "hotword2" style = "width:17%;display:inline-block;" href = "javascript:void(0)" ></a>
-				<a id = "hotword3" style = "width:17%;display:inline-block;" href = "javascript:void(0)" ></a>
-				<a id = "hotword4" style = "width:17%;display:inline-block;" href = "javascript:void(0)" ></a>
-				<a id = "hotword5" style = "width:17%;display:inline-block;" href = "javascript:void(0)" ></a>
-			</div>
-			<div id = "tips" style = "width:30%;position:absolute;z-index:100;left:30%;top:75px"></div>
-	</div>
-	<div style = "background-color:#fff;padding-top: 20px;">
-		<div style = "width:80%;float:left;margin-left:10%">
-			<div>
-			<div>
-				<img src="../img/dygjc.png" style = "height:22px;margin:2px 10px 0px 5px;float:left;">
-				<div style = "height:35px;margin:10px 5px;font-family:宋体;border-bottom:1px solid gray;font-size:16px">搜索结果</div>
-			</div>
-			</div>
-			<div id = "searchresult"></div>
-			
-			<div id = "pagination" style = "margin-top:5%;margin-bottom:10%;margin-left:35%;"></div>
-		</div>
-	</div>
-	<script src = "../js/search_result.js"></script>
+    <div class = "head" style = "background:#24c0d7;">
+        <div style = "width:38%;float:right;margin-right:12%;">
+            <div  id = "searchSever" class = "menu"><a style = "min-width: 80px;color:white;" href ="javascript:void(0)">搜索服务</a></div>
+            <div class = "menu"><a style = "min-width: 80px;color:white;" href ="/ioss">首页</a></div>
+        </div>
+        <div style = "width:38%;float:left;margin-left:12%;">
+            <img class = "img" src = "../img/logo4.png"/>
+        </div>
+    </div>
+    <div style = "padding: 25px 0px; height:110px;background-color: #F6F5FB;position:relative">
+            <div style = "display:block;height:50px;">
+            <input id = "inpputContent" style = "width:30%;height:50px;padding-left:10px;line-height:50px;font-size:18px;float:left;margin-left:30%" type = "text" placeholder="请输入您要查询的信息">
+            <button id = "searchbtn" class = "searchbtn" style="width:10%;float:left;">搜索</button>
+            </div>
+            <div style = "display:block;font-size:18px;min-width:40%;position:absolute;left:30%;margin-top:5px;">
+                <label style = "margin-right:10px;position:absolute;">大家都在搜：</label>
+                <a id = "hotword1" style = "max-width:100px;min-width:80px;margin-left:120px;margin-right:20px;display:inline-block;overflow:hidden;text-overflow:ellipsis;white-space: nowrap;" href = "javascript:void(0)" ></a>
+                <a id = "hotword2" style = "max-width:100px;min-width:80px;margin-right:20px;display:inline-block;overflow:hidden;text-overflow:ellipsis;white-space: nowrap;" href = "javascript:void(0)" ></a>
+                <a id = "hotword3" style = "max-width:100px;min-width:80px;margin-right:20px;display:inline-block;overflow:hidden;text-overflow:ellipsis;white-space: nowrap;" href = "javascript:void(0)" ></a>
+                <a id = "hotword4" style = "max-width:100px;min-width:80px;margin-right:20px;display:inline-block;overflow:hidden;text-overflow:ellipsis;white-space: nowrap;" href = "javascript:void(0)" ></a>
+                <a id = "hotword5" style = "max-width:100px;min-width:80px;margin-right:20px;display:inline-block;overflow:hidden;text-overflow:ellipsis;white-space: nowrap;" href = "javascript:void(0)" ></a>
+            </div>
+            <div id = "tips" style = "width:30%;position:absolute;z-index:100;left:30%;top:75px"></div>
+    </div>
+    <div style = "background-color:#fff;padding-top: 20px;">
+        <div style = "width:80%;float:left;margin-left:10%">
+            <div>
+            <div>
+                <img src="../img/dygjc.png" style = "height:22px;margin:2px 10px 0px 5px;float:left;">
+                <div style = "height:35px;margin:10px 5px;font-family:宋体;border-bottom:1px solid gray;font-size:16px">搜索结果</div>
+            </div>
+            </div>
+            <div id = "searchresult"></div>
+            
+            <div id = "pagination" style = "margin-top:5%;margin-bottom:10%;margin-left:35%;"></div>
+        </div>
+    </div>
+    <script src = "../js/search_result.js"></script>
 </body>
 </html>
