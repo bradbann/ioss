@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
@@ -6,4 +7,14 @@
     <select id="getTicketMainById" parameterType="java.lang.String" resultType="com.ggk.ioss.knowledgebasemgr.model.TicketMainInfo">
         select * from kb_ods_itsm_maininfo where event_id=#{id} ;
     </select>
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ggk.ioss.knowledgebasemgr.mapper.SingleKnowledgeMapper">
+    
+    <select id="getTicketMainById" parameterType="java.lang.String" resultType="com.ggk.ioss.knowledgebasemgr.model.TicketMainInfo">
+        select * from kb_ods_itsm_maininfo where event_id=#{id} ;
+    </select>
+>>>>>>> 4cb0f7b8c3a770ba508ea76b2f15a82eff2f1217
 </mapper>

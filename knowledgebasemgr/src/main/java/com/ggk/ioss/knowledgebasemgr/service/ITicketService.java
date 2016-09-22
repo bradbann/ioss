@@ -14,6 +14,8 @@ public interface ITicketService {
 
 	public List<TicketMainInfo> queryTicketMainInfoByPage(long start, long limit);
 	
+	public TicketMainInfo queryTicketMainInfoById(String eventId);
+	
 	public List<TicketES> queryTicketES(long start, long limit);
 
 	public Long queryTicketMainInfoTotalNumber();

@@ -30,15 +30,15 @@ public class ApiController{
         
         String url = "http://"+ conf.getKnowledgebaseip() + ":" + conf.getKnowledgebaseport();
         //更新查询热词
-        HttpClientUtils.doGet(url + "/knowledgebasemgr/ioss/knowledge/updatehotword?hotword=" + queryParams, null);
+        HttpClientUtils.doGet(url + "/ioss/knowledge/updatehotword?hotword=" + queryParams, null);
         //返回查询结果
-        return HttpClientUtils.doPost(url + "/knowledgebasemgr/ioss/knowledge/queryer?queryParams="+queryParams, body.toJSONString());
+        return HttpClientUtils.doPost(url + "/ioss/knowledge/queryer?queryParams="+queryParams, body.toJSONString());
     }
     
     @RequestMapping(value = {"/ioss/knowledge/queryhotwords"}, method = RequestMethod.GET)
     public JSONObject queryHotWordByKeyword(@RequestParam String keyword) {
         String url = "http://"+ conf.getKnowledgebaseip() + ":" + conf.getKnowledgebaseport() 
-                   + "/knowledgebasemgr/ioss/knowledge/queryhotword?keyword=" + keyword;
+                   + "/ioss/knowledge/queryhotword?keyword=" + keyword;
         return JSONObject.parseObject(HttpClientUtils.doGet(url, null));
     }
     
@@ -49,7 +49,14 @@ public class ApiController{
         //更新查询热词
         //HttpClientUtils.doGet(url + "/ioss/knowledge/querySingleKnowledge?id=" + id, null);
         //返回查询结果
-        return HttpClientUtils.doGet(url + "/knowledgebasemgr/ioss/knowledge/querySingleKnowledge?id=" + id, null);
+        //return HttpClientUtils.doGet(url + "/knowledgebasemgr/ioss/knowledge/querySingleKnowledge?id=" + id, null);
+        return HttpClientUtils.doGet(url + "/ioss/knowledge/querySingleKnowledge?id=" + id, null);
     }
 
+    @RequestMapping(value={"/ioss/knowledge/ticket"}, method = RequestMethod.GET)
+    public String queryTicket(String eventId) {
+    	String url = "http://"+ conf.getKnowledgebaseip() + ":" + conf.getKnowledgebaseport();
+    	
+    	return HttpClientUtils.doGet(url + "/ioss/knowledge/ticket?eventId=" + eventId, null);
+    }
 }

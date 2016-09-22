@@ -22,5 +22,4 @@ public class QueryerController {
     public List<Map<String, Object>> query(@RequestParam String queryParams) {
         return queryer.queryKnowledge(IConstants.deafult_index_name, IConstants.deafult_index_type, queryParams);
     }
-    
 }

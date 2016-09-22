@@ -41,4 +41,9 @@ public class TicketService implements ITicketService {
     public List<TicketES> queryTicketES(long start, long limit) {
         return ticketMapper.queryTicketES(start, limit);
     }
+
+	@Override
+	public TicketMainInfo queryTicketMainInfoById(String eventId) {
+		return ticketMapper.queryTicketMainInfoById(eventId);
+	}
 }

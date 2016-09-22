@@ -20,7 +20,21 @@ public class SystemConfigs {
     private String robotport;
     private String itsmcollectip;
     private String itsmcollectport;
+    private String orclip;
+    private String orclport;
     
+    public String getOrclip() {
+        return orclip;
+    }
+    public void setOrclip(String orclip) {
+        this.orclip = orclip;
+    }
+    public String getOrclport() {
+        return orclport;
+    }
+    public void setOrclport(String orclport) {
+        this.orclport = orclport;
+    }
     public String getEscluster() {
         return escluster;
     }
