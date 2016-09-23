@@ -54,14 +54,14 @@ public class ElasticSearchHandle {
 
     private boolean init() {
         try {
-            Settings settings = Settings.settingsBuilder()
+/*            Settings settings = Settings.settingsBuilder()
                     .put("cluster.name", this.esclouster).build();
             setClient(TransportClient.builder().settings(settings).build()
                     .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(this.addr), this.port)));
-            return true;
-/*            setClient(TransportClient.builder().build()
-                    .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(this.addr), this.port)));
             return true;*/
+            setClient(TransportClient.builder().build()
+                    .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(this.addr), this.port)));
+            return true;
         } catch (UnknownHostException e) {
             return false;
         }

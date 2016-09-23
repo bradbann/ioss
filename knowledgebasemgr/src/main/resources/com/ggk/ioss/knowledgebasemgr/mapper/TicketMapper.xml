@@ -15,13 +15,10 @@
         SELECT * from kb_ods_itsm_maininfo where 1 = 1 limit #{start},#{limit}
     </select>
     
-<<<<<<< HEAD
-=======
     <select id="queryTicketMainInfoById" resultType="com.ggk.ioss.knowledgebasemgr.model.TicketMainInfo" parameterType="java.lang.String">
     	SELECT * from kb_ods_itsm_maininfo where event_id=#{event_id};
     </select>
     
->>>>>>> 4cb0f7b8c3a770ba508ea76b2f15a82eff2f1217
     <select id="queryTicketMainInfoTotalNumber" resultType="java.lang.Long">
         SELECT count(1) from kb_ods_itsm_maininfo
     </select>
