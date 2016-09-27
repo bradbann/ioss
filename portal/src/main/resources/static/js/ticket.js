@@ -34,7 +34,7 @@ var thisURL = document.URL;
                     $('#eventSource').text(data.data["eventSource"]);
                     $('#eventStatus').text(data.data["eventStatus"]);
                     $('#statusReason').text(data.data["statusReason"]);
-                    $('#solveCode').text(data.data["solveCode"]);
+                    $('#solveCode').text(data.data["solveCode"].replace(regexstr,""));
                     $('#closeCode').text(data.data["closeCode"]);
                     $('#currentDealGroup').text(data.data["currentDealGroup"]);
                     $('#currentDealor').text(data.data["currentDealor"]);

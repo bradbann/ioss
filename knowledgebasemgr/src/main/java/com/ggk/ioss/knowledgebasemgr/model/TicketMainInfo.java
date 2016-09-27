@@ -30,8 +30,22 @@ public class TicketMainInfo {
 	private String solution;
 	private String createTime;
 	private String updateTime;
+	private String nid;
+	private String phoneNumber;
 	
-	public String getEventId() {
+	public String getNid() {
+        return nid;
+    }
+    public void setNid(String nid) {
+        this.nid = nid;
+    }
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+    public String getEventId() {
 		return eventId;
 	}
 	public void setEventId(String eventId) {
