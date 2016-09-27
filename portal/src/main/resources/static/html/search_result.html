@@ -20,7 +20,8 @@
 <style>
     body{
         margin:0px;
-        min-width: 800px;
+        min-height:750px;
+        min-width: 950px;
     }
     .head{
         height:80px;
@@ -34,7 +35,7 @@
     }
     .menu{
         display:flex;
-        width:15%;
+        width:20%;
         height:100%;
         font-size:18px;
         font-family:Microsoft YaHei;
@@ -93,8 +94,6 @@
         font-family: microsoft yahei;
         border-bottom:1px solid rgb(221, 221, 221);
         padding:15px 0px;
-        display:flex;
-        align-items:center;
         margin:0!important;
     }
     .li{
@@ -102,6 +101,15 @@
     }
     .l-on{
         background:#eee;
+    }
+    .hotword{
+        max-width:16%;
+        min-width:8%;
+        margin-right:8%;
+        display:inline-block;
+        overflow:hidden;
+        text-overflow:ellipsis;
+        white-space: nowrap;
     }
 </style>
 </head>
@@ -122,11 +130,11 @@
             </div>
             <div style = "display:block;font-size:18px;min-width:40%;position:absolute;left:30%;margin-top:5px;">
                 <label style = "margin-right:10px;position:absolute;">大家都在搜：</label>
-                <a id = "hotword1" style = "max-width:100px;min-width:80px;margin-left:120px;margin-right:20px;display:inline-block;overflow:hidden;text-overflow:ellipsis;white-space: nowrap;" href = "javascript:void(0)" ></a>
-                <a id = "hotword2" style = "max-width:100px;min-width:80px;margin-right:20px;display:inline-block;overflow:hidden;text-overflow:ellipsis;white-space: nowrap;" href = "javascript:void(0)" ></a>
-                <a id = "hotword3" style = "max-width:100px;min-width:80px;margin-right:20px;display:inline-block;overflow:hidden;text-overflow:ellipsis;white-space: nowrap;" href = "javascript:void(0)" ></a>
-                <a id = "hotword4" style = "max-width:100px;min-width:80px;margin-right:20px;display:inline-block;overflow:hidden;text-overflow:ellipsis;white-space: nowrap;" href = "javascript:void(0)" ></a>
-                <a id = "hotword5" style = "max-width:100px;min-width:80px;margin-right:20px;display:inline-block;overflow:hidden;text-overflow:ellipsis;white-space: nowrap;" href = "javascript:void(0)" ></a>
+                <a id = "hotword1" class = "hotword" style = "margin-left:120px;" href = "javascript:void(0)" ></a>
+                <a id = "hotword2" class = "hotword" href = "javascript:void(0)" ></a>
+                <a id = "hotword3" class = "hotword" href = "javascript:void(0)" ></a>
+                <a id = "hotword4" class = "hotword" href = "javascript:void(0)" ></a>
+                <a id = "hotword5" class = "hotword" href = "javascript:void(0)" ></a>
             </div>
             <div id = "tips" style = "width:30%;position:absolute;z-index:100;left:30%;top:75px"></div>
     </div>
@@ -140,7 +148,7 @@
             </div>
             <div id = "searchresult"></div>
             
-            <div id = "pagination" style = "margin-top:5%;margin-bottom:10%;margin-left:35%;"></div>
+            <div id = "pagination" style = "margin-top:5%;margin-bottom:10%;margin-left:0%;"></div>
         </div>
     </div>
     <script src = "../js/search_result.js"></script>

@@ -226,11 +226,11 @@ function parseHtml(data){
         if(null != commitTime && null != updateTime)
         htmlstr += 
             '<div class = "row resultDiv">'+
-                '<div class = "col-xs-9" style="height:90px;line-height:25px;padding:0;display:block;overflow:hidden;text-overflow:ellipsis;white-space: nowrap;"><div><a href = "ticket_detail.html?id='+eventId+'"  target="_blank">'+title+'</a></div><div style = "font-size:16px;overflow:hidden;text-overflow:ellipsis;white-space: nowrap;">问题描述：'+description+'</div></div>'+
-                '<div class = "col-xs-3" style = "height:90px;position:relative; padding:0"><span style = "border:1px solid #24C0D7;border-radius:5px;padding:1px 5px;float:right;position:absolute;right:0px;top:15px;background:#24C0D7;font-size:16px;">'+updateTime.substr(0,10)+
-                '</span><a href = "../html/ticket.html?eventId='+eventId+'" style = "color:#008000;position:absolute;top:60px;left:-300%;font-size:14px;" target="_blank">http://www.gditsm.com/</a><span style = "background:#24C0D7!important;border-radios:5px;border-radius:5px;color:#fff;padding:1px 5px;position:absolute;top:47px;right:0px;font-size:16px;display:inline-block;">'+commitTime.substr(0,10)+'</span>'+
-                '<span style="position:absolute; right:120px;top:20px;font-size:14px">更新时间</span><span style="position:absolute; right:120px;top:50px;font-size:14px">提交时间</span></div>'+'<span style = "border-radios:5px;border-radius:5px;color:#fff;padding:1px 5px;position:absolute;top:60px;right:0px;font-size:16px;display:inline-block;"></span>'+
-            '</div>';
+                '<div class = "col-xs-9" style="mso-bidi-language: AR-SA; mso-no-proof: yes;height:90px;line-height:25px;padding:0;display:block;overflow:hidden;text-overflow:ellipsis;white-space: nowrap;"><div><a href = "ticket_detail.html?id='+eventId+'"  target="_blank">'+title+'</a></div><div class = "desc" style = "font-size:16px;overflow:hidden;text-overflow:ellipsis;white-space: nowrap;">问题描述：'+description+'</div></div>'+
+                '<div class = "col-xs-3" style = "height:90px;position:relative; padding:0"><span style = "border:1px solid #24C0D7;border-radius:5px;padding:1px 5px;float:right;position:absolute;right:0px;top:15px;background:#24C0D7;font-size:16px;color:white;">'+updateTime.substr(0,10)+'</span>'+
+                '<a href = "../html/ticket.html?eventId='+eventId+'" style = "color:#008000;position:absolute;top:60px;left:-300%;font-size:14px;" target="_blank">http://www.gditsm.com/</a><span style = "background:#24C0D7!important;border-radios:5px;border-radius:5px;color:black;padding:1px 5px;position:absolute;top:47px;right:0px;font-size:16px;display:inline-block;">'+commitTime.substr(0,10)+'</span>'+
+                '<span style="position:absolute; right:120px;top:20px;font-size:14px">更新时间</span><span style="position:absolute; right:120px;top:50px;font-size:14px">提交时间</span>'+'<span style = "border-radios:5px;border-radius:5px;color:#fff;padding:1px 5px;position:absolute;top:60px;right:0px;font-size:16px;display:inline-block;"></span>'+
+            '</div></div></div>';
     }
     return htmlstr;
 }
