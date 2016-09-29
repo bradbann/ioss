@@ -1,7 +1,11 @@
+$(function(){
 var curIndex = -1;
 //flag变量标记输入框输入方式：1代表手动输入；0代表上下键选定改变输入框内容
 var flag = 0;
+var num;
+var limit = 2;
 var url = encodeURI("/ioss/knowledge/queryhotwords?keyword=");
+//异步请求热词
 $.ajax({
     url: url,
     type:'GET',
@@ -26,39 +30,36 @@ if(undefined != param){
     $('#inpputContent').val(decodeURI(paramVal));
     if("" != paramVal)
     {
-        var url = encodeURI("/ioss/knowledge/queryer?queryParams="+paramVal);
+        pageCallback(0);
+        
+        var resultUrl = encodeURI("/ioss/knowledge/queryer?queryParams="+paramVal);
+        
+        //请求总条数
         $.ajax({
-            url:url,
+            url:resultUrl,
             type:'get',
             datatype:'json',
+            data:{"start":0,"limit":0},
             success:function(data){
-            var jsonData = JSON.parse(data);
-            if("" != jsonData)
-            $('#pagination').pagination({
-                dataSource:jsonData ,
-                pageNumber: 1,
-                pageSize: 10,
-                pageRange: 2,
-                showGoInput: true,
-                showGoButton: true,
-                className: 'paginationjs-theme-blue paginationjs-big',
-                totalNumber: jsonData.length,
-                callback: function(data, pagination) {
-                    var html = parseHtml(data);
-                    $('#searchresult').html(html);
-                    $('#pagination').show();
+                if(data&&data.total){
+                    num = data.total;
+                    if(num > 10000)
+                        num = 10000;
                 }
-            });
-            else {
-                $('#pagination').hide();
-                $('#searchresult').html('<h4 style = "font-family:黑体;margin-bottom:100px;margin-top:25px;">抱歉，没有相关内容...</h4>');
+                $('#pagination').pagination(num,{
+                    prev_text: '上一页',
+                    next_text: '下一页',
+                    items_per_page: 10,
+                    current_page: 0,
+                    num_edge_entries: 1,
+                    link_to: "",
+                    callback:pageCallback
+                });
             }
-        }
         });
     }
 }
 
-$(function(){
     //热词点击事件
     $('#hotword1').click(function(){
         var content = $(this).text();
@@ -90,6 +91,8 @@ $(function(){
         url = encodeURI(url+content);
         window.open(url);
     });
+    
+//    loadData(0,limit);
     
     //输入框监听事件
     $('#inpputContent').bind('input propertychange', function(){
@@ -162,6 +165,7 @@ $('#searchbtn').click(function(){
         var url = "/html/search_result.html?content=";
         window.open(url);
     });
+    
 });
     
     //初始化联想词列表
@@ -206,9 +210,11 @@ function parseHtml(data){
         var eventId = data[i]["eventId"];
         var title = data[i]["title"];
         var description = data[i]["description"];
+        var system = null;
+        var staffId = "INC0001";
         if(null != description){
-//        	description = description.replace(/<span style="color:red">/g,"XXXX");
-//        	description = description.replace(/</span>/g,"YYYY");
+//            description = description.replace(/<span style="color:red">/g,"XXXX");
+//            description = description.replace(/</span>/g,"YYYY");
             description = description.replace(regexstrAll,"");
 //            description = description.replace(/XXXX/g,"<span style="color:red">");
 //            description = description.replace(/YYYY/g,"</span>")
@@ -228,7 +234,7 @@ function parseHtml(data){
             '<div class = "row resultDiv">'+
                 '<div class = "col-xs-9" style="mso-bidi-language: AR-SA; mso-no-proof: yes;height:90px;line-height:25px;padding:0;display:block;overflow:hidden;text-overflow:ellipsis;white-space: nowrap;"><div><a href = "ticket_detail.html?id='+eventId+'"  target="_blank">'+title+'</a></div><div class = "desc" style = "font-size:16px;overflow:hidden;text-overflow:ellipsis;white-space: nowrap;">问题描述：'+description+'</div></div>'+
                 '<div class = "col-xs-3" style = "height:90px;position:relative; padding:0"><span style = "border:1px solid #24C0D7;border-radius:5px;padding:1px 5px;float:right;position:absolute;right:0px;top:15px;background:#24C0D7;font-size:16px;color:white;">'+updateTime.substr(0,10)+'</span>'+
-                '<a href = "../html/ticket.html?eventId='+eventId+'" style = "color:#008000;position:absolute;top:60px;left:-300%;font-size:14px;" target="_blank">http://www.gditsm.com/</a><span style = "background:#24C0D7!important;border-radios:5px;border-radius:5px;color:black;padding:1px 5px;position:absolute;top:47px;right:0px;font-size:16px;display:inline-block;">'+commitTime.substr(0,10)+'</span>'+
+                '<a href = "http://150.18.30.176/arsys/servlet/ViewFormServlet?form=HPD%3AHelp+Desk&server='+system+'&eid='+staffId+'" style = "color:#008000;position:absolute;top:60px;left:-300%;font-size:14px;color:#008000;text-decoration:underline;" target="_blank">http://www.itsm.com/</a><a href = "../html/ticket.html?eventId='+eventId+'" style = "color:#008000;position:absolute;top:60px;left:-250%;font-size:14px;color:#666;background:rgba(102, 102, 102, 0.3);text-decoration:underline;" target="_blank">工单明细</a><span style = "background:#24C0D7!important;border-radios:5px;border-radius:5px;color:black;padding:1px 5px;position:absolute;top:47px;right:0px;font-size:16px;display:inline-block;">'+commitTime.substr(0,10)+'</span>'+
                 '<span style="position:absolute; right:120px;top:20px;font-size:14px">更新时间</span><span style="position:absolute; right:120px;top:50px;font-size:14px">提交时间</span>'+'<span style = "border-radios:5px;border-radius:5px;color:#fff;padding:1px 5px;position:absolute;top:60px;right:0px;font-size:16px;display:inline-block;"></span>'+
             '</div></div></div>';
     }
@@ -271,3 +277,33 @@ function pickVal(type){
     }
 }
 
+function pageCallback(pageIndex,jq){
+    var start = pageIndex * 10;
+    var thisURL = document.URL; 
+    var  param =thisURL.split('?')[1]; 
+    if(undefined != param){
+        var paramVal= param.split("=")[1];
+        if("" != paramVal){
+        var resultUrl = encodeURI("/ioss/knowledge/queryer?queryParams="+paramVal);
+        $.ajax({
+            url:resultUrl,
+            type:'get',
+            datatype:'json',
+            data:{"start":start,"limit":10},
+            success:function(data){
+                if("" != data.data){
+                    $('#searchresult').html("");
+                    var html = parseHtml(data.data);
+                    $('#searchresult').html(html);
+                    
+                }
+                else{
+                    $('#pagination').hide();
+                    $('#searchresult').html('<h4 style = "font-family:黑体;margin-bottom:100px;margin-top:25px;">抱歉，没有相关内容...</h4>');
+                }
+                }
+        });
+    }
+    return false;
+    }
+}

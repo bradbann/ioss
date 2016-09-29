@@ -1,6 +1,5 @@
 package com.ggk.ioss.knowledgebasemgr.web.controller;
 
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +17,14 @@ public class QueryerController {
     @Autowired
     private IKnowledgeQueryer queryer;
 
-    @RequestMapping(value = { "/ioss/knowledge/queryer" }, method = RequestMethod.POST)
-    public List<Map<String, Object>> query(@RequestParam String queryParams) {
-        return queryer.queryKnowledge(IConstants.deafult_index_name, IConstants.deafult_index_type, queryParams);
+    @RequestMapping(value = { "/ioss/knowledge/queryer" }, method = RequestMethod.GET)
+    public Map<String, Object> query(@RequestParam String queryParams, int start, int limit) {
+//        return queryer.queryKnowledge(IConstants.deafult_index_name, IConstants.deafult_index_type, queryParams);
+        return queryer.queryKnowledgeByPage(IConstants.deafult_index_name, IConstants.deafult_index_type, queryParams,start,limit);
     }
+    
+//    @RequestMapping(value = { "/ioss/knowledge/queryernum" }, method = RequestMethod.GET)
+//    public long query(@RequestParam String queryParams) {
+//        return queryer.queryKnowledgeNum(IConstants.deafult_index_name, IConstants.deafult_index_type, queryParams);
+//    }
 }

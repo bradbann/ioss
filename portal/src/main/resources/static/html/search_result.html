@@ -14,7 +14,7 @@
 <link rel = "stylesheet" href = "../css/pagination/pagination.css"/>
 <link rel = "stylesheet" href = "../css/jquery-ui/jquery-ui.css"/>
 <script src = "../js/jquery/jquery-1.8.3.min.js"></script>
-<script src = "../js/pagination/pagination.min.js"></script>
+<script src = "../js/pagination/jquery.pagination.js"></script>
 <script src = "../js/jquery-ui/jquery-ui.js"></script>
 
 <style>
@@ -105,7 +105,7 @@
     .hotword{
         max-width:16%;
         min-width:8%;
-        margin-right:8%;
+        margin-right:6%;
         display:inline-block;
         overflow:hidden;
         text-overflow:ellipsis;
@@ -128,7 +128,7 @@
             <input id = "inpputContent" style = "width:30%;height:50px;padding-left:10px;line-height:50px;font-size:18px;float:left;margin-left:30%" type = "text" placeholder="请输入您要查询的信息">
             <button id = "searchbtn" class = "searchbtn" style="width:10%;float:left;">搜索</button>
             </div>
-            <div style = "display:block;font-size:18px;min-width:40%;position:absolute;left:30%;margin-top:5px;">
+            <div style = "display:block;font-size:18px;min-width:50%;position:absolute;left:30%;margin-top:5px;">
                 <label style = "margin-right:10px;position:absolute;">大家都在搜：</label>
                 <a id = "hotword1" class = "hotword" style = "margin-left:120px;" href = "javascript:void(0)" ></a>
                 <a id = "hotword2" class = "hotword" href = "javascript:void(0)" ></a>
@@ -148,7 +148,7 @@
             </div>
             <div id = "searchresult"></div>
             
-            <div id = "pagination" style = "margin-top:5%;margin-bottom:10%;margin-left:0%;"></div>
+            <div id = "pagination" style = "margin-top:5%;margin-bottom:10%;padding-left:30%;"></div>
         </div>
     </div>
     <script src = "../js/search_result.js"></script>

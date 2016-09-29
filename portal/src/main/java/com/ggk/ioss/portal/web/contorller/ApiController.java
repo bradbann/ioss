@@ -20,19 +20,21 @@ public class ApiController{
     private SystemConfigs conf;
     
     @RequestMapping(value = {"/ioss/knowledge/queryer"}, method=RequestMethod.GET)
-    public String index(@RequestParam String queryParams) {
+    public JSONObject index(@RequestParam String queryParams, int start, int limit) {
         if(!StringUtils.isEmpty(queryParams)){
             queryParams = queryParams.trim();
             queryParams = queryParams.replaceAll(" ", "%20");
         }
-        JSONObject body = new JSONObject();
-        body.put("queryParams", queryParams);
+//        JSONObject body = new JSONObject();
+//        body.put("queryParams", queryParams);
+//        body.put("start", start);
+//        body.put("limit", limit);
         
         String url = "http://"+ conf.getKnowledgebaseip() + ":" + conf.getKnowledgebaseport();
         //更新查询热词
         HttpClientUtils.doGet(url + "/ioss/knowledge/updatehotword?hotword=" + queryParams, null);
         //返回查询结果
-        return HttpClientUtils.doPost(url + "/ioss/knowledge/queryer?queryParams="+queryParams, body.toJSONString());
+        return JSONObject.parseObject(HttpClientUtils.doGet(url + "/ioss/knowledge/queryer?queryParams="+queryParams+"&start="+start+"&limit="+limit, null));
     }
     
     @RequestMapping(value = {"/ioss/knowledge/queryhotwords"}, method = RequestMethod.GET)
@@ -55,8 +57,13 @@ public class ApiController{
 
     @RequestMapping(value={"/ioss/knowledge/ticket"}, method = RequestMethod.GET)
     public String queryTicket(String eventId) {
-    	String url = "http://"+ conf.getKnowledgebaseip() + ":" + conf.getKnowledgebaseport();
-    	
-    	return HttpClientUtils.doGet(url + "/ioss/knowledge/ticket?eventId=" + eventId, null);
+        String url = "http://"+ conf.getKnowledgebaseip() + ":" + conf.getKnowledgebaseport();
+        return HttpClientUtils.doGet(url + "/ioss/knowledge/ticket?eventId=" + eventId, null);
     }
+    
+//    @RequestMapping(value = { "/ioss/knowledge/queryernum" }, method = RequestMethod.GET)
+//    public String query(@RequestParam String queryParams) {
+//        String url = "http://"+ conf.getKnowledgebaseip() + ":" + conf.getKnowledgebaseport();
+//        return HttpClientUtils.doGet(url + "/ioss/knowledge/queryernum?queryParams=" + queryParams, null);
+//    }
 }
