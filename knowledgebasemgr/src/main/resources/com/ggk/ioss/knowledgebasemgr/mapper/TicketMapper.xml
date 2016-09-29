@@ -54,7 +54,9 @@
              current_dealor,
              solution,
              create_time,
-             update_time
+             update_time,
+             request_id,
+             entry_id,
          ) VALUES
          <foreach collection="list" item="data" index="index"  separator=",">
              (
@@ -83,7 +85,9 @@
                  #{data.currentDealor},
                  #{data.solution},
                  #{data.createTime},
-                 #{data.updateTime}
+                 #{data.updateTime},
+                 #{data.requestId},
+                 #{data.entryId}
              )
          </foreach>
     </insert>

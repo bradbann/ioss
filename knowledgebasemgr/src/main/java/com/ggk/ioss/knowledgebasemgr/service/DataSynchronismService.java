@@ -19,5 +19,8 @@ import com.ggk.ioss.knowledgebasemgr.model.TicketMainInfo;
 public interface DataSynchronismService {
     public void syncDataFromOral(List<TicketMainInfo> list);
     public String updateInscData(String date);
+    
+    //同步所有历史记录
+    public void syncHistory();
 }
 

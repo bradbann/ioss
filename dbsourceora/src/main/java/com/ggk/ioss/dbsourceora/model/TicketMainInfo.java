@@ -41,6 +41,9 @@ public class TicketMainInfo {
     private String solution;
     private String createTime;
     private String updateTime;
+    private String entryId;
+    private String requestId;
+    
     
     public String getEventId() {
         return eventId;
@@ -198,7 +201,18 @@ public class TicketMainInfo {
     public void setUpdateTime(String updateTime) {
         this.updateTime = updateTime;
     }
-    
+    public String getEntryId() {
+        return entryId;
+    }
+    public void setEntryId(String entryId) {
+        this.entryId = entryId;
+    }
+    public String getRequestId() {
+        return requestId;
+    }
+    public void setRequestId(String requestId) {
+        this.requestId = requestId;
+    }
     @Override
     public String toString(){
         return ReflectionToStringBuilder.toString(this);

@@ -19,5 +19,8 @@ import com.ggk.ioss.dbsourceora.model.TicketMainInfo;
 public interface DataSynchronismService {
     public List<TicketMainInfo> getTicketMainInfoFromOral(String date, long start, long end);
     public long getDateEventCount(String date);
+    public List<TicketMainInfo> getHistoryData(long start, long end);
+    public long getHistoryDataCount();
+    public List<TicketMainInfo> getRealTimeData(String startDate, String endDate);
 }
 

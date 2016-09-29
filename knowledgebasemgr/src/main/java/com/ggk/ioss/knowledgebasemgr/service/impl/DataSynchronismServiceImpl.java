@@ -21,6 +21,7 @@ import com.ggk.ioss.knowledgebasemgr.mapper.TicketMapper;
 import com.ggk.ioss.knowledgebasemgr.model.TicketMainInfo;
 import com.ggk.ioss.knowledgebasemgr.service.DataSynchronismService;
 import com.ggk.ioss.knowledgebasemgr.service.IKnowledgeOperator;
+import com.ggk.ioss.knowledgebasemgr.utils.Convertor;
 import com.ggk.ioss.knowledgebasemgr.utils.HttpClientUtils;
 
 /**
@@ -48,53 +49,35 @@ public class DataSynchronismServiceImpl implements DataSynchronismService {
     public String updateInscData(String date) {
         JSONObject obj = new JSONObject();
         //或者date日期内所有的数据数量
-        String url ="http://" + conf.getOrclip() + ":" + conf.getOrclport()  + "/data/getDateEventCount?date="+ date;
+        String url = "http://" + conf.getOrclip() + ":" + conf.getOrclport()  + "/data/getDateEventCount?date="+ date;
         String countStr = HttpClientUtils.doGet(url , null);
         obj = obj.parseObject(countStr);
         long countValue = Long.parseLong(obj.get("count").toString());
-        
-        
         //获取date日期全部数据
         url = "http://" + conf.getOrclip() + ":" + conf.getOrclport() + "/data/getTickInfo?date="+date+"&start=0&end=100";
         String ticketInfoStr = HttpClientUtils.doGet(url , null);
         obj = obj.parseObject(ticketInfoStr);
-        List<TicketMainInfo> list = new ArrayList<TicketMainInfo>();
-        JSONArray objArray = obj.getJSONArray("data");
-        int size = objArray.size();
-        for(int index = 0; index < size; index++) {
-            JSONObject j = objArray.getJSONObject(index);
-            TicketMainInfo tk = new TicketMainInfo();
-            tk.setEventId(j.getString("eventId"));
-            tk.setReportArea(j.getString("reportArea"));
-            tk.setReportor(j.getString("reportor"));
-            tk.setEventType(j.getString("eventType"));
-            tk.setCommitTime(j.getString("commitTime"));
-            tk.setEventTitle(j.getString("eventTitle"));
-            tk.setEventDescr(j.getString("eventDescr"));
-            tk.setEventClassify(j.getString("eventClassify"));
-            tk.setOwnerSystem(j.getString("ownerSystem"));
-            tk.setOwnerModule(j.getString("ownerModule"));
-            tk.setSubModule(j.getString("subModule"));
-            tk.setFuncMenu(j.getString("funcMenu"));
-            tk.setAffectRange(j.getString("affectRange"));
-            tk.setAffectDegree(j.getString("affectDegree"));
-            tk.setCriticalDegree(j.getString("criticalDegree"));
-            tk.setPri(j.getString("pri"));
-            tk.setEventSource(j.getString("eventSource"));
-            tk.setEventStatus(j.getString("eventStatus"));
-            tk.setStatusReason(j.getString("statusReason"));
-            tk.setSolveCode(j.getString("solveCode"));
-            tk.setCloseCode(j.getString("closeCode"));
-            tk.setCurrentDealGroup(j.getString("currentDealGroup"));
-            tk.setCurrentDealor(j.getString("currentDealor"));
-            tk.setSolution(j.getString("solution"));
-            tk.setCreateTime(j.getString("createTime"));
-            tk.setUpdateTime(j.getString("updateTime"));
-            list.add(tk);
-        }
-        syncDataFromOral(list);
+        Convertor convertor = new Convertor();
+        syncDataFromOral(convertor.getTicketMainInfoList(obj));
         return "success";
     }
-
+    @Override
+    public void syncHistory() {
+        JSONObject obj = new JSONObject();
+        Convertor convertor = new Convertor();
+        String url = "http://" + conf.getOrclip() + ":" + conf.getOrclport()  + "/data/getHistoryDataCount";
+        String countStr = HttpClientUtils.doGet(url , null);
+        obj = obj.parseObject(countStr);
+        long countValue = Long.parseLong(obj.get("count").toString());
+        int syncSize = 1000;    //每次同步1000条
+        for(int time = 0; time <= countValue / syncSize; time++) {
+            url = "http://" + conf.getOrclip() + ":" + conf.getOrclport()  
+                + "/data/getHistoryData?start=" + (time * syncSize) + "&end=" +((time+1) * syncSize);
+            String ticketInfoStr = HttpClientUtils.doGet(url , null);
+            obj = obj.parseObject(ticketInfoStr);
+            syncDataFromOral(convertor.getTicketMainInfoList(obj));
+        }
+    }
+    
 }
 
