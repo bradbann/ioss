@@ -123,8 +123,9 @@ public class ElasticSearchHandle {
             }
         } else {
             // 默认匹配title
-            queryBuilder.field("title");
+            queryBuilder.field("title").field("description");
             searchRequestBuilder.addHighlightedField("title");
+            searchRequestBuilder.addHighlightedField("description");
         }
         
         searchRequestBuilder.setHighlighterPreTags("<span style=\"color:red\">");
