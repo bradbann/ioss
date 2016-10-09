@@ -55,6 +55,8 @@ CREATE TABLE `kb_ods_itsm_maininfo` (
   `solution` longtext COMMENT '解决方案',
   `create_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  `request_id` varchar(255) COMMENT '访问ID',
+  `entry_id` varchar(255) COMMENT '工单实体ID',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

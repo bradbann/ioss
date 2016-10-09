@@ -35,6 +35,8 @@ public class KnowledgeOperator implements IKnowledgeOperator {
                 data.put("description", ticketMainInfo.getEventDescr());
                 data.put("commitTime", ticketMainInfo.getCommitTime());
                 data.put("updateTime", ticketMainInfo.getUpdateTime());
+                data.put("entryId", ticketMainInfo.getEntryId());
+                data.put("requestId", ticketMainInfo.getRequestId());
                 handle.insert(data);
             }
             handle.destory();

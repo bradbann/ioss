@@ -3,7 +3,52 @@
 
 <mapper namespace="com.ggk.ioss.dbsourceora.mapper.DataSynchronismMapper">
     <select id="getTicketMainInfoFromOral" resultType="com.ggk.ioss.dbsourceora.model.TicketMainInfo">
-        select CCHR_INCIDENTNUMBER as event_id, 
+        SELECT CCHR_INCIDENTNUMBER as event_id, 
+                CCHR_INCOFFICESCOMPANY__C as report_area,
+                CCHR_WORKLOGSUBMITTER as reportor,
+                TO_CHAR(TO_DATE('1970/01/01 00:00:00', 'YYYY/MM/DD HH24:MI:SS') + ((Submit_Date__c + 0)/(60*60*24)), 'YYYY/MM/DD') as commit_time,
+                CCHR_HELPDESK_DESCRIPTION as event_title,
+                CCHR_HELPDESK_DETAILEDDECRIPTI as event_descr,
+                SERVICE_TYPE__C as event_type,
+                CATEGORIZATION_TIER_1__C as event_classify,
+                CATEGORIZATION_TIER_2__C as owner_system,
+                CATEGORIZATION_TIER_3__C as owner_module,
+                CCHR_OPERATIONALCATEGORYTIER4_ as sub_module,
+                CCHR_OPERATIONALCATEGORYTIER5_ as func_menu,
+                CDPL_IMPACTSCOPE__C as affect_range,
+                IMPACT__C as affect_degree,
+                PRIORITY__C as pri,
+                REPORTED_SOURCE__C as event_source,
+                CCHR_DISPLAYSTATUS__C as event_status,
+                CCHR_STATUSREASON__C as status_reason,
+                CCHR_RESLOVECODE__C as solve_code,
+                CCHR_CLOSECODE__C as close_code,
+                ASSIGNED_GROUP__C as current_deal_group,
+                ASSIGNEE__C as current_dealor,
+                RESOLUTION__C as solution,
+                TO_CHAR(TO_DATE('1970/01/01 00:00:00', 'YYYY/MM/DD HH24:MI:SS') + ((CCHR_WORKLOGSUBMITDATE + 0)/(60*60*24)), 'YYYY/MM/DD') as update_time,
+                REQUEST_ID,
+                ENTRY_ID__C as entry_id
+            FROM GddS_inc_HelpDesk_Join_WorkLog 
+            WHERE Submit_Date__c &gt; #{startDate} and Submit_Date__c &lt; #{endDate} and CDPL_STATUS__C in (9,20)
+    </select>
+    
+    <select id="getDateEventCount" resultType="java.lang.Long"> 
+        SELECT count(1) 
+            FROM GddS_inc_HelpDesk_Join_WorkLog 
+            WHERE  Submit_Date__c &gt; #{startDate} and Submit_Date__c &lt; #{endDate} and CDPL_STATUS__C in (9,20)
+    </select>
+    
+    <select id="getHistoryDataCount" resultType="java.lang.long">
+        SELECT COUNT(1) FROM GddS_inc_HelpDesk_Join_WorkLog WHERE CDPL_STATUS__C in (9,20)
+    </select>
+    
+    <select id="getHistoryData" resultType="com.ggk.ioss.dbsourceora.model.TicketMainInfo">
+        SELECT event_id,report_area,reportor,commit_time,event_title,event_descr,event_type,event_classify,
+               owner_system,owner_module,sub_module,func_menu,affect_range,affect_degree,pri,event_source,
+               event_status,status_reason,solve_code,close_code,current_deal_group,current_dealor,solution,
+               update_time,REQUEST_ID,ENTRY_ID__C from (
+            SELECT CCHR_INCIDENTNUMBER as event_id, 
                 CCHR_INCOFFICESCOMPANY__C  as report_area,
                 CCHR_WORKLOGSUBMITTER as reportor,
                 TO_CHAR(TO_DATE('1970/01/01 00:00:00', 'YYYY/MM/DD HH24:MI:SS') + ((Submit_Date__c + 0)/(60*60*24)), 'YYYY/MM/DD') as commit_time,
@@ -26,13 +71,42 @@
                 ASSIGNED_GROUP__C as current_deal_group,
                 ASSIGNEE__C as current_dealor,
                 RESOLUTION__C as solution,
-                TO_CHAR(TO_DATE('1970/01/01 00:00:00', 'YYYY/MM/DD HH24:MI:SS') + ((CCHR_WORKLOGSUBMITDATE + 0)/(60*60*24)), 'YYYY/MM/DD') as update_time
-            FROM GddS_inc_HelpDesk_Join_WorkLog where Submit_Date__c &gt; #{startDate} and Submit_Date__c &lt; #{endDate}
+                TO_CHAR(TO_DATE('1970/01/01 00:00:00', 'YYYY/MM/DD HH24:MI:SS') + ((CCHR_WORKLOGSUBMITDATE + 0)/(60*60*24)), 'YYYY/MM/DD') as update_time,
+                REQUEST_ID,
+                ENTRY_ID__C as entry_id,
+                rownum as no
+            FROM GddS_inc_HelpDesk_Join_WorkLog WHERE CDPL_STATUS__C in (9,20)
+        ) a WHERE a.no >= #{start} and a.no &lt; #{end}
     </select>
     
-    <select id="getDateEventCount" resultType="java.lang.Long"> 
-        SELECT count(1) 
+    <select id="getRealTimeData" resultType="com.ggk.ioss.dbsourceora.model.TicketMainInfo">
+        SELECT CCHR_INCIDENTNUMBER as event_id, 
+                CCHR_INCOFFICESCOMPANY__C  as report_area,
+                CCHR_WORKLOGSUBMITTER as reportor,
+                TO_CHAR(TO_DATE('1970/01/01 00:00:00', 'YYYY/MM/DD HH24:MI:SS') + ((Submit_Date__c + 0)/(60*60*24)), 'YYYY/MM/DD') as commit_time,
+                CCHR_HELPDESK_DESCRIPTION as event_title,
+                CCHR_HELPDESK_DETAILEDDECRIPTI as event_descr,
+                SERVICE_TYPE__C as event_type,
+                CATEGORIZATION_TIER_1__C as event_classify,
+                CATEGORIZATION_TIER_2__C as owner_system,
+                CATEGORIZATION_TIER_3__C as owner_module,
+                CCHR_OPERATIONALCATEGORYTIER4_ as sub_module,
+                CCHR_OPERATIONALCATEGORYTIER5_ as func_menu,
+                CDPL_IMPACTSCOPE__C as affect_range,
+                IMPACT__C as affect_degree,
+                PRIORITY__C as pri,
+                REPORTED_SOURCE__C as event_source,
+                CCHR_DISPLAYSTATUS__C as event_status,
+                CCHR_STATUSREASON__C as status_reason,
+                CCHR_RESLOVECODE__C as solve_code,
+                CCHR_CLOSECODE__C as close_code,
+                ASSIGNED_GROUP__C as current_deal_group,
+                ASSIGNEE__C as current_dealor,
+                RESOLUTION__C as solution,
+                TO_CHAR(TO_DATE('1970/01/01 00:00:00', 'YYYY/MM/DD HH24:MI:SS') + ((CCHR_WORKLOGSUBMITDATE + 0)/(60*60*24)), 'YYYY/MM/DD') as update_time,
+                REQUEST_ID,
+                ENTRY_ID__C as entry_id
             FROM GddS_inc_HelpDesk_Join_WorkLog 
-            where  Submit_Date__c &gt; #{startDate} and Submit_Date__c &lt; #{endDate}
+            WHERE CCHR_WORKLOGSUBMITDATE BETWEEN #{startDate} AND #{endDate} and CDPL_STATUS__C in (9,20)
     </select>
 </mapper>

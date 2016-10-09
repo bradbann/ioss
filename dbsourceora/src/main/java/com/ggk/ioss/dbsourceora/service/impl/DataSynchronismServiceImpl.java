@@ -31,7 +31,7 @@ public class DataSynchronismServiceImpl implements DataSynchronismService {
     private DataSynchronismMapper mapper;
     @Override
     public List<TicketMainInfo> getTicketMainInfoFromOral(String date, long start, long end) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");                
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date startDate = new Date();
         Date endDate = new Date();
         try {
@@ -41,21 +41,48 @@ public class DataSynchronismServiceImpl implements DataSynchronismService {
             // TODO Auto-generated catch block
             e.printStackTrace();
         } 
-        return mapper.getTicketMainInfoFromOral(startDate.getTime()/1000,endDate.getTime()/1000, start, end);
+        return mapper.getTicketMainInfoFromOral(startDate.getTime()/1000, 
+                endDate.getTime()/1000, start, end);
     }
+    
     @Override
     public long getDateEventCount(String date) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");                
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date startDate = new Date();
         Date endDate = new Date();
         try {
             startDate = sdf.parse(date + " 00:00:00");
             endDate = sdf.parse(date + " 23:59:59"); 
         } catch (ParseException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } 
-        return mapper.getDateEventCount(startDate.getTime()/1000,endDate.getTime()/1000);
+        return mapper.getDateEventCount(startDate.getTime()/1000, endDate.getTime()/1000);
+    }
+    
+    @Override
+    public List<TicketMainInfo> getHistoryData(long start, long end) {
+        return mapper.getHistoryData(start, end);
+    }
+    
+    @Override
+    public long getHistoryDataCount() {
+        return mapper.getHistoryDataCount();
+    }
+
+    @Override
+    public List<TicketMainInfo> getRealTimeData(String startDate, String endDate) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date startDate1 = new Date();
+        Date endDate1 = new Date();
+        try {
+            startDate1 = sdf.parse(startDate);
+            endDate1 = sdf.parse(endDate); 
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return mapper.getRealTimeData(startDate1.getTime() / 1000, 
+                endDate1.getTime() / 1000);
+        
     }
 }
 

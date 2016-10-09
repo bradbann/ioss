@@ -38,5 +38,22 @@ public class DataSynchronismController {
     public JSONObject getDateEventCount(@RequestParam String date) {
         return convertor.getDateEventCountJSON(service.getDateEventCount(date));
     }
+    
+    @RequestMapping(value = {"data/getHistoryData"}, method = RequestMethod.GET)
+    public JSONObject getHistoryData(@RequestParam long start, @RequestParam long end) {
+        return convertor.convertIntoJSON(service.getHistoryData(start, end));
+    }
+    
+    @RequestMapping(value = {"data/getHistoryDataCount"}, method = RequestMethod.GET)
+    public JSONObject getHistoryDataCount() {
+        return convertor.getDateEventCountJSON(service.getHistoryDataCount());
+    }
+    
+    @RequestMapping(value = {"data/getRealTimeData"}, method = RequestMethod.GET)
+    public JSONObject getRealTimeData(@RequestParam String startDate, @RequestParam String endDate) {
+        return convertor.convertIntoJSON(service.getRealTimeData(startDate, endDate));
+    }
+    
+    //
 }
 
