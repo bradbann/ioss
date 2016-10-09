@@ -12,12 +12,17 @@ $(function(){
             success: function(data){
                 if(data){
                     var regexstr = new RegExp("<[^<]*>", "gi");
+                    if(null != data["eventTitle"])
                     $('#title').text(data["eventTitle"].replace(regexstr,""));
+                    if(null != data["eventId"])
                     $('#ticketId').text(data["eventId"].replace(regexstr,""));
+                    if(null != data["updateTime"])
                     $('#solveDate').text(data["updateTime"].replace(regexstr,""));
 //                    $('#description').text(data["eventDescr"].replace(regexstr,""));
+                    if(null != data["eventDescr"])
                     $('#description').html(data["eventDescr"]);
 //                    $('#solution').text(data["solution"].replace(regexstr,""));
+                    if(null != data["solution"])
                     $('#solution').html(data["solution"]);
                 }
              }

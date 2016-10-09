@@ -3,10 +3,11 @@ package com.ggk.ioss.knowledgebasemgr.elasticsearch;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.List;
-import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
+import org.elasticsearch.action.ListenableActionFuture;
 import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
@@ -15,7 +16,6 @@ import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
-import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.elasticsearch.index.query.QueryStringQueryBuilder;
 import org.elasticsearch.search.sort.SortBuilders;
@@ -122,17 +122,16 @@ public class ElasticSearchHandle {
                 }
             }
         } else {
-            // 默认匹配title description content
-            queryBuilder.field("title").field("content").field("description");
+            // 默认匹配title
+            queryBuilder.field("title").field("description");
             searchRequestBuilder.addHighlightedField("title");
-            searchRequestBuilder.addHighlightedField("content");
             searchRequestBuilder.addHighlightedField("description");
         }
         
         searchRequestBuilder.setHighlighterPreTags("<span style=\"color:red\">");
         searchRequestBuilder.setHighlighterPostTags("</span>");
         
-        searchRequestBuilder.setSearchType(SearchType.DFS_QUERY_AND_FETCH);
+        searchRequestBuilder.setSearchType(SearchType.DEFAULT);
         searchRequestBuilder.setQuery(queryBuilder);
         // 分页应用
         searchRequestBuilder.setFrom(start).setSize(limit);
@@ -142,7 +141,6 @@ public class ElasticSearchHandle {
         searchRequestBuilder.addSort(SortBuilders.fieldSort("_score").order(SortOrder.DESC)); 
         //再按照更新时间排序
         searchRequestBuilder.addSort(SortBuilders.fieldSort("updateTime").order(SortOrder.DESC)); 
-        
         return searchRequestBuilder.execute().actionGet();
 
     }
@@ -172,7 +170,42 @@ public class ElasticSearchHandle {
     public void deleteByIndex(String indexName, String indexType) {
         
     }
-
+    
+    /**
+     * 查询结果个数
+     */
+//    @SuppressWarnings("deprecation")
+//    public long count(String queryParams){  
+//        QueryBuilder queryBuilder;
+//        //QueryBuilder builder = new QueryBuilder();
+//        
+//        CountResponse response = client.prepareCount("es")
+//                .setQuery(termQuery("_type", "itsm"))
+//                .setQuery(termQuery("query", queryParams))
+//                .execute()
+//                .actionGet();
+//        CountRequestBuilder queryBuilder = this.getClient().prepareCount(IConstants.deafult_index_name).setTypes(IConstants.deafult_index_type);
+//        // queryBuilder.boost(0.1f);
+//        if (!CollectionUtils.isEmpty(fields)) {
+//            for (String field : fields) {
+//                if (StringUtils.isNotEmpty(field)) {
+//                    queryBuilder.field(field);
+//                    searchRequestBuilder.addHighlightedField(field);
+//                }
+//            }
+//        } else {
+//            // 默认匹配title
+//            queryBuilder.field("title");
+//            searchRequestBuilder.addHighlightedField("title");
+//        }
+//        
+//        searchRequestBuilder.setHighlighterPreTags("<span style=\"color:red\">");
+//        searchRequestBuilder.setHighlighterPostTags("</span>");
+//        
+//        searchRequestBuilder.setSearchType(SearchType.DFS_QUERY_AND_FETCH);
+//        searchRequestBuilder.setQuery(queryBuilder);
+//      return 1;
+//    }   
     /**
      * 释放连接
      */
