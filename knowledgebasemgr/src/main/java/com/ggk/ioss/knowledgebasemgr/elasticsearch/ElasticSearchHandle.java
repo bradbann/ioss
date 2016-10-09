@@ -139,7 +139,7 @@ public class ElasticSearchHandle {
         searchRequestBuilder.setExplain(true);
         // 按照标题匹配度排序
         searchRequestBuilder.addSort(SortBuilders.fieldSort("_score").order(SortOrder.DESC)); 
-        //再按照更新时间排序
+        // 按照更新时间排序
         searchRequestBuilder.addSort(SortBuilders.fieldSort("updateTime").order(SortOrder.DESC)); 
         return searchRequestBuilder.execute().actionGet();
 
