@@ -138,7 +138,4 @@ public class OperatorController {
     public String syncOrclHistoryData() {
         return dataSyncService.syncHistoryData();
     }
-    
-    
-    
 }
