@@ -1,0 +1,35 @@
+/*
+ * File Name：DBSyncScheduledTasks.java
+ *
+ * Copyrighe：copyright@2016 www.ggkbigdata.com. All Rights Reserved
+ *
+ * Create Time: 2016年10月9日 下午5:08:53
+ */
+package com.ggk.ioss.knowledgebasemgr.schedule;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
+
+import com.ggk.ioss.knowledgebasemgr.service.DataSynchronismService;
+
+/**
+ *
+ * @author lcc (lincc@ggkbigdata.com)
+ * @version 1.0, 2016年10月9日 下午5:08:53
+ */
+@Component
+@Configurable
+@EnableScheduling
+public class DBSyncScheduledTasks {
+    @Autowired
+    private DataSynchronismService service;
+    @Scheduled(cron = "0 */1 *  * * * ")
+    public void dbSyncTasks(){
+        //System.out.println ("Scheduling Tasks Examples By Cron: The time is now " + dateFormat ().format (new Date ()));
+        service.syncRealTimeData();
+    }
+}
+

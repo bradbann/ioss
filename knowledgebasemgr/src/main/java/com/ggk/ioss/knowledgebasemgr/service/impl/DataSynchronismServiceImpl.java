@@ -8,6 +8,7 @@
 package com.ggk.ioss.knowledgebasemgr.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,7 @@ public class DataSynchronismServiceImpl implements DataSynchronismService {
         mapper.saveTicketMainInfo(list);             //将Oral的新增的数据保存到MySql
         operator.insertKnowledgeByTickt(list);       //将Oral的新增数据插入到es
     }
+    
     @Override
     public String updateInscData(String date) {
         JSONObject obj = new JSONObject();
@@ -61,8 +63,9 @@ public class DataSynchronismServiceImpl implements DataSynchronismService {
         syncDataFromOral(convertor.getTicketMainInfoList(obj));
         return "success";
     }
+    
     @Override
-    public void syncHistory() {
+    public String syncHistoryData() {
         JSONObject obj = new JSONObject();
         Convertor convertor = new Convertor();
         String url = "http://" + conf.getOrclip() + ":" + conf.getOrclport()  + "/data/getHistoryDataCount";
@@ -76,8 +79,22 @@ public class DataSynchronismServiceImpl implements DataSynchronismService {
             String ticketInfoStr = HttpClientUtils.doGet(url , null);
             obj = obj.parseObject(ticketInfoStr);
             syncDataFromOral(convertor.getTicketMainInfoList(obj));
+            mapper.saveSyncLog("History Data Sync", url, "success");   //记录log
         }
+        return "success";
     }
     
+    @Override
+    public void syncRealTimeData() {
+        Date date = new Date();
+        Convertor convertor = new Convertor();
+        long startTime = date.getTime() / 1000 - 60; //获取前一分钟的时间戳
+        String url = "http://" + conf.getOrclip() + ":" + conf.getOrclport()  + "/data/getRealTimeOralData?startTime="+startTime;
+        JSONObject obj = new JSONObject();
+        String ticketInfoStr = HttpClientUtils.doGet(url , null);
+        obj = obj.parseObject(ticketInfoStr);
+        syncDataFromOral(convertor.getTicketMainInfoList(obj));
+        mapper.saveSyncLog("Reattime Data Sync", url, "success");
+    }
 }
 

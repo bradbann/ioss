@@ -38,6 +38,6 @@ public class HotWordOperatorController {
     
     @RequestMapping(value = { "/ioss/knowledge/querySingleKnowledge" }, method = RequestMethod.GET)
     public TicketMainInfo querySingleKnowledge(String id) {
-    	return singleKnowledgeQuerier.getTicketMainInfo(id);
+        return singleKnowledgeQuerier.getTicketMainInfo(id);
     }
 }

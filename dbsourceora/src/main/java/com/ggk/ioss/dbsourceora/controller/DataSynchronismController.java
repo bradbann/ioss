@@ -54,6 +54,10 @@ public class DataSynchronismController {
         return convertor.convertIntoJSON(service.getRealTimeData(startDate, endDate));
     }
     
-    //
+    //getRealTimeOralData
+    @RequestMapping(value = {"data/getRealTimeOralData"}, method = RequestMethod.GET)
+    public JSONObject getRealTimeOralData(@RequestParam long startTime) {
+        return convertor.convertIntoJSON(service.getRealTimeOralData(startTime));
+    }
 }
 
