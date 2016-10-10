@@ -43,8 +43,14 @@ public class TicketMainInfo {
     private String updateTime;
     private String entryId;
     private String requestId;
+    private String phoneNumber;
     
-    
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
     public String getEventId() {
         return eventId;
     }

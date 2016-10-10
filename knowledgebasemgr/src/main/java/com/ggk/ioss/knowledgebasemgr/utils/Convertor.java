@@ -55,6 +55,7 @@ public class Convertor {
             tk.setUpdateTime(j.getString("updateTime"));
             tk.setRequestId(j.getString("requestId"));
             tk.setEntryId(j.getString("entryId"));
+            tk.setPhoneNumber(j.getString("phoneNumber"));
             list.add(tk);
         }
         return list;

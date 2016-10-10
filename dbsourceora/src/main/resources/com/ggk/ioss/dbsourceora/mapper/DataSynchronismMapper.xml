@@ -28,7 +28,8 @@
                 RESOLUTION__C as solution,
                 TO_CHAR(TO_DATE('1970/01/01 00:00:00', 'YYYY/MM/DD HH24:MI:SS') + ((CCHR_WORKLOGSUBMITDATE + 0)/(60*60*24)), 'YYYY/MM/DD') as update_time,
                 REQUEST_ID,
-                ENTRY_ID__C as entry_id
+                ENTRY_ID__C as entry_id,
+                PHONE_NUMBER__C as phone_number
             FROM GddS_inc_HelpDesk_Join_WorkLog 
             WHERE Submit_Date__c &gt; #{startDate} and Submit_Date__c &lt; #{endDate} and CDPL_STATUS__C in (9,20)
     </select>
@@ -47,7 +48,7 @@
         SELECT event_id,report_area,reportor,commit_time,event_title,event_descr,event_type,event_classify,
                owner_system,owner_module,sub_module,func_menu,affect_range,affect_degree,pri,event_source,
                event_status,status_reason,solve_code,close_code,current_deal_group,current_dealor,solution,
-               update_time,REQUEST_ID,ENTRY_ID__C from (
+               update_time,request_id,entry_id,phone_number from (
             SELECT CCHR_INCIDENTNUMBER as event_id, 
                 CCHR_INCOFFICESCOMPANY__C  as report_area,
                 CCHR_WORKLOGSUBMITTER as reportor,
@@ -72,8 +73,9 @@
                 ASSIGNEE__C as current_dealor,
                 RESOLUTION__C as solution,
                 TO_CHAR(TO_DATE('1970/01/01 00:00:00', 'YYYY/MM/DD HH24:MI:SS') + ((CCHR_WORKLOGSUBMITDATE + 0)/(60*60*24)), 'YYYY/MM/DD') as update_time,
-                REQUEST_ID,
+                REQUEST_ID as request_id,
                 ENTRY_ID__C as entry_id,
+                PHONE_NUMBER__C as phone_number,
                 rownum as no
             FROM GddS_inc_HelpDesk_Join_WorkLog WHERE CDPL_STATUS__C in (9,20)
         ) a WHERE a.no >= #{start} and a.no &lt; #{end}
@@ -104,8 +106,9 @@
                 ASSIGNEE__C as current_dealor,
                 RESOLUTION__C as solution,
                 TO_CHAR(TO_DATE('1970/01/01 00:00:00', 'YYYY/MM/DD HH24:MI:SS') + ((CCHR_WORKLOGSUBMITDATE + 0)/(60*60*24)), 'YYYY/MM/DD') as update_time,
-                REQUEST_ID,
-                ENTRY_ID__C as entry_id
+                REQUEST_ID as request_id,
+                ENTRY_ID__C as entry_id,
+                PHONE_NUMBER__C as phone_number
             FROM GddS_inc_HelpDesk_Join_WorkLog 
             WHERE CCHR_WORKLOGSUBMITDATE BETWEEN #{startDate} AND #{endDate} and CDPL_STATUS__C in (9,20)
     </select>
@@ -135,8 +138,9 @@
                 ASSIGNEE__C as current_dealor,
                 RESOLUTION__C as solution,
                 TO_CHAR(TO_DATE('1970/01/01 00:00:00', 'YYYY/MM/DD HH24:MI:SS') + ((CCHR_WORKLOGSUBMITDATE + 0)/(60*60*24)), 'YYYY/MM/DD') as update_time,
-                REQUEST_ID,
-                ENTRY_ID__C as entry_id
+                REQUEST_ID as request_id,
+                ENTRY_ID__C as entry_id,
+                PHONE_NUMBER__C as phone_number
             FROM GddS_inc_HelpDesk_Join_WorkLog 
             WHERE CCHR_WORKLOGSUBMITDATE > #{startTime} and CDPL_STATUS__C in (9,20)
     </select>
