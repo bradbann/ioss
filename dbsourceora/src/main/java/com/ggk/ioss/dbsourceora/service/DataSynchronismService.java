@@ -22,5 +22,6 @@ public interface DataSynchronismService {
     public List<TicketMainInfo> getHistoryData(long start, long end);
     public long getHistoryDataCount();
     public List<TicketMainInfo> getRealTimeData(String startDate, String endDate);
+    public List<TicketMainInfo> getRealTimeOralData(long startTime);
 }
 

@@ -21,6 +21,7 @@ public interface DataSynchronismService {
     public String updateInscData(String date);
     
     //同步所有历史记录
-    public void syncHistory();
+    public String syncHistoryData();
+    public void syncRealTimeData();
 }
 
