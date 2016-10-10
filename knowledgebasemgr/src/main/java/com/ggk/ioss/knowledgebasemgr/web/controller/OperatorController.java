@@ -130,4 +130,15 @@ public class OperatorController {
     public String syncOrclData(@RequestParam String date) {
         return dataSyncService.updateInscData(date);
     }
+    
+    /**
+     *从Oracle数据库中获取所有历史数据插入到mysql和es中
+     */
+    @RequestMapping(value={"/ioss/syncOrclHistoryData"}, method = RequestMethod.GET)
+    public String syncOrclHistoryData() {
+        return dataSyncService.syncHistoryData();
+    }
+    
+    
+    
 }

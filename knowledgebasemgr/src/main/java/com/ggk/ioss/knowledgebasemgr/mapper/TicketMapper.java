@@ -23,4 +23,7 @@ public interface TicketMapper {
     public List<TicketES> queryTicketES(@Param("start") long start, @Param("limit")long limit);
     
     public void saveTicketMainInfo(@Param("list") List<TicketMainInfo> list);
+    
+    public void saveSyncLog(@Param("syncType") String syncType, @Param("syncUrl") String syncUrl, 
+            @Param("syncStatus") String syncStatus);
 }

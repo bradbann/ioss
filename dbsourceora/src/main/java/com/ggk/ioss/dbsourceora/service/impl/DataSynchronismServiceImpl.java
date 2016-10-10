@@ -69,6 +69,9 @@ public class DataSynchronismServiceImpl implements DataSynchronismService {
         return mapper.getHistoryDataCount();
     }
 
+    /**
+     * 废弃
+     */
     @Override
     public List<TicketMainInfo> getRealTimeData(String startDate, String endDate) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -83,6 +86,11 @@ public class DataSynchronismServiceImpl implements DataSynchronismService {
         return mapper.getRealTimeData(startDate1.getTime() / 1000, 
                 endDate1.getTime() / 1000);
         
+    }
+
+    @Override
+    public List<TicketMainInfo> getRealTimeOralData(long startTime) {
+        return mapper.getRealTimeOralData(startTime);
     }
 }
 

@@ -60,3 +60,10 @@ CREATE TABLE `kb_ods_itsm_maininfo` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE `sync_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `sync_type` varchar(255) DEFAULT NULL,
+  `sync_url` varchar(255) DEFAULT NULL,
+  `sync_status` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
