@@ -185,7 +185,7 @@ function parseHtml(data){
         var title = data[i]["title"];
         var description = data[i]["description"];
         var system = "itsm";
-        var staffId = "INC0001";
+        var entryId = data[i]["entryId"];
         if(null != description){
             description = description.replace(regexstrSpanHead,"HHHH");
             description = description.replace(regexstrSpanTail,"TTTT");
@@ -211,7 +211,7 @@ function parseHtml(data){
                     '<div><a href = "ticket_detail.html?id='+eventId+'"  target="_blank">'+title+'</a></div>'+
                     '<div class = "desc" style = "font-size:16px;overflow:hidden;text-overflow:ellipsis;white-space: nowrap;">问题描述：'+description+'</div>'+
                     '<div style = "margin-top:5px;">'+
-                        '<a style = "font-size:14px;color:green;" href = "http://150.18.30.176/arsys/servlet/ViewFormServlet?form=HPD%3AHelp+Desk&server='+system+'&eid='+staffId+'" target="_blank">http://www.GDitsm.com</a>'+
+                        '<a style = "font-size:14px;color:green;" href = "http://150.18.30.176/arsys/servlet/ViewFormServlet?form=HPD%3AHelp+Desk&server='+system+'&eid='+entryId+'" target="_blank">http://www.GDitsm.com</a>'+
                         '<a style = "background:#ccc;color:#0a7a8c;font-size:14px;margin-left:10px;" href = "../html/ticket.html?eventId='+eventId+'" target="_blank">工单明细</a>'+
                     '</div>'+
                 '</div>'+

@@ -28,7 +28,6 @@ public class DBSyncScheduledTasks {
     private DataSynchronismService service;
     @Scheduled(cron = "0 */1 *  * * * ")
     public void dbSyncTasks(){
-        //System.out.println ("Scheduling Tasks Examples By Cron: The time is now " + dateFormat ().format (new Date ()));
         service.syncRealTimeData();
     }
 }

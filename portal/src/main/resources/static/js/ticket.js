@@ -16,6 +16,7 @@ var thisURL = document.URL;
                     $('#reportArea').text(data.data["reportArea"]);
                     $('#reportor').text(data.data["reportor"]);
                     $('#commitTime').text(data.data["commitTime"]);
+                    $('#phoneNumber').text(data.data["phoneNumber"]);
                     $('#updateTime').text(data.data["updateTime"]);
                     $('#createTime').text(data.data["createTime"]);
                     $('#eventId').text(data.data["eventId"]);
