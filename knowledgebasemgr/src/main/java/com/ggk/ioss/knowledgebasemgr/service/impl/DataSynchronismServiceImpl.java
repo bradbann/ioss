@@ -72,7 +72,8 @@ public class DataSynchronismServiceImpl implements DataSynchronismService {
         String countStr = HttpClientUtils.doGet(url , null);
         obj = obj.parseObject(countStr);
         long countValue = Long.parseLong(obj.get("count").toString());
-        int syncSize = 1000;    //每次同步1000条
+        System.out.println("countValue = " + countValue);
+        int syncSize = 500;    //每次同步1000条
         for(int time = 0; time <= countValue / syncSize; time++) {
             url = "http://" + conf.getOrclip() + ":" + conf.getOrclport()  
                 + "/data/getHistoryData?start=" + (time * syncSize) + "&end=" +((time+1) * syncSize);
@@ -88,13 +89,19 @@ public class DataSynchronismServiceImpl implements DataSynchronismService {
     public void syncRealTimeData() {
         Date date = new Date();
         Convertor convertor = new Convertor();
+        String url;
         long startTime = date.getTime() / 1000 - 60; //获取前一分钟的时间戳
-        String url = "http://" + conf.getOrclip() + ":" + conf.getOrclport()  + "/data/getRealTimeOralData?startTime="+startTime;
-        JSONObject obj = new JSONObject();
-        String ticketInfoStr = HttpClientUtils.doGet(url , null);
-        obj = obj.parseObject(ticketInfoStr);
-        syncDataFromOral(convertor.getTicketMainInfoList(obj));
-        mapper.saveSyncLog("Reattime Data Sync", url, "success");
+        url = "http://" + conf.getOrclip() + ":" + conf.getOrclport()  + "/data/getRealTimeOralData?startTime="+startTime;
+        try {
+            JSONObject obj = new JSONObject();
+            String ticketInfoStr = HttpClientUtils.doGet(url , null);
+            obj = obj.parseObject(ticketInfoStr);
+            syncDataFromOral(convertor.getTicketMainInfoList(obj));
+            mapper.saveSyncLog("Reattime Data Sync", url, "success");
+        } catch (Exception e) {
+            mapper.saveSyncLog("Reattime Data Sync", url, "failure");
+            e.printStackTrace();
+        }
     }
 }
 

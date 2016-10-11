@@ -29,8 +29,8 @@ import java.util.Map;
 public class HttpClientUtils {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(HttpClientUtils.class);
-    public static final int DEFAULT_CONNECT_TIMEOUT = 20000;
-    public static final int DEFAULT_SOCKET_TIMEOUT = 20000;
+    public static final int DEFAULT_CONNECT_TIMEOUT = 200000;
+    public static final int DEFAULT_SOCKET_TIMEOUT = 200000;
 
     public static String doPost(String url, String body) {
         return doPost(url, body, null, null);
