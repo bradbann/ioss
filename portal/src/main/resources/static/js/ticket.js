@@ -9,19 +9,20 @@ var thisURL = document.URL;
             data: {},
             dataType: "json",
             success: function(data){
-                if(data){
+                if(data.data){
                     var str = data;
                     var regexstr = new RegExp("<[^<]*>", "gi");
-//                    $('#title').text(data["eventTitle"].replace(regexstr,""));
                     $('#reportArea').text(data.data["reportArea"]);
                     $('#reportor').text(data.data["reportor"]);
-                    $('#commitTime').text(data.data["commitTime"]);
+                    $('#commitTime').text(data.data["commitTime"].substr(0,19));
                     $('#phoneNumber').text(data.data["phoneNumber"]);
-                    $('#updateTime').text(data.data["updateTime"]);
-                    $('#createTime').text(data.data["createTime"]);
+                    if(data.data["updateTime"])
+                    $('#updateTime').text(data.data["updateTime"].substr(0,19));
+                    if(data.data["createTime"])
+                    $('#createTime').text(data.data["createTime"].substr(0,19));
                     $('#eventId').text(data.data["eventId"]);
                     $('#eventTitle').text(data.data["eventTitle"]);
-                    $('#eventDescr').text(data.data["eventDescr"].replace(regexstr,""));
+                    $('#eventDescr').html(data.data["eventDescr"]);
                     $('#eventType').text(data.data["eventType"]);
                     $('#eventClassify').text(data.data["eventClassify"]);
                     $('#ownerSystem').text(data.data["ownerSystem"]);
