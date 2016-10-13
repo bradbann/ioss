@@ -177,10 +177,11 @@ $('#searchbtn').click(function(){
 function parseHtml(data){
     var htmlstr = "";
     for(var i in data){
-        var regexstrAll = new RegExp("<*[^<]*>", "gi");
-        var regexstrHTmlHead = /<[A-Z]*\s[a-z]*/;
         var regexstrSpanHead = /<span style="color:red">/g;
         var regexstrSpanTail = /<\/span>/g;
+        var regexstrCloseUpLabel = /<[^>]*>/g;
+        var regexstrRightCloseUpLable = /^[^>]*>+?/g;
+        var regexstrLeftCloseUpLable = /<+?[^<]*$/g;
         var eventId = data[i]["eventId"];
         var title = data[i]["title"];
         var description = data[i]["description"];
@@ -189,8 +190,9 @@ function parseHtml(data){
         if(null != description){
             description = description.replace(regexstrSpanHead,"HHHH");
             description = description.replace(regexstrSpanTail,"TTTT");
-            description = description.replace(regexstrAll,"");
-            description = description.replace(regexstrHTmlHead,"");
+            description = description.replace(regexstrCloseUpLabel,"");
+            description = description.replace(regexstrRightCloseUpLable,"");
+            description = description.replace(regexstrLeftCloseUpLable,"");
             description = description.replace(/HHHH/g,"<span style=\"color:red\">");
             description = description.replace(/TTTT/g,"</span>")
         }

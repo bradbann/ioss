@@ -12,12 +12,14 @@ $(function(){
             success: function(data){
                 if(data){
                     var regexstr = new RegExp("<[^<]*>", "gi");
+                    var regexstrTableHead = new RegExp("<TABLE\s?[^>]*>","g");
+                    var regexstrTableTail = new RegExp("<\/TABLE>","g");
                     if(null != data["eventTitle"])
                     $('#title').text(data["eventTitle"].replace(regexstr,""));
                     if(null != data["eventId"])
                     $('#ticketId').text(data["eventId"].replace(regexstr,""));
                     if(null != data["updateTime"])
-                    $('#solveDate').text(data["updateTime"].replace(regexstr,""));
+                    $('#solveDate').text(data["updateTime"].substr(0,19));
 //                    $('#description').text(data["eventDescr"].replace(regexstr,""));
                     if(null != data["eventDescr"])
                     $('#description').html(data["eventDescr"]);
