@@ -95,7 +95,7 @@
     </insert>
     
     <insert id="saveSyncLog">
-        insert into sync_log(sync_type,sync_url,sync_status) value(#{syncType},#{syncUrl},#{syncStatus});
+        insert into sync_log(sync_type,sync_url,sync_status,sync_count) value(#{syncType},#{syncUrl},#{syncStatus},#{syncCount});
     </insert>
 
 </mapper>

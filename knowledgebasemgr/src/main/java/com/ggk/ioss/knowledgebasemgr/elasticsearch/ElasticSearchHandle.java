@@ -3,13 +3,13 @@ package com.ggk.ioss.knowledgebasemgr.elasticsearch;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
-import org.elasticsearch.action.ListenableActionFuture;
+import org.elasticsearch.action.bulk.BulkRequestBuilder;
+import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.index.IndexRequest;
+import org.elasticsearch.action.index.IndexRequestBuilder;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
@@ -159,6 +159,26 @@ public class ElasticSearchHandle {
                 //UUID.randomUUID().toString());
         indexRequest.source(sourceJson);
         return this.getClient().index(indexRequest).actionGet();
+    }
+    
+    /**
+     * 通用插入方法，批量新增知识条目
+     * 
+     * @param sourceJson
+     * @return
+     */
+    public BulkResponse bulkInsert(List<JSONObject> sourceJson) {
+        BulkRequestBuilder bulkRequest = client.prepareBulk();
+        if(sourceJson.size() == 0) {
+            return bulkRequest.execute().actionGet();
+        }
+        for(JSONObject json : sourceJson) {
+            IndexRequestBuilder lrb = this.getClient()
+                    .prepareIndex(IConstants.deafult_index_name, IConstants.deafult_index_type,json.getString("eventId"))
+                    .setSource(json);
+            bulkRequest.add(lrb);
+        }
+        return bulkRequest.execute().actionGet();
     }
 
     public DeleteResponse deleteADoc(String indexName, String indexType, String id) {

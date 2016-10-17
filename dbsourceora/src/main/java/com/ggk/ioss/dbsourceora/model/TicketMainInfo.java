@@ -44,6 +44,7 @@ public class TicketMainInfo {
     private String entryId;
     private String requestId;
     private String phoneNumber;
+    private long submitDate;
     
     public String getPhoneNumber() {
         return phoneNumber;
@@ -222,6 +223,12 @@ public class TicketMainInfo {
     @Override
     public String toString(){
         return ReflectionToStringBuilder.toString(this);
+    }
+    public long getSubmitDate() {
+        return submitDate;
+    }
+    public void setSubmitDate(long submitDate) {
+        this.submitDate = submitDate;
     }
 }
 

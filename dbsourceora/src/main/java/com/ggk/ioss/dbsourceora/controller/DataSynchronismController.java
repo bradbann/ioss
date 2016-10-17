@@ -54,10 +54,24 @@ public class DataSynchronismController {
         return convertor.convertIntoJSON(service.getRealTimeData(startDate, endDate));
     }
     
-    //getRealTimeOralData
     @RequestMapping(value = {"data/getRealTimeOralData"}, method = RequestMethod.GET)
     public JSONObject getRealTimeOralData(@RequestParam long startTime) {
         return convertor.convertIntoJSON(service.getRealTimeOralData(startTime));
+    }
+    
+    @RequestMapping(value = {"data/getMinUpdateTime"}, method = RequestMethod.GET)
+    public JSONObject getMinUpdateTime() {
+        return convertor.getDateEventCountJSON(service.getMinUpdateTime());
+    }
+    
+    @RequestMapping(value = {"data/getMaxUpdateTime"}, method = RequestMethod.GET)
+    public JSONObject getMaxUpdateTime() {
+        return convertor.getDateEventCountJSON(service.getMaxUpdateTime());
+    }
+    
+    @RequestMapping(value = {"data/getHistoryDataByUpdateTime"}, method = RequestMethod.GET)
+    public JSONObject getHistoryDataByUpdateTime(@RequestParam long startTime, @RequestParam long endTime) {
+        return convertor.convertIntoJSON(service.getHistoryDataByUpdateTime(startTime, endTime));
     }
 }
 

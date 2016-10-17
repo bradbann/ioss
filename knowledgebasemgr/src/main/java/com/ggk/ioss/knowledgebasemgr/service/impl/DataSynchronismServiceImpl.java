@@ -43,6 +43,9 @@ public class DataSynchronismServiceImpl implements DataSynchronismService {
     
     @Override
     public void syncDataFromOral(List<TicketMainInfo> list) {
+        if(list.size() == 0) {
+            return;
+        }
         mapper.saveTicketMainInfo(list);             //将Oral的新增的数据保存到MySql
         operator.insertKnowledgeByTickt(list);       //将Oral的新增数据插入到es
     }
@@ -64,7 +67,7 @@ public class DataSynchronismServiceImpl implements DataSynchronismService {
         return "success";
     }
     
-    @Override
+/*    @Override
     public String syncHistoryData() {
         JSONObject obj = new JSONObject();
         Convertor convertor = new Convertor();
@@ -83,6 +86,39 @@ public class DataSynchronismServiceImpl implements DataSynchronismService {
             mapper.saveSyncLog("History Data Sync", url, "success");   //记录log
         }
         return "success";
+    }*/
+    @Override
+    public String syncHistoryData() {
+        JSONObject obj = new JSONObject();
+        Convertor convertor = new Convertor();
+        long minUpdateTime = 0;
+        long maxUpdateTime = 0;
+        try {
+            String minUrl = "http://" + conf.getOrclip() + ":" + conf.getOrclport()  + "/data/getMinUpdateTime";
+            String maxUrl = "http://" + conf.getOrclip() + ":" + conf.getOrclport()  + "/data/getMinUpdateTime";
+            obj = obj.parseObject(HttpClientUtils.doGet(minUrl , null));
+            minUpdateTime = Long.parseLong(obj.get("count").toString());
+            obj = obj.parseObject(HttpClientUtils.doGet(maxUrl , null));
+            maxUpdateTime = Long.parseLong(obj.get("count").toString());
+        } catch (NumberFormatException e) {
+            //log to MySQL
+            e.printStackTrace();
+            return "failure";
+        }
+        String url = "";
+        long start = 0;
+        long end = 0;
+        long syncCount = 0;
+        for(start = minUpdateTime; end <= maxUpdateTime; start += end) {
+            end = start + 24 * 60 * 60;
+            url = "http://" + conf.getOrclip() + ":" + conf.getOrclport()  + "/data/getHistoryDataByUpdateTime?startTime=" + start + "&endTime=" + end;
+            String ticketInfoStr = HttpClientUtils.doGet(url , null);
+            obj = obj.parseObject(ticketInfoStr);
+            syncCount = obj.getLongValue("count");
+            syncDataFromOral(convertor.getTicketMainInfoList(obj));
+            mapper.saveSyncLog("History Data Sync", url, "success", syncCount);
+        }
+        return "success";
     }
     
     @Override
@@ -90,16 +126,17 @@ public class DataSynchronismServiceImpl implements DataSynchronismService {
         Date date = new Date();
         Convertor convertor = new Convertor();
         String url;
-        long startTime = date.getTime() / 1000 - 60; //获取前一分钟的时间戳
+        long startTime = date.getTime() / 1000 - 12 * 60 * 60; //获取当前时间前12小时的时间戳
         url = "http://" + conf.getOrclip() + ":" + conf.getOrclport()  + "/data/getRealTimeOralData?startTime="+startTime;
         try {
             JSONObject obj = new JSONObject();
             String ticketInfoStr = HttpClientUtils.doGet(url , null);
             obj = obj.parseObject(ticketInfoStr);
             syncDataFromOral(convertor.getTicketMainInfoList(obj));
-            mapper.saveSyncLog("Reattime Data Sync", url, "success");
+            long syncCount = obj.getLongValue("count");
+            mapper.saveSyncLog("Reattime Data Sync", url, "success", syncCount);
         } catch (Exception e) {
-            mapper.saveSyncLog("Reattime Data Sync", url, "failure");
+            mapper.saveSyncLog("Reattime Data Sync", url, "success", 0);
             e.printStackTrace();
         }
     }

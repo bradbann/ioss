@@ -4,8 +4,8 @@ public interface IConstants {
     /**
      * 默认系统使用的索引名称
      */
-//    static final String deafult_index_name = "es";
-    static final String deafult_index_name = "itsmcluster";
+    static final String deafult_index_name = "es";
+//    static final String deafult_index_name = "itsmcluster";
     /**
      * 默认系统使用的索引类型
      */

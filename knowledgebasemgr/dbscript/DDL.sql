@@ -66,5 +66,6 @@ CREATE TABLE `sync_log` (
   `sync_type` varchar(255) DEFAULT NULL,
   `sync_url` varchar(255) DEFAULT NULL,
   `sync_status` varchar(255) DEFAULT NULL,
+  `sync_count` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
