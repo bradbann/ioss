@@ -10,8 +10,12 @@ var thisURL = document.URL;
             dataType: "json",
             success: function(data){
                 if(data.data){
-                    var str = data;
                     var regexstr = new RegExp("<[^<]*>", "gi");
+                    for(var key in data.data){
+                        if(data.data[key] == null||data.data[key] == ""){
+                            data.data[key] = "———";
+                        }
+                    }
                     $('#reportArea').text(data.data["reportArea"]);
                     $('#reportor').text(data.data["reportor"]);
                     $('#commitTime').text(data.data["commitTime"].substr(0,19));

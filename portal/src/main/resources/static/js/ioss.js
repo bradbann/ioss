@@ -3,6 +3,14 @@ var curIndex = -1;
 var flag = 0;
 
 $(function(){
+    
+    $('#ftsrch').hover(function(){
+        $('#ftsrch').css("cursor","pointer");
+    });
+    $('#ftsrch').click(function(){
+        window.open("../html/search_result.html");
+    });
+    
     $('#input').val("");
     $('#input').bind('input propertychange', function() {
         //当且仅当手动输入时，才异步请求 

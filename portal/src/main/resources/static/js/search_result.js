@@ -14,11 +14,17 @@ $.ajax({
     success: function( data ) {
         if(null != data){
         //初始化热词
+        var regexstrCloseUpLabel = /<[^>]*>/g;
         $('#hotword1').html(data.data[0]);
+        $('#hotword1').attr("title",data.data[0].replace(regexstrCloseUpLabel,""));
         $('#hotword2').html(data.data[1]);
+        $('#hotword2').attr("title",data.data[1].replace(regexstrCloseUpLabel,""));
         $('#hotword3').html(data.data[2]);
+        $('#hotword3').attr("title",data.data[2].replace(regexstrCloseUpLabel,""));
         $('#hotword4').html(data.data[3]);
+        $('#hotword4').attr("title",data.data[3].replace(regexstrCloseUpLabel,""));
         $('#hotword5').html(data.data[4]);
+        $('#hotword5').attr("title",data.data[4].replace(regexstrCloseUpLabel,""));
         }
     }
 });
@@ -213,7 +219,7 @@ function parseHtml(data){
                     '<div><a href = "ticket_detail.html?id='+eventId+'"  target="_blank">'+title+'</a></div>'+
                     '<div class = "desc" style = "font-size:16px;overflow:hidden;text-overflow:ellipsis;white-space: nowrap;">问题描述：'+description+'</div>'+
                     '<div style = "margin-top:5px;">'+
-                        '<a style = "font-size:14px;color:green;" href = "http://150.18.30.176/arsys/servlet/ViewFormServlet?form=HPD%3AHelp+Desk&server='+system+'&eid='+entryId+'" target="_blank">http://www.GDitsm.com</a>'+
+                        '<a style = "font-size:14px;color:green;" href = "http://150.18.30.176/arsys/servlet/ViewFormServlet?form=HPD%3AHelp+Desk&server='+system+'&eid='+entryId+'" target="_blank">查看原始工单</a>'+
                         '<a style = "background:#ccc;color:#0a7a8c;font-size:14px;margin-left:10px;" href = "../html/ticket.html?eventId='+eventId+'" target="_blank">工单明细</a>'+
                     '</div>'+
                 '</div>'+
