@@ -27,5 +27,9 @@ public interface DataSynchronismMapper {
     public long getHistoryDataCount();
     public List<TicketMainInfo> getRealTimeData(@Param("startDate") long startDate, @Param("endDate") long endDate);
     public List<TicketMainInfo> getRealTimeOralData(@Param("startTime") long startTime);
+    public long getMinUpdateTime();
+    public long getMaxUpdateTime();
+    public List<TicketMainInfo> getHistoryDataByUpdateTime(@Param("startTime") long startTime, 
+            @Param("endTime") long endTime);
 }
 

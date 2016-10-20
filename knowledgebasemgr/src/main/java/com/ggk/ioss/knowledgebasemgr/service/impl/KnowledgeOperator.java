@@ -1,5 +1,6 @@
 package com.ggk.ioss.knowledgebasemgr.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,7 @@ public class KnowledgeOperator implements IKnowledgeOperator {
             ElasticSearchHandle handle = new ElasticSearchHandle(conf.getEsip(),Integer.parseInt(conf.getEsport()), conf.getEscluster());
             JSONObject data = null;
             long start = System.currentTimeMillis();
+            List<JSONObject> list = new ArrayList<JSONObject>();
             for(TicketMainInfo ticketMainInfo : ticketMainInfos){
                 data =new JSONObject();
                 data.put("eventId", ticketMainInfo.getEventId());
@@ -37,8 +39,10 @@ public class KnowledgeOperator implements IKnowledgeOperator {
                 data.put("updateTime", ticketMainInfo.getUpdateTime());
                 data.put("entryId", ticketMainInfo.getEntryId());
                 data.put("requestId", ticketMainInfo.getRequestId());
-                handle.insert(data);
+                //handle.insert(data);
+                list.add(data);
             }
+            handle.bulkInsert(list);
             handle.destory();
             System.out.println("Cost total time : " +( System.currentTimeMillis() - start));
         }

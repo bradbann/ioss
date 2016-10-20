@@ -26,7 +26,7 @@ import com.ggk.ioss.knowledgebasemgr.service.DataSynchronismService;
 public class DBSyncScheduledTasks {
     @Autowired
     private DataSynchronismService service;
-    @Scheduled(cron = "0 */1 *  * * * ")
+    @Scheduled(cron = "0 0 0/12 * * ? *")    //每12小时执行一次
     public void dbSyncTasks(){
         service.syncRealTimeData();
     }

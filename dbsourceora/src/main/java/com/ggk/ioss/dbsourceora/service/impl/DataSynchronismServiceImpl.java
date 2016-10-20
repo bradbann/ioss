@@ -92,5 +92,21 @@ public class DataSynchronismServiceImpl implements DataSynchronismService {
     public List<TicketMainInfo> getRealTimeOralData(long startTime) {
         return mapper.getRealTimeOralData(startTime);
     }
+
+    @Override
+    public long getMinUpdateTime() {
+        return mapper.getMinUpdateTime();
+    }
+
+    @Override
+    public long getMaxUpdateTime() {
+        return mapper.getMaxUpdateTime();
+    }
+
+    @Override
+    public List<TicketMainInfo> getHistoryDataByUpdateTime(long startTime,
+            long endTime) {
+        return mapper.getHistoryDataByUpdateTime(startTime, endTime);
+    }
 }
 

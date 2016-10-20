@@ -7,6 +7,9 @@
  */
 package com.ggk.ioss.dbsourceora.util;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import com.alibaba.fastjson.JSONObject;
@@ -22,8 +25,18 @@ public class JSONConvertor {
         JSONObject obj = new JSONObject();
         obj.put("code", 200);
         obj.put("message", "succes");
-        obj.put("count", list.size());
-        obj.put("data", list);
+        HashMap<String, TicketMainInfo> tempList = new HashMap<String, TicketMainInfo>();
+        for(TicketMainInfo ticket : list) {
+            if(!tempList.containsKey(ticket.getEventId())) {
+                tempList.put(ticket.getEventId(), ticket);
+            } else {
+                if(ticket.getSubmitDate() > tempList.get(ticket.getEventId()).getSubmitDate()) {
+                    tempList.put(ticket.getEventId(), ticket);
+                }
+            }
+        }
+        obj.put("data", tempList);
+        obj.put("count", tempList.size());
         return obj;
     }
     
