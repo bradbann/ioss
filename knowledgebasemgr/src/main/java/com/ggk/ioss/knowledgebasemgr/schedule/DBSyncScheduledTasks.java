@@ -7,6 +7,9 @@
  */
 package com.ggk.ioss.knowledgebasemgr.schedule;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -26,9 +29,9 @@ import com.ggk.ioss.knowledgebasemgr.service.DataSynchronismService;
 public class DBSyncScheduledTasks {
     @Autowired
     private DataSynchronismService service;
-    @Scheduled(cron = "0 0 0/12 * * ? *")    //每12小时执行一次
+    @Scheduled(cron = "* * 0/12 * * *")    //每12小时执行一次
     public void dbSyncTasks(){
         service.syncRealTimeData();
+        System.out.println("--------------------DBSyncTasks--------------");
     }
 }
-

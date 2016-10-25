@@ -58,61 +58,61 @@ public class DataSourceProperties {
     }
 
     public void setPassword(String password) {
-    	//String key = "xgsdkNiuX";
-    	String fieldName = "tomcat.datasource.password";
-    	String realPassword = password;
-    	try {
-    		//如果能解密，说明已经加密
-    		realPassword = password;
-    	} catch (Throwable t) {
-    		//如果不能解密，说明没有加密
-    		realPassword = password;
-    		BufferedReader reader = null;
-    		BufferedWriter writer = null;
-    		try {
-				//String filePassword = AesUtil.encrypt(realPassword, key);
-    			String filePassword = realPassword;
-				File applicationFile = new File("application.properties");
-				if (!applicationFile.exists()) {
-					applicationFile = new File("./config/application.properties");
-				}
-				if (applicationFile.exists()) {
-					reader = new BufferedReader(new FileReader(applicationFile));
-					String readLine = reader.readLine();
-					StringBuilder builder = new StringBuilder();
-					while (readLine != null) {
-						if (readLine.startsWith(fieldName)) {
-							builder.append(fieldName).append("=").append(filePassword);
-						} else {
-							builder.append(readLine);
-						}
-						builder.append("\n");
-						readLine = reader.readLine();
-					}
-					writer = new BufferedWriter(new FileWriter(applicationFile));
-					writer.write(builder.toString());
-				}
-        	} catch (Throwable t1) {
-        		t1.printStackTrace();
-			} finally {
-				if (reader != null) {
-					try {
-						reader.close();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				}
-				if (writer != null) {
-					try {
-						writer.flush();
-						writer.close();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				}
-			}
-    		
-    	}
+        //String key = "xgsdkNiuX";
+        String fieldName = "tomcat.datasource.password";
+        String realPassword = password;
+        try {
+            //如果能解密，说明已经加密
+            realPassword = password;
+        } catch (Throwable t) {
+            //如果不能解密，说明没有加密
+            realPassword = password;
+            BufferedReader reader = null;
+            BufferedWriter writer = null;
+            try {
+                //String filePassword = AesUtil.encrypt(realPassword, key);
+                String filePassword = realPassword;
+                File applicationFile = new File("application.properties");
+                if (!applicationFile.exists()) {
+                    applicationFile = new File("./config/application.properties");
+                }
+                if (applicationFile.exists()) {
+                    reader = new BufferedReader(new FileReader(applicationFile));
+                    String readLine = reader.readLine();
+                    StringBuilder builder = new StringBuilder();
+                    while (readLine != null) {
+                        if (readLine.startsWith(fieldName)) {
+                            builder.append(fieldName).append("=").append(filePassword);
+                        } else {
+                            builder.append(readLine);
+                        }
+                        builder.append("\n");
+                        readLine = reader.readLine();
+                    }
+                    writer = new BufferedWriter(new FileWriter(applicationFile));
+                    writer.write(builder.toString());
+                }
+            } catch (Throwable t1) {
+                t1.printStackTrace();
+            } finally {
+                if (reader != null) {
+                    try {
+                        reader.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (writer != null) {
+                    try {
+                        writer.flush();
+                        writer.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            
+        }
         this.password = realPassword; 
     }
 

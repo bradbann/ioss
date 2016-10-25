@@ -124,7 +124,7 @@ public class ElasticSearchHandle {
             }
         } else {
             // 默认匹配title
-            queryBuilder.field("title").field("description");
+            queryBuilder.field("title").field("description").field("eventId");
             searchRequestBuilder.addHighlightedField("title");
             searchRequestBuilder.addHighlightedField("description");
         }
