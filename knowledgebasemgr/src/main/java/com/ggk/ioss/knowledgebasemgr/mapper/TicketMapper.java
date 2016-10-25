@@ -25,5 +25,5 @@ public interface TicketMapper {
     public void saveTicketMainInfo(@Param("list") List<TicketMainInfo> list);
     
     public void saveSyncLog(@Param("syncType") String syncType, @Param("syncUrl") String syncUrl, 
-            @Param("syncStatus") String syncStatus,@Param("syncCount") long syncCount);
+            @Param("syncStatus") String syncStatus,@Param("syncCount") long syncCount, @Param("syncDate") String syncDate);
 }

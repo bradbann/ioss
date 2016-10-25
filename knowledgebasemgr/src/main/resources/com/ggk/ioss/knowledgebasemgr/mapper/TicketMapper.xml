@@ -16,7 +16,7 @@
     </select>
     
     <select id="queryTicketMainInfoById" resultType="com.ggk.ioss.knowledgebasemgr.model.TicketMainInfo" parameterType="java.lang.String">
-    	SELECT * from kb_ods_itsm_maininfo where event_id=#{event_id} limit 1;
+       SELECT * from kb_ods_itsm_maininfo where event_id=#{event_id} limit 1;
     </select>
     
     <select id="queryTicketMainInfoTotalNumber" resultType="java.lang.Long">
@@ -28,74 +28,73 @@
     </select>
     
     <insert id = "saveTicketMainInfo" parameterType="java.util.List">
-         INSERT INTO kb_ods_itsm_maininfo(
-             event_id,
-             report_area,
-             reportor,
-             commit_time,
-             event_title,
-             event_descr,
-             event_type,
-             event_classify,
-             owner_system,
-             owner_module,
-             sub_module,
-             func_menu,
-             affect_range,
-             affect_degree,
-             critical_degree,
-             pri,
-             event_source,
-             event_status,
-             status_reason,
-             solve_code,
-             close_code,
-             current_deal_group,
-             current_dealor,
-             solution,
-             create_time,
-             update_time,
-             request_id,
-             entry_id,
-             phone_number
-         ) VALUES
          <foreach collection="list" item="data" index="index"  separator=",">
-             (
-                 #{data.eventId},
-                 #{data.reportArea},
-                 #{data.reportor},
-                 #{data.commitTime},
-                 #{data.eventTitle},
-                 #{data.eventDescr},
-                 #{data.eventType},
-                 #{data.eventClassify},
-                 #{data.ownerSystem},
-                 #{data.ownerModule},
-                 #{data.subModule},
-                 #{data.funcMenu},
-                 #{data.affectRange},
-                 #{data.affectDegree},
-                 #{data.criticalDegree},
-                 #{data.pri},
-                 #{data.eventSource},
-                 #{data.eventStatus},
-                 #{data.statusReason},
-                 #{data.solveCode},
-                 #{data.closeCode},
-                 #{data.currentDealGroup},
-                 #{data.currentDealor},
-                 #{data.solution},
-                 #{data.createTime},
-                 #{data.updateTime},
-                 #{data.requestId},
-                 #{data.entryId},
-                 #{data.phoneNumber}
+             INSERT INTO kb_ods_itsm_maininfo(
+                event_id,
+                report_area,
+                reportor,
+                commit_time,
+                event_title,
+                event_descr,
+                event_type,
+                event_classify,
+                owner_system,
+                owner_module,
+                sub_module,
+                func_menu,
+                affect_range,
+                affect_degree,
+                critical_degree,
+                pri,
+                event_source,
+                event_status,
+                status_reason,
+                solve_code,
+                close_code,
+                current_deal_group,
+                current_dealor,
+                solution,
+                create_time,
+                update_time,
+                request_id,
+                entry_id,
+                phone_number) 
+             VALUE (
+                #{data.eventId},
+                #{data.reportArea},
+                #{data.reportor},
+                #{data.commitTime},
+                #{data.eventTitle},
+                #{data.eventDescr},
+                #{data.eventType},
+                #{data.eventClassify},
+                #{data.ownerSystem},
+                #{data.ownerModule},
+                #{data.subModule},
+                #{data.funcMenu},
+                #{data.affectRange},
+                #{data.affectDegree},
+                #{data.criticalDegree},
+                #{data.pri},
+                #{data.eventSource},
+                #{data.eventStatus},
+                #{data.statusReason},
+                #{data.solveCode},
+                #{data.closeCode},
+                #{data.currentDealGroup},
+                #{data.currentDealor},
+                #{data.solution},
+                #{data.createTime},
+                #{data.updateTime},
+                #{data.requestId},
+                #{data.entryId},
+                #{data.phoneNumber}
              )
          </foreach>
     </insert>
     
     <insert id="saveSyncLog">
-        insert into sync_log(sync_type,sync_url,sync_status,sync_count) value(#{syncType},#{syncUrl},#{syncStatus},#{syncCount});
+        insert into sync_log(sync_type,sync_url,sync_status,sync_count,sync_date) value(#{syncType},#{syncUrl},#{syncStatus},#{syncCount},#{syncDate});
     </insert>
 
 </mapper>

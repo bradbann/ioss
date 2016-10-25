@@ -7,9 +7,9 @@
  */
 package com.ggk.ioss.dbsourceora.util;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import com.alibaba.fastjson.JSONObject;
@@ -35,7 +35,12 @@ public class JSONConvertor {
                 }
             }
         }
-        obj.put("data", tempList);
+        List<TicketMainInfo> resultList = new ArrayList<TicketMainInfo>();
+        Iterator<TicketMainInfo> values = tempList.values().iterator();
+        while(values.hasNext()) {
+            resultList.add(values.next());
+        }
+        obj.put("data", resultList);
         obj.put("count", tempList.size());
         return obj;
     }

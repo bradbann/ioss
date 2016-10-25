@@ -7,7 +7,7 @@
  */
 package com.ggk.ioss.knowledgebasemgr.service.impl;
 
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Service;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.ggk.ioss.knowledgebasemgr.conf.SystemConfigs;
 import com.ggk.ioss.knowledgebasemgr.mapper.TicketMapper;
@@ -46,8 +45,20 @@ public class DataSynchronismServiceImpl implements DataSynchronismService {
         if(list.size() == 0) {
             return;
         }
-        mapper.saveTicketMainInfo(list);             //将Oral的新增的数据保存到MySql
-        operator.insertKnowledgeByTickt(list);       //将Oral的新增数据插入到es
+        try {
+            mapper.saveTicketMainInfo(list);             //将Oral的新增的数据保存到MySql
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("-----------------------------------------------------");
+            System.out.println("Error In Save Data In MySql");
+        }
+        try {
+            operator.insertKnowledgeByTickt(list);       //将Oral的新增数据插入到es
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("-----------------------------------------------------");
+            System.out.println("Error In Save Data In ES");
+        }
     }
     
     @Override
@@ -93,15 +104,20 @@ public class DataSynchronismServiceImpl implements DataSynchronismService {
         Convertor convertor = new Convertor();
         long minUpdateTime = 0;
         long maxUpdateTime = 0;
+        String minUrl = "";
+        String maxUrl = "";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
-            String minUrl = "http://" + conf.getOrclip() + ":" + conf.getOrclport()  + "/data/getMinUpdateTime";
-            String maxUrl = "http://" + conf.getOrclip() + ":" + conf.getOrclport()  + "/data/getMinUpdateTime";
+            minUrl = "http://" + conf.getOrclip() + ":" + conf.getOrclport()  + "/data/getMinUpdateTime";
+            maxUrl = "http://" + conf.getOrclip() + ":" + conf.getOrclport()  + "/data/getMaxUpdateTime";
             obj = obj.parseObject(HttpClientUtils.doGet(minUrl , null));
             minUpdateTime = Long.parseLong(obj.get("count").toString());
+            System.out.println("minUpdateTime=" + minUpdateTime);
             obj = obj.parseObject(HttpClientUtils.doGet(maxUrl , null));
             maxUpdateTime = Long.parseLong(obj.get("count").toString());
+            System.out.println("maxUpdateTime = " + maxUpdateTime);
         } catch (NumberFormatException e) {
-            //log to MySQL
+            mapper.saveSyncLog("Sync getMinUpdateTime or getMinUpdateTime", minUrl + "\t" + maxUrl, "failure", 0, sdf.format(new Date()));
             e.printStackTrace();
             return "failure";
         }
@@ -109,14 +125,22 @@ public class DataSynchronismServiceImpl implements DataSynchronismService {
         long start = 0;
         long end = 0;
         long syncCount = 0;
-        for(start = minUpdateTime; end <= maxUpdateTime; start += end) {
-            end = start + 24 * 60 * 60;
+        //minUpdateTime = 1445994441;
+        minUpdateTime = 1447398441;
+        for(start = minUpdateTime; end <= maxUpdateTime; start = end) {
+            end = start + 6 * 60 * 60;        //一次同步一天
             url = "http://" + conf.getOrclip() + ":" + conf.getOrclport()  + "/data/getHistoryDataByUpdateTime?startTime=" + start + "&endTime=" + end;
-            String ticketInfoStr = HttpClientUtils.doGet(url , null);
-            obj = obj.parseObject(ticketInfoStr);
+            System.out.println(url);
+            try {
+                String ticketInfoStr = HttpClientUtils.doGet(url , null);
+                obj = obj.parseObject(ticketInfoStr);
+            } catch (Exception e) {
+                mapper.saveSyncLog("History Data Sync", url, "failure", 0, sdf.format(new Date()));
+                e.printStackTrace();
+            }
             syncCount = obj.getLongValue("count");
             syncDataFromOral(convertor.getTicketMainInfoList(obj));
-            mapper.saveSyncLog("History Data Sync", url, "success", syncCount);
+            mapper.saveSyncLog("History Data Sync", url, "success", syncCount, sdf.format(new Date()));
         }
         return "success";
     }
@@ -124,19 +148,22 @@ public class DataSynchronismServiceImpl implements DataSynchronismService {
     @Override
     public void syncRealTimeData() {
         Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Convertor convertor = new Convertor();
         String url;
         long startTime = date.getTime() / 1000 - 12 * 60 * 60; //获取当前时间前12小时的时间戳
-        url = "http://" + conf.getOrclip() + ":" + conf.getOrclport()  + "/data/getRealTimeOralData?startTime="+startTime;
+        long endTime = date.getTime() / 1000;
+        url = "http://" + conf.getOrclip() + ":" + conf.getOrclport() 
+            + "/data/getHistoryDataByUpdateTime?startTime=" + startTime + "&endTime=" + endTime;
         try {
             JSONObject obj = new JSONObject();
             String ticketInfoStr = HttpClientUtils.doGet(url , null);
             obj = obj.parseObject(ticketInfoStr);
             syncDataFromOral(convertor.getTicketMainInfoList(obj));
             long syncCount = obj.getLongValue("count");
-            mapper.saveSyncLog("Reattime Data Sync", url, "success", syncCount);
+            mapper.saveSyncLog("Realtime Data Sync", url, "success", syncCount, sdf.format(new Date()));
         } catch (Exception e) {
-            mapper.saveSyncLog("Reattime Data Sync", url, "success", 0);
+            mapper.saveSyncLog("Realtime Data Sync", url, "failure", 0, sdf.format(new Date()));
             e.printStackTrace();
         }
     }

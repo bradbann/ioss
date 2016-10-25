@@ -152,11 +152,11 @@
     </select>
     
     <select id="getMinUpdateTime" resultType="java.lang.Long">
-        SELECT MIN(CCHR_WORKLOGSUBMITDATE) FROM GddS_inc_HelpDesk_Join_WorkLog;
+        SELECT MIN(CCHR_WORKLOGSUBMITDATE) FROM GddS_inc_HelpDesk_Join_WorkLog
     </select>
     
     <select id="getMaxUpdateTime" resultType="java.lang.Long">
-        SELECT MAX(CCHR_WORKLOGSUBMITDATE) FROM GddS_inc_HelpDesk_Join_WorkLog;
+        SELECT MAX(CCHR_WORKLOGSUBMITDATE) FROM GddS_inc_HelpDesk_Join_WorkLog
     </select>
     
     <select id="getHistoryDataByUpdateTime" resultType="com.ggk.ioss.dbsourceora.model.TicketMainInfo">
